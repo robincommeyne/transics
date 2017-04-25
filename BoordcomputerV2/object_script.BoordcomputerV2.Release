@@ -1,0 +1,16 @@
+INPUT(
+./release\canData.o
+./release\compression.o
+./release\config.o
+./release\controller.o
+./release\dispatcher.o
+./release\formatter.o
+./release\logging.o
+./release\watchdog.o
+./release\main.o
+./release\manager.o
+./release\moc_controller.o
+./release\moc_dispatcher.o
+./release\moc_watchdog.o
+./release\moc_manager.o
+);

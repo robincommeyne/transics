@@ -1,0 +1,75 @@
+#include "eventinstigator.h"
+
+#include <iostream>
+#include <QTimer>
+#include <QDebug>
+#include <QThread>
+#include <QCoreApplication>
+
+#include "watchdogsubscriberevent.h"
+#include "watchdog.h"
+#include "dispatcher.h"
+#include "controller.h"
+
+namespace cangateway
+{
+    EventInstigator::EventInstigator(QObject* app)
+        : _app(app)
+        , _event_worker_thread_watchdog(nullptr)
+        , _event_worker_thread_dispatcher(nullptr)
+        , _event_worker_thread_controller(nullptr)
+    {
+    }
+
+    void EventInstigator::instigate()
+    {
+        qDebug() << "Starting new threads from main: " << QThread::currentThread();
+        create_watchdog_thread();
+        create_dispatcher_thread();
+        //create_controller_thread();
+    }
+
+    void EventInstigator::SubscribeWatchdogEventPoster(QObject classname,QDateTime timestamp)
+    {
+        qDebug() << "subscribe watchdog event poster is called" << QThread::currentThread();
+        WatchdogSubscribeEvent* event = new WatchdogSubscribeEvent();
+        event->set_data(classname.objectName(),timestamp);
+
+        QCoreApplication::postEvent(_event_worker_watchdog, event,Qt::QueuedConnection);
+    }
+
+    void EventInstigator::create_watchdog_thread()
+    {
+        _event_worker_thread_watchdog = new QThread();
+        _event_worker_watchdog = new Watchdog();
+        _event_worker_watchdog->moveToThread(_event_worker_thread_watchdog);
+
+        connect(_event_worker_thread_watchdog, &QThread::started, _event_worker_watchdog, &Watchdog::Thread_Watchdog);
+        _event_worker_thread_watchdog->start();
+    }
+
+    void EventInstigator::create_dispatcher_thread()
+    {
+        _event_worker_thread_dispatcher = new QThread();
+        _event_worker_dispatcher = new Dispatcher();
+        _event_worker_dispatcher->moveToThread(_event_worker_thread_dispatcher);
+
+        connect(_event_worker_thread_dispatcher, &QThread::started, _event_worker_dispatcher, &Dispatcher::Thread_Dispatcher);
+        connect(_event_worker_dispatcher, &Dispatcher::Subscribe_Watchdog_Dispatcher, 
+                this, &EventInstigator::SubscribeWatchdogEventPoster(_event_worker_dispatcher,));
+        _event_worker_thread_dispatcher->start();
+
+    }
+
+    void EventInstigator::create_controller_thread()
+    {
+        _event_worker_thread_controller = new QThread();
+        _event_worker_controller = new Controller();
+        _event_worker_controller->moveToThread(_event_worker_thread_controller);
+
+        connect(_event_worker_thread_controller, &QThread::started, _event_worker_controller, &Controller::Thread_Controller);
+        connect(_event_worker_controller, &Controller::Subscribe_Watchdog_Controller, this, &EventInstigator::handle_event_subscribe_watchdog_controller);
+        _event_worker_thread_controller->start();
+
+    }
+}
