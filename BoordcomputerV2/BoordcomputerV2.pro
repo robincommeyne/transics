@@ -45,7 +45,6 @@ HEADERS += \
     logging.h \
     watchdog.h \
     watchdogsubscriberevent.h \
-    getcanintervalevent.h \
     manager.h
 
 

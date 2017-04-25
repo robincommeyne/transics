@@ -9,7 +9,6 @@ namespace cangateway {
     {
         Q_OBJECT
         private:
-            int Interval;
             CanData test;
 
             void GetCan(
@@ -22,8 +21,6 @@ namespace cangateway {
                     CanData test/**< Object of the CanData class */
             );
             //!< Receives an object to place it in a list with added timestamp
-
-            bool getcaninterval(QEvent *event);
 
         public slots:
             void Thread_Controller();

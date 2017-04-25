@@ -20,7 +20,6 @@ namespace cangateway
             explicit Manager(QObject* app);
         public slots:
             void Init();
-            void SetCanIntervalInMs(int interval);
 
         private slots:
             void SubscribeWatchdog(QObject* object);

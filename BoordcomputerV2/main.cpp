@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
 
     Manager initializer(&a);
     QTimer::singleShot(0, Qt::VeryCoarseTimer, &initializer, &Manager::Init);
-    initializer.SetCanIntervalInMs(1000);
     //!< Start Threads
 
     return a.exec();

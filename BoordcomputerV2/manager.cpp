@@ -8,7 +8,6 @@
 #include <QObject>
 
 #include "watchdogsubscriberevent.h"
-#include "getcanintervalevent.h"
 #include "watchdog.h"
 #include "dispatcher.h"
 #include "controller.h"
@@ -38,15 +37,6 @@ namespace cangateway
         event->set_data(object->objectName());
 
         QCoreApplication::postEvent(watchdog_thread_object, event,Qt::QueuedConnection);
-    }
-
-    void Manager::SetCanIntervalInMs(int interval)
-    {
-        qDebug() << "GetCanInterval slot is called " << QThread::currentThread();
-        GetCanIntervalEvent* event = new GetCanIntervalEvent();
-        event->set_interval(interval);
-
-        QCoreApplication::postEvent(controller_thread_object, event,Qt::QueuedConnection);
     }
 
     void Manager::create_watchdog_thread()
