@@ -5,8 +5,6 @@
 #include <QApplication>
 #include <QProcess>
 #include "watchdog.h"
-
-#include <iostream>
 #include "watchdogsubscriberevent.h"
 
 namespace cangateway {
@@ -20,7 +18,7 @@ namespace cangateway {
         watchdogtimer->start(WatchdogTimerInMs);
     }
 
-    bool Watchdog::watchdogsubscriber(QEvent* event)
+    bool Watchdog::event(QEvent* event)
     {
         if (event->type() == WatchdogSubscribeEvent::TYPE)
         {

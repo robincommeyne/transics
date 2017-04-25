@@ -12,7 +12,7 @@ namespace cangateway {
         this->setObjectName("Controller");
         while(1)
         {
-            QThread::msleep(7000);
+            QThread::msleep(2000);
             emit Subscribe_Watchdog_Controller(this);
         }
 

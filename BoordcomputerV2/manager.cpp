@@ -1,6 +1,5 @@
 #include "manager.h"
 
-#include <iostream>
 #include <QTimer>
 #include <QDebug>
 #include <QThread>

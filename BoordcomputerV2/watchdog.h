@@ -13,7 +13,7 @@ namespace cangateway
         Q_OBJECT
         public:
             Watchdog();
-            bool watchdogsubscriber(QEvent *event);
+            bool event(QEvent *event);
 
             QMap<QString, qint64> subscribers;
             QTimer *watchdogtimer;
