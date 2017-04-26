@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += testlib
-
+QT       += widgets
 QT       -= gui
 
 TARGET = unittest
@@ -21,13 +21,17 @@ SOURCES +=\
        testCompression.cpp\
        testWatchdog.cpp\
        unittestmain.cpp\
+       testController.cpp \
+       testLogging.cpp \
         ../compression.cpp\
         ../candata.cpp \
         ../config.cpp \
         ../logging.cpp \
-    ../controller.cpp \
-    testController.cpp \
-    testLogging.cpp
+        ../controller.cpp \
+        ../manager.cpp \
+        ../formatter.cpp \
+        ../dispatcher.cpp \
+        ../watchdog.cpp
 
 
 
@@ -57,7 +61,10 @@ HEADERS += \
     ../dispatcher.h \
     ../formatter.h \
     ../logging.h \
-    ../watchdog.h
+    ../watchdog.h \
+    ../watchdogsubscriberevent.h \
+    ../manager.h \
+    ../getcanintervalevent.h
 
 
 

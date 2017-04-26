@@ -7,8 +7,9 @@
 
 void UnitTest::testControllerInit()
 {
-    Controller control;
-    control.InitCan();
+
+    //Controller control;
+    //control.InitCan();
     QVERIFY2(false, "Failure");
 }
 
