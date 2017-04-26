@@ -20,39 +20,42 @@ namespace cangateway {
 
     void Controller::InitCan()
     {
-        /*! \todo implement function */
+
+        can.ON();
+        can.begin();
     }
 
     void Controller::GetCan(int Interval)
     {
-        //    Controller controller;
-        //    int timestamp = 0;
 
-        //    CanData EngineLoad = CanData("",0,"",0,0);
-        //    CanData CoolantTemp = CanData("",0,"",0,0);;
-        //    while(true)
-        //    {
-        //           EngineLoad = CanData("EngineLoad",CanReader.messageRx.id,controller.Int2String(CanReader.messageRx.data),CanReader.getEngineLoad(),timestamp);
-        //           CoolantTemp = CanData("EngineCoolantTemp",CanReader.messageRx.id,controller.Int2String(CanReader.messageRx.data),CanReader.getEngineCoolantTemp(),timestamp);
-        //       PopulateList(EngineLoad);
-        //       PopulateList(CoolantTemp);
-        //    }
+            CanData EngineLoad = CanData();
+            CanData CoolantTemp = CanData();
+
+            EngineLoad = CanData(can.getEngineLoad(),"EngineLoad",can.getID(),can.getRawMessage(),Timestamp);
+            CoolantTemp = CanData(can.getEngineCoolantTemp(),"EngineCoolantTemp",can.getID(),can.getRawMessage(),Timestamp);
+
+            PopulateList(EngineLoad);
+            PopulateList(CoolantTemp);
+
     }
 
     void Controller::PopulateList(CanData candata)
     {
+        QList<CanData> canDataList;
         /*! \todo implement function */
+
+        if (ListItemCounter < MaxListItems)
+        {
+            canDataList[ListItemCounter] = candata;
+            ListItemCounter = ListItemCounter + 1;
+        }
+        else
+        {
+            ListItemCounter = 0;
+            canDataList[ListItemCounter] = candata;
+        }
     }
 
-    QString Controller::Int2String(uint8_t x[])
-    {
-        QString returnstring = "";
-            for (int i=0; i < 8; i++)
-            {
-                returnstring.append(QString::number(x[i]));
 
-            }
-            return returnstring;
-    }
 }
 

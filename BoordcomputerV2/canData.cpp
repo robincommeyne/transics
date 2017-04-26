@@ -2,7 +2,7 @@
 
 #include "canData.h"
 
-CanData::CanData(QString description,int id,QString raw,int value,int timestamp)
+CanData::CanData(int value,QString description,int id,QString raw,int timestamp)
 {
     /*! \todo create class constructor */
     Description = description;

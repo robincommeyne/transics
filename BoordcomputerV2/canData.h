@@ -21,7 +21,7 @@ class CanData
 
 
     public:
-        CanData(QString,int,QString,int,int);
+        CanData(int,QString,int,QString,int);
         CanData();
 
 };
