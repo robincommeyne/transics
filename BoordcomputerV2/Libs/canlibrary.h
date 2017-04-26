@@ -20,6 +20,19 @@ private:
     CAN can;
     int canspeed = 1000;
 public:
+
+
+    typedef struct{
+            unsigned int id;
+            struct
+            {
+              char rtr : 1;
+              char length : 4;
+            }header;
+
+            uint8_t data[8];
+    }messageCAN;
+
     CanLibrary();
 
     unsigned int getEngineLoad();
@@ -35,10 +48,17 @@ public:
     unsigned int getFuelLevel();
     unsigned int getBarometricPressure();
     unsigned int getEngineFuelRate();
+    QString getRawMessage();
+    int getID();
 
     void ON(void);
     bool begin();
     uint8_t messageAvailable(void);
+
+
+
+    messageCAN messageRx;
+    messageCAN messageTx;
 
 };
 
