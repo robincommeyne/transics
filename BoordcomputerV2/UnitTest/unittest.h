@@ -27,6 +27,8 @@ private Q_SLOTS:
     void testLoggingInit();
     void testLoggingSize();
 
+    void testToObject();
+
 
 };
 

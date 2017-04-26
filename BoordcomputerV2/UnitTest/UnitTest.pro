@@ -31,7 +31,8 @@ SOURCES +=\
         ../manager.cpp \
         ../formatter.cpp \
         ../dispatcher.cpp \
-        ../watchdog.cpp
+        ../watchdog.cpp \
+    testFormatter.cpp
 
 
 

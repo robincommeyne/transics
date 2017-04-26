@@ -3,13 +3,14 @@
 #include "unittest.h"
 #include "../controller.h"
 
-
+using namespace cangateway;
 
 void UnitTest::testControllerInit()
 {
 
-    //Controller control;
-    //control.InitCan();
+    Controller control;
+    control.InitCan();
     QVERIFY2(false, "Failure");
+
 }
 
