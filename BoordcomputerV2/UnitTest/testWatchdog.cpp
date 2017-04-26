@@ -3,16 +3,13 @@
 #include "unittest.h"
 #include "../watchdog.h"
 
-UnitTest::UnitTest()
-{
 
-}
 
 void UnitTest::testWatchdog()
 {
     //Watchdog* watchdog = new Watchdog();
 
-    QVERIFY2(true, "Failure");
+    //QVERIFY2(false, "Failure");
     //QCOMPARE(watchdog->TriggerWatchdog("Manager"), true);
 
 }

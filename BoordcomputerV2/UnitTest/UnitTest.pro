@@ -8,23 +8,39 @@ QT       += testlib
 
 QT       -= gui
 
-TARGET = tst_unittesttest
+TARGET = unittest
 CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+QMAKE_CXXFLAGS += -fpermissive
+
+
 SOURCES +=\
        testCompression.cpp\
        testWatchdog.cpp\
        unittestmain.cpp\
-        ..\compression.cpp
+        ../compression.cpp\
+        ../candata.cpp \
+        ../config.cpp \
+        ../logging.cpp \
+    ../controller.cpp \
+    testController.cpp \
+    testLogging.cpp
+
+
+
+
+
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+
+
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -47,3 +63,29 @@ HEADERS += \
 
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
+
+
+
+win32: LIBS += -L$$PWD/../Libs/Boost/lib_Windows/ -llibboost_log-vc140-mt-gd-1_63
+unix: LIBS += -L$$PWD/../Libs/Boost/lib_Linux/ -lboost_log_setup -lboost_log -lboost_system -lboost_filesystem -lboost_thread
+
+win32:INCLUDEPATH += $$PWD/../Libs/Boost/lib_Windows
+win32:DEPENDPATH += $$PWD/../Libs/Boost/lib_Windows
+
+win32:INCLUDEPATH += $$PWD/../Libs/Boost/include/boost-1_63
+win32:DEPENDPATH += $$PWD/../Libs/Boost/include/boost-1_63
+
+unix:INCLUDEPATH += $$PWD/../Libs/Boost/include/boost_1_63
+unix:DEPENDPATH += $$PWD/../Libs/Boost/include/boost_1_63
+
+unix:!macx: LIBS += -L$$PWD/../Libs/ -lCanLibrary
+win32: LIBS+= -L$$PWD/../Libs/ -lCanLibrary
+
+unix:INCLUDEPATH += $$PWD/../Libs
+unix:DEPENDPATH += $$PWD/../Libs
+
+win32:INCLUDEPATH += $$PWD/../Libs
+win32:DEPENDPATH += $$PWD/../Libs
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/../Libs/libCanLibrary.a
+

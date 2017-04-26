@@ -13,8 +13,21 @@ public:
 
 private Q_SLOTS:
     void testWatchdog();
+
     void testCompression();
+    void testCompression_error();
+    void testCompression_error2();
+
     void testDecompression();
+    void testDecompression_error();
+    void testDecompression_error2();
+
+    void testControllerInit();
+
+    void testLoggingInit();
+    void testLoggingSize();
+
+
 };
 
 
