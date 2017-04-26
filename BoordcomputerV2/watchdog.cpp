@@ -20,7 +20,7 @@ namespace cangateway {
 
     bool Watchdog::event(QEvent* event)
     {
-        if (event->type() == WatchdogSubscribeEvent::TYPE)
+        if (event->type() == WatchdogSubscribeEvent::WATCHDOG)
         {
             WatchdogSubscribeEvent* subscribe_watchdog = static_cast<WatchdogSubscribeEvent*>(event);
 

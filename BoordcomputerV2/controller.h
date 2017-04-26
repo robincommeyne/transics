@@ -44,6 +44,7 @@ namespace cangateway {
             */
             Controller() {}
             void InitCan();
+            bool event(QEvent *event);
 
     };
 
