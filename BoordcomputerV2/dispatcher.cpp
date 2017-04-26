@@ -13,6 +13,8 @@
 #include <QTimer>
 #include <QObject>
 
+
+
 namespace cangateway {
 
     void Dispatcher::Thread_Dispatcher()

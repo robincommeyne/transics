@@ -3,6 +3,7 @@
 #include "watchdog.h"
 #include "logging.h"
 #include "canData.h"
+#include "getcanintervalevent.h"
 
 namespace cangateway {
 
@@ -16,6 +17,21 @@ namespace cangateway {
             emit Subscribe_Watchdog_Controller(this);
         }
 
+    }
+
+    bool Controller::event(QEvent* event)
+    {
+        if (event->type() == GetCanIntervalEvent::TYPE)
+        {
+            GetCanIntervalEvent* set_caninterval = static_cast<GetCanIntervalEvent*>(event);
+
+            qDebug() << "Controller received can interval: " << set_caninterval->get_interval()
+                     << "in thread: " << QThread::currentThread();
+
+            return true;
+        }
+
+        return QObject::event(event);
     }
 
     void Controller::InitCan()

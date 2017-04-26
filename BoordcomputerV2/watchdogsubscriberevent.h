@@ -9,9 +9,9 @@ namespace cangateway
     class WatchdogSubscribeEvent : public QEvent
     {
         public:
-            static const QEvent::Type TYPE = static_cast<QEvent::Type>(1001);
+            static const QEvent::Type WATCHDOG = static_cast<QEvent::Type>(1001);
 
-            WatchdogSubscribeEvent(): QEvent(WatchdogSubscribeEvent::TYPE) {}
+            WatchdogSubscribeEvent(): QEvent(WatchdogSubscribeEvent::WATCHDOG) {}
 
             void set_data(QString objectname){_objectname = objectname;}
             QString get_data() const { return _objectname; }
