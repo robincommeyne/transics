@@ -45,7 +45,8 @@ HEADERS += \
     logging.h \
     watchdog.h \
     watchdogsubscriberevent.h \
-    manager.h
+    manager.h \
+    getcanintervalevent.h
 
 
 win32: LIBS += -L$$PWD/Libs/Boost/lib_Windows/ -llibboost_log-vc140-mt-gd-1_63

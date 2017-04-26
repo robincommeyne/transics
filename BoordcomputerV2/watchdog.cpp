@@ -11,8 +11,6 @@ namespace cangateway {
 
     Watchdog::Watchdog()
     {
-        timestamp = QDateTime::currentDateTime();
-
         watchdogtimer = new QTimer(this);
         connect(watchdogtimer, SIGNAL(timeout()), this, SLOT(Check_Timestamps()));
         watchdogtimer->start(WatchdogTimerInMs);

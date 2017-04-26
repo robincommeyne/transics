@@ -17,8 +17,6 @@ namespace cangateway
 
             QMap<QString, qint64> subscribers;
             QTimer *watchdogtimer;
-            QDateTime timestamp;
-            qint64 old_timestamp;
             int WatchdogTimerInMs = 5000;
 
         public slots:
