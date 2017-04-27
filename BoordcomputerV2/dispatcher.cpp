@@ -45,19 +45,20 @@ namespace cangateway {
 //        /*! \todo implement function */
 //    }
 
-    void Dispatcher::SendFileSystem(QFile DataToStore,QString SendFilePath)
+    void Dispatcher::SendFileSystem(QFile &DataToStore,QString SendFilePath)
     {
         QFile hulpfile(SendFilePath);
         DataToStore.open(QIODevice::ReadOnly);
         QByteArray dataArray = DataToStore.readAll();
+        hulpfile.open(QIODevice::WriteOnly);
         hulpfile.write(dataArray);
         hulpfile.close();
     }
 
-    QFile Dispatcher::ReadFileSystem(QString ReadFilePath)
+    QFile& Dispatcher::ReadFileSystem(QString ReadFilePath)
     {
-//        QFile readfile(ReadFilePath);
-//        return readfile;
+        QFile readfile(ReadFilePath);
+        return readfile;
     }
 
 //    QObject Dispatcher::GetFilteredListItem(Config config)

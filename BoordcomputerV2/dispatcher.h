@@ -42,13 +42,13 @@ namespace cangateway
 
 
             void SendFileSystem(
-                    QFile DataToStore, /**< File that needs to be stored */
+                    QFile &DataToStore, /**< File that needs to be stored */
                     QString SendFilePath /**< string specifying the local filepath to store the file */
             );
             //!< Stores the given file on the specified placed of the filesystem
 
 
-            QFile ReadFileSystem(
+            QFile& ReadFileSystem(
                     QString ReadFilePath /**< Filepath that needs to be read */
 
             );
