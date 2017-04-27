@@ -1,11 +1,12 @@
-/*! \file */
-/*! Class to control the arduPiCANBUS library */
+#ifndef CONTROLLER_H
+#define CONTROLLER_H
 
 #include "canData.h"
 #include <QtCore>
 #include "canlibrary.h"
 
 namespace cangateway {
+
     class Controller : public QObject
     {
 
@@ -49,3 +50,5 @@ namespace cangateway {
     };
 
 }
+
+#endif // CONTROLLER_H

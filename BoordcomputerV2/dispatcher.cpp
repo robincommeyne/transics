@@ -12,6 +12,7 @@
 #include <QCoreApplication>
 #include <QTimer>
 #include <QObject>
+#include "controller.h"
 
 
 
@@ -44,16 +45,20 @@ namespace cangateway {
 //        /*! \todo implement function */
 //    }
 
-//    void Dispatcher::SendFileSystem(QFile DataToSend,QString SendFilePath)
-//    {
-//        /*! \todo implement function */
-//    }
+    void Dispatcher::SendFileSystem(QFile DataToStore,QString SendFilePath)
+    {
+        QFile hulpfile(SendFilePath);
+        DataToStore.open(QIODevice::ReadOnly);
+        QByteArray dataArray = DataToStore.readAll();
+        hulpfile.write(dataArray);
+        hulpfile.close();
+    }
 
-//    QFile Dispatcher::ReadFileSystem(QString ReadFilePath)
-//    {
-//        /*! \todo implement function */
-
-//    }
+    QFile Dispatcher::ReadFileSystem(QString ReadFilePath)
+    {
+//        QFile readfile(ReadFilePath);
+//        return readfile;
+    }
 
 //    QObject Dispatcher::GetFilteredListItem(Config config)
 //    {
