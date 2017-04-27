@@ -13,11 +13,20 @@
 #include <QJsonArray>
 
 
-//QJsonObject Formatter::ToJsonObject(CanData canData)
-//{
-//    /*! \todo implement function */
+QJsonObject Formatter::ToJsonObject(CanData canData)
+{
+   QJsonObject canDataObject;
+   canDataObject.insert("Description",canData.Description);
+   canDataObject.insert("ID",canData.ID);
+   canDataObject.insert("RAW",canData.RAW);
+   canDataObject.insert("Value",canData.Value);
+   canDataObject.insert("Timestamp",canData.Timestamp);
 
-//}
+   return canDataObject;
+
+
+
+}
 
 Config Formatter::ToObject(QFile &ReceivedConfig)
 {

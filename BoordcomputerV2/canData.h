@@ -10,17 +10,15 @@
 
 class CanData
 {
-    /*! \todo create class header file */
 
+
+    public:
     QString Description;
     int ID;
     QString RAW;
     int Value;
     int Timestamp;
 
-
-
-    public:
         CanData(int,QString,int,QString,int);
         CanData();
 

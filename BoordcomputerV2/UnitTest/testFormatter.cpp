@@ -34,6 +34,12 @@ void UnitTest::testToObject()
     QCOMPARE(config.EngineRPM,false);
     QCOMPARE(config.VehicleSpeed,true);
 
+//    CanData can = CanData(70,"EngineCoolantTemp",220,"1080ffff80200080",500);
+
+//    QJsonObject jsonObj = format.ToJsonObject(can);
+//    QJsonDocument doc(jsonObj);
+//    qDebug() << doc.toJson(QJsonDocument::Indented);
+
 
 
 

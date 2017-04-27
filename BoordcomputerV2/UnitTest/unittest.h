@@ -12,6 +12,7 @@ public:
     UnitTest();
 
 private Q_SLOTS:
+
     void testWatchdog();
 
     void testCompression();
@@ -28,6 +29,10 @@ private Q_SLOTS:
     void testLoggingSize();
 
     void testToObject();
+
+    void testSendFileSystem();
+    void testReadFileSystem();
+
 
 
 };

@@ -2,7 +2,7 @@
 #include <QtTest>
 #include "unittest.h"
 #include "../controller.h"
-#include "canlibrary.h"
+
 
 using namespace cangateway;
 
