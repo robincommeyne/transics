@@ -19,7 +19,7 @@
 
 //}
 
-Config Formatter::ToObject(QFile ReceivedConfig)
+Config Formatter::ToObject(QFile &ReceivedConfig)
 {
     Config config;
     Compression decompress;
@@ -93,7 +93,7 @@ Config Formatter::ToObject(QFile ReceivedConfig)
         break;
 
       case 3:
-        config.IntakeMAPPRessure = Values[i];
+        config.IntakeMAPressure = Values[i];
         break;
 
       case 4:

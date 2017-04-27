@@ -19,7 +19,7 @@ class Config
     bool EngineLoad;
     bool EngineCoolantTemp;
     bool FuelPressure;
-    bool IntakeMAPPRessure;
+    bool IntakeMAPressure;
     bool EngineRPM;
     bool VehicleSpeed;
     bool TimingAdvance;

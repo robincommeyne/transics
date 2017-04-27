@@ -12,7 +12,7 @@ Config::Config(int readinterval,bool engineload,bool enginecoolanttemp,bool fuel
     EngineLoad = engineload;
     EngineCoolantTemp = enginecoolanttemp;
     FuelPressure = fuelpressure;
-    IntakeMAPPRessure = intakemappressure;
+    IntakeMAPressure = intakemappressure;
     EngineRPM = enginerpm;
     VehicleSpeed = vehiclespeed ;
     TimingAdvance = timingadvance;

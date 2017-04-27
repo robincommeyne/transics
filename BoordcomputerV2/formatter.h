@@ -23,7 +23,7 @@ class Formatter
 		
 		
         Config ToObject(
-                QFile configfile /**< Qfile to convert to QObject */
+                QFile &configfile /**< Qfile to convert to QObject */
 		);
 		//!< Tries to convert Qfile to QObject of the Config Class
 };

@@ -1,0 +1,62 @@
+{
+	"Config": [{
+			"Description": "ReadInterval",
+			"Value": 500
+		}
+
+	],
+
+	"Filters": [{
+			"Description": "EngineLoad",
+			"Value": true
+		},
+		{
+			"Description": "EngineCoolantTemp",
+			"Value": true
+		},
+		{
+			"Description": "FuelPressure",
+			"Value": true
+		},
+		{
+			"Description": "IntakeMAPressure",
+			"Value": true
+		},
+		{
+			"Description": "EngineRPM",
+			"Value": false
+		},
+		{
+			"Description": "VehicleSpeed",
+			"Value": true
+		},
+		{
+			"Description": "TimingAdvance",
+			"Value": true
+		},
+		{
+			"Description": "IntakeAirTemp",
+			"Value": true
+		},
+		{
+			"Description": "MAFairFlowRate",
+			"Value": true
+		},
+		{
+			"Description": "ThrottlePosition",
+			"Value": true
+		},
+		{
+			"Description": "FuelLevel",
+			"Value": true
+		},
+		{
+			"Description": "BarometricPressure",
+			"Value": true
+		},
+		{
+			"Description": "EngineFuelRate",
+			"Value": true
+		}
+	]
+}
