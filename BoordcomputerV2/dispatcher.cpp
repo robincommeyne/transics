@@ -63,6 +63,7 @@ namespace cangateway {
 
 //    QObject Dispatcher::GetFilteredListItem(Config config)
 //    {
+
 //        /*! \todo implement function */
 //    }
 

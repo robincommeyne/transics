@@ -7,6 +7,7 @@
 #include <QFile>
 #include "config.h"
 #include "canData.h"
+#include "message.h"
 
 class Formatter
 {
@@ -26,6 +27,11 @@ class Formatter
                 QFile &configfile /**< Qfile to convert to QObject */
 		);
 		//!< Tries to convert Qfile to QObject of the Config Class
+
+        QJsonDocument ToJsonDocument();
+
+
+
 };
 
 #endif // FORMATTER_H
