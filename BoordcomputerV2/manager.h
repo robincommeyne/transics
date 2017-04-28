@@ -22,8 +22,6 @@ namespace cangateway
             void Init();
         private slots:
             void SubscribeWatchdog(QObject* object);
-            void SetCanInterval(int interval);
-
         private:
             QObject* _app;
 

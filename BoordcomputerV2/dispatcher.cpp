@@ -6,7 +6,6 @@
 #include "formatter.h"
 #include "logging.h"
 #include "config.h"
-#include "watchdogsubscriberevent.h"
 
 #include <QFile>
 #include <QCoreApplication>
@@ -14,20 +13,32 @@
 #include <QObject>
 #include "controller.h"
 
-
-
 namespace cangateway {
+
+    Dispatcher::Dispatcher()
+    {
+        updatelisttimer = new QTimer(this);
+        connect(updatelisttimer, SIGNAL(timeout()), this, SLOT(UpdateList()));
+        updatelisttimer->start(1000);
+    }
 
     void Dispatcher::Thread_Dispatcher()
     {
         qDebug() << "Dispatcher thread started! Ready to process Events / Signals!: " << QThread::currentThread();
-
         this->setObjectName("Dispatcher");
-        while(1)
-        {
-            QThread::msleep(1000);
-            emit Subscribe_Watchdog_Dispatcher(this);
-        }
+    }
+
+    void Dispatcher::UpdateList()
+    {
+        emit Subscribe_Watchdog_Dispatcher(this);
+        updatelisttimer->start(1000);
+    }
+
+    void Dispatcher::List_Receiver_From_Controller(CanDataList candata)
+    {
+        qDebug() << "List Receiver From Controller is called";
+        //hier wordt lijst ontvangen van controller
+
     }
 
 //    void Dispatcher::DataReceived(QFile ReceivedData)
