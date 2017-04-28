@@ -24,8 +24,6 @@ QJsonObject Formatter::ToJsonObject(CanData canData)
 
    return canDataObject;
 
-
-
 }
 
 Config Formatter::ToObject(QFile &ReceivedConfig)

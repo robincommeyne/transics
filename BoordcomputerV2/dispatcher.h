@@ -4,7 +4,11 @@
 #include <QObject>
 #include <QFile>
 #include <QtCore>
+#include <QList>
 #include "config.h"
+#include "canData.h"
+
+typedef QList<CanData> CanDataList;
 
 namespace cangateway
 {
@@ -17,25 +21,26 @@ namespace cangateway
             QString SendFilepath;
             QString ReadFilePath;
             Config config;
+            QTimer *updatelisttimer;
 
         public slots:
             void Thread_Dispatcher();
+            void UpdateList();
+            void List_Receiver_From_Controller(CanDataList candata);
         signals:
             void Subscribe_Watchdog_Dispatcher(QObject* object);
 
         public:
-            Dispatcher() {}
-
+            Dispatcher();
+            QList<CanData> grotelijst;
             void DataReceived(
                     QFile ReceivedData /**< Qfile containing the received data */
             );
-
 
             void SendBluetooth(
                     QFile DataToSend /**< Qfile containing the data to send out */
             );
             //!< Sends Qfile out trough a bluetooth connection
-
 
             void ReceiveBluetooth();
             //!< Handles the incomming bluetooth files and triggers DataReceived event
@@ -53,8 +58,6 @@ namespace cangateway
 
             );
             //!< reads a file from the specified filepath
-
-
 
             QObject GetFilteredListItem(
                     Config config /**< Object from the Config class */

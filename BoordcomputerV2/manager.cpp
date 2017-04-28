@@ -7,10 +7,11 @@
 #include <QObject>
 
 #include "watchdogsubscriberevent.h"
-#include "getcanintervalevent.h"
 #include "watchdog.h"
 #include "dispatcher.h"
 #include "controller.h"
+
+typedef QList<CanData> CanDataList;
 
 namespace cangateway
 {
@@ -20,6 +21,7 @@ namespace cangateway
         , thread_dispatcher(nullptr)
         , thread_controller(nullptr)
     {
+        qRegisterMetaType<CanDataList>("CanDataList");
     }
 
     void Manager::Init()
@@ -28,16 +30,6 @@ namespace cangateway
         create_watchdog_thread();
         create_dispatcher_thread();
         create_controller_thread();
-        SetCanInterval(1000);
-    }
-
-    void Manager::SetCanInterval(int interval)
-    {
-        qDebug() << "SetCanInterval slot is called " << QThread::currentThread();
-        GetCanIntervalEvent* event = new GetCanIntervalEvent();
-        event->set_interval(interval);
-
-        QCoreApplication::postEvent(controller_thread_object, event,Qt::QueuedConnection);
     }
 
     void Manager::SubscribeWatchdog(QObject* object)
@@ -68,7 +60,6 @@ namespace cangateway
         connect(thread_dispatcher, &QThread::started, dispatcher_thread_object, &Dispatcher::Thread_Dispatcher);
         connect(dispatcher_thread_object, SIGNAL(Subscribe_Watchdog_Dispatcher(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
         thread_dispatcher->start();
-
     }
 
     void Manager::create_controller_thread()
@@ -79,7 +70,7 @@ namespace cangateway
 
         connect(thread_controller, &QThread::started, controller_thread_object, &Controller::Thread_Controller);
         connect(controller_thread_object, SIGNAL(Subscribe_Watchdog_Controller(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
+        connect(controller_thread_object, SIGNAL(Send_List(CanDataList)),dispatcher_thread_object,SLOT(List_Receiver_From_Controller(CanDataList)));
         thread_controller->start();
-
     }
 }

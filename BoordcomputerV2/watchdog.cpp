@@ -31,7 +31,6 @@ namespace cangateway {
 
             return true;
         }
-
         return QObject::event(event);
     }
 
@@ -50,7 +49,6 @@ namespace cangateway {
             else
                 watchdogtimer->start(WatchdogTimerInMs);
         }
-
     }
 
     void Watchdog::SoftwareRestart()

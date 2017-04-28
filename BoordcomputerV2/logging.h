@@ -13,8 +13,6 @@ class Logging
 
     public:
 
-
-
         //! Initiates the boost logging library.
         /*!
           Initlogging is called at startup to set the rotation interval and filesize.
