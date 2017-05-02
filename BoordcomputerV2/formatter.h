@@ -28,7 +28,7 @@ class Formatter
 		);
 		//!< Tries to convert Qfile to QObject of the Config Class
 
-        QJsonDocument ToJsonDocument();
+        QJsonDocument ToJsonDocument(QList<CanData> FilteredList);
 
 
 

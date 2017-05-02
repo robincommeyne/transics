@@ -1,7 +1,6 @@
-/*! \file */ 
+/*! \file */
 #include "formatter.h"
 #include "watchdog.h"
-#include "logging.h"
 #include "config.h"
 
 #include "compression.h"
@@ -17,22 +16,22 @@
 QJsonObject Formatter::ToJsonObject(CanData canData)
 {
    QJsonObject canDataObject;
-   canDataObject.insert("Description",canData.Description);
-   canDataObject.insert("ID",canData.ID);
-   canDataObject.insert("RAW",canData.RAW);
-   canDataObject.insert("Value",canData.Value);
-   canDataObject.insert("Timestamp",canData.Timestamp);
+   canDataObject.insert("Description",canData.Description());
+   canDataObject.insert("ID",canData.ID());
+   canDataObject.insert("RAW",canData.RAW());
+   canDataObject.insert("Value",canData.Value());
+   canDataObject.insert("Timestamp",canData.Timestamp());
 
    return canDataObject;
 
 
 }
 
-QJsonDocument Formatter::ToJsonDocument()
+QJsonDocument Formatter::ToJsonDocument(QList<CanData> FilteredList)
 {
 
 
-    QList<CanData> FilteredList;
+
     QList<Message> MessageList;
 
     QJsonObject CompleteObject;
@@ -77,6 +76,7 @@ Config Formatter::ToObject(QFile &ReceivedConfig)
 
     if (ReceivedConfig.error() != QFile::NoError) {
             qDebug() << QString("Failed to read from file");
+            //log.Log("debug","Failed to read from file");
             return config;
         }
 
@@ -86,6 +86,7 @@ Config Formatter::ToObject(QFile &ReceivedConfig)
 
     if (uncompressed.isEmpty()) {
             qDebug() << "No data was currently available for reading from file";
+
             return config;
         }
 
