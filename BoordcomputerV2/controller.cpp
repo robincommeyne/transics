@@ -1,4 +1,3 @@
-/*! \file */ 
 #include "controller.h"
 #include "watchdog.h"
 #include "logging.h"
@@ -31,8 +30,6 @@ namespace cangateway {
        qDebug() << "GetCan is called";
        CanData EngineLoad;
        CanData CoolantTemp;
-
-
 
        EngineLoad = CanData(can.getEngineLoad(),"EngineLoad",can.getID(),can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
        CoolantTemp = CanData(can.getEngineCoolantTemp(),"EngineCoolantTemp",can.getID(),can.getRawMessage(),QDateTime::currentSecsSinceEpoch());

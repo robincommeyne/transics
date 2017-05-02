@@ -11,10 +11,10 @@
 #include "dispatcher.h"
 #include "controller.h"
 
-typedef QList<CanData> CanDataList;
-
 namespace cangateway
 {
+    typedef QList<CanData> CanDataList;
+
     Manager::Manager(QObject* app)
         : _app(app)
         , thread_watchdog(nullptr)

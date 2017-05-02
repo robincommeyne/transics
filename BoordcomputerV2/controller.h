@@ -5,9 +5,10 @@
 #include <QtCore>
 #include "canlibrary.h"
 
-typedef QList<CanData> CanDataList;
 
 namespace cangateway {
+
+    typedef QList<CanData> CanDataList;
 
     class Controller : public QObject
     {
@@ -25,7 +26,7 @@ namespace cangateway {
 
         private:
             QList<CanData> ListToPopulate;
-
+            CanData *test = new CanData();
             CanLibrary can;
 
             void GetCan();

@@ -1,39 +1,28 @@
-/*! \file */
-/*! Class containing properties for the received config file */
-
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <QMap>
 
+namespace cangateway {
 
-class Config
-{
-    /*! \todo create class header file */
+    class Config
+    {
+        public:
 
+            Config();
 
+            void set_readinterval(int readinterval){ReadInterval = readinterval;}
+            int get_readinterval() const { return ReadInterval; }
 
+            void set_configmap(QMap<QString, bool> configmap){Configmap = configmap;}
+            QMap<QString, bool> get_configmap() const {return Configmap;}
 
-    public:
+        private:
+            QMap<QString, bool> Configmap;
+            int ReadInterval;
 
-    int ReadInterval;
-    bool EngineLoad;
-    bool EngineCoolantTemp;
-    bool FuelPressure;
-    bool IntakeMAPressure;
-    bool EngineRPM;
-    bool VehicleSpeed;
-    bool TimingAdvance;
-    bool IntakeAirtemp;
-    bool MAFairFlowRate;
-    bool ThrottlePosition;
-    bool FuelLevel;
-    bool BarometricPressure;
-    bool EngineFuelRate;
+    };
 
-
-        Config(int,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool,bool);
-        Config();
-
-};
+}
 
 #endif // CONFIG_H

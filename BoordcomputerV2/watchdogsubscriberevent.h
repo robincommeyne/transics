@@ -14,7 +14,7 @@ namespace cangateway
             WatchdogSubscribeEvent(): QEvent(WatchdogSubscribeEvent::WATCHDOG) {}
 
             void set_data(QString objectname){_objectname = objectname;}
-            QString get_data() const { return _objectname; }
+            QString get_data() const { return _objectname;}
 
         private:
             QString _objectname;

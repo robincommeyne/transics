@@ -1,30 +1,22 @@
-/*! \file */
-
 #include "config.h"
 
-Config::Config(int readinterval,bool engineload,bool enginecoolanttemp,bool fuelpressure,bool intakemappressure,
-               bool enginerpm,bool vehiclespeed,bool timingadvance,bool intakeairtemp,
-               bool mafairflowrate,bool throttleposition,bool fuellevel,bool barometricpressure,bool enginefuelrate)
-{
-    /*! \todo create class constructor */
+namespace cangateway {
 
-    ReadInterval = readinterval;
-    EngineLoad = engineload;
-    EngineCoolantTemp = enginecoolanttemp;
-    FuelPressure = fuelpressure;
-    IntakeMAPressure = intakemappressure;
-    EngineRPM = enginerpm;
-    VehicleSpeed = vehiclespeed ;
-    TimingAdvance = timingadvance;
-    IntakeAirtemp = intakeairtemp;
-    MAFairFlowRate = mafairflowrate;
-    ThrottlePosition = throttleposition;
-    FuelLevel = fuellevel;
-    BarometricPressure = barometricpressure;
-    EngineFuelRate = enginefuelrate;
-
+    Config::Config()
+    {
+        Configmap.insert("EngineLoad",false);
+        Configmap.insert("EngineCoolantTemp",false);
+        Configmap.insert("FuelPressure",false);
+        Configmap.insert("IntakeMAPressure",false);
+        Configmap.insert("EngineRPM",false);
+        Configmap.insert("VehicleSpeed",false);
+        Configmap.insert("TimingAdvance",false);
+        Configmap.insert("IntakeAirtemp",false);
+        Configmap.insert("MAFairFlowRate",false);
+        Configmap.insert("ThrottlePosition",false);
+        Configmap.insert("FuelLevel",false);
+        Configmap.insert("BarometricPressure",false);
+        Configmap.insert("EngineFuelRate",false);
+    }
 }
-Config::Config()
-{
 
-}

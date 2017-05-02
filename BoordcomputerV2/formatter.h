@@ -9,30 +9,33 @@
 #include "canData.h"
 #include "message.h"
 
-class Formatter
-{
-    private:
+namespace cangateway {
 
-        QFile configfile;
-        CanData candata;
-	 
-	public:
-		QJsonObject ToJsonObject(
-                CanData candata /**< Json object as input */
-		);
-		//!< Converts given object from CanData class to QJsonObject
-		
-		
-        Config ToObject(
-                QFile &configfile /**< Qfile to convert to QObject */
-		);
-		//!< Tries to convert Qfile to QObject of the Config Class
+    class Formatter
+    {
+        private:
 
-        QJsonDocument ToJsonDocument();
+            QFile configfile;
+            CanData candata;
+
+        public:
+            QJsonObject ToJsonObject(
+                    CanData candata /**< Json object as input */
+            );
+            //!< Converts given object from CanData class to QJsonObject
 
 
+            Config ToObject(
+                    QFile &configfile /**< Qfile to convert to QObject */
+            );
+            //!< Tries to convert Qfile to QObject of the Config Class
 
-};
+            QJsonDocument ToJsonDocument();
+
+    };
+
+}
+
 
 #endif // FORMATTER_H
 

@@ -8,10 +8,12 @@
 #include "config.h"
 #include "canData.h"
 
-typedef QList<CanData> CanDataList;
 
 namespace cangateway
 {
+
+    typedef QList<CanData> CanDataList;
+
     class Dispatcher : public QObject
     {
         Q_OBJECT
@@ -32,7 +34,8 @@ namespace cangateway
 
         public:
             Dispatcher();
-            QList<CanData> grotelijst;
+            QList<CanData> listfromcontroller;
+            QList<CanData> filteredlist;
             void DataReceived(
                     QFile ReceivedData /**< Qfile containing the received data */
             );
@@ -59,7 +62,7 @@ namespace cangateway
             );
             //!< reads a file from the specified filepath
 
-            QObject GetFilteredListItem(
+            void GetFilteredListItem(
                     Config config /**< Object from the Config class */
             );
             //!< Filters the list according to the filters contained in the object and sends back CanData class object

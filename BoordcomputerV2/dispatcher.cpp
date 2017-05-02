@@ -37,6 +37,7 @@ namespace cangateway {
     void Dispatcher::List_Receiver_From_Controller(CanDataList candata)
     {
         qDebug() << "List Receiver From Controller is called";
+        listfromcontroller = candata;
         //hier wordt lijst ontvangen van controller
 
     }
@@ -72,11 +73,11 @@ namespace cangateway {
         return readfile;
     }
 
-//    QObject Dispatcher::GetFilteredListItem(Config config)
-//    {
+    void Dispatcher::GetFilteredListItem(Config config)
+    {
 
-//        /*! \todo implement function */
-//    }
+
+    }
 
 //    QFile Dispatcher::DeviceController(Config config)
 //    {
