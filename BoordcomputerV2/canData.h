@@ -28,12 +28,13 @@ public:
      int Value(){return value;}
      int Timestamp(){return timestamp;}
 
-     void SetDescription(QString setDescription){description = setDescription;}
-     void SetID(int setId){id = setId;}
-     void SetRAW(QString setRaw){raw = setRaw;}
-     void SetValue(int setValue){value = setValue;}
-     void SetTimeStamp(int setTimeStamp){timestamp = setTimeStamp;}
+     //void SetDescription(QString setDescription){description = setDescription;}
+     //void SetID(int setId){id = setId;}
+     //void SetRAW(QString setRaw){raw = setRaw;}
+     //void SetValue(int setValue){value = setValue;}
+     //void SetTimeStamp(int setTimeStamp){timestamp = setTimeStamp;}
 
+     CanData(int setValue,QString setDescription,int setId,QString setRaw,int setTimeStamp);
      CanData();
 
 

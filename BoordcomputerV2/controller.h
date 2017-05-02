@@ -25,7 +25,7 @@ namespace cangateway {
 
         private:
             QList<CanData> ListToPopulate;
-            CanData *test = new CanData();
+
             CanLibrary can;
 
             void GetCan();
