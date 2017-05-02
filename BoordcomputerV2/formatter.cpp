@@ -1,7 +1,6 @@
-/*! \file */ 
+/*! \file */
 #include "formatter.h"
 #include "watchdog.h"
-#include "logging.h"
 #include "config.h"
 
 #include "compression.h"
@@ -25,13 +24,12 @@ namespace cangateway {
        canDataObject.insert("Timestamp",canData.Timestamp());
 
        return canDataObject;
+
     }
 
-    QJsonDocument Formatter::ToJsonDocument()
+    QJsonDocument Formatter::ToJsonDocument(QList<CanData> FilteredList)
     {
 
-
-        QList<CanData> FilteredList;
         QList<Message> MessageList;
 
         QJsonObject CompleteObject;
@@ -39,27 +37,28 @@ namespace cangateway {
         QJsonArray CanDataArray;
         QJsonArray MessageArray;
 
-
         for(int i=0;i<FilteredList.length();i++)
-        {
-            CanDataArray.push_back(ToJsonObject(FilteredList[i]));
-        }
-        CompleteObject.insert("Data",CanDataArray);
+            {
+                CanDataArray.push_back(ToJsonObject(FilteredList[i]));
+            }
+            CompleteObject.insert("Data",CanDataArray);
 
-        for(int i=0;i<MessageList.length();i++)
-        {
-            QJsonObject MessageObject;
-            MessageObject.insert("Type",MessageList[i].Type);
-            MessageObject.insert("Content",MessageList[i].Content);
-            MessageObject.insert("Timestamp",MessageList[i].Timestamp);
-            MessageArray.push_back(MessageObject);
+            for(int i=0;i<MessageList.length();i++)
+            {
+                QJsonObject MessageObject;
+                MessageObject.insert("Type",MessageList[i].Type);
+                MessageObject.insert("Content",MessageList[i].Content);
+                MessageObject.insert("Timestamp",MessageList[i].Timestamp);
+                MessageArray.push_back(MessageObject);
 
-        }
-        CompleteObject.insert("Message",MessageArray);
 
-        QJsonDocument doc(CompleteObject);
 
-     return doc;
+            }
+            CompleteObject.insert("Message",MessageArray);
+
+            QJsonDocument doc(CompleteObject);
+
+         return doc;
     }
 
     Config Formatter::ToObject(QFile &ReceivedConfig)
@@ -124,6 +123,8 @@ namespace cangateway {
         }
 
         return config;
+
+
     }
 }
 

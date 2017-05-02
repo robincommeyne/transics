@@ -28,11 +28,9 @@ namespace cangateway {
     void Controller::GetCan()
     {
        qDebug() << "GetCan is called";
-       CanData EngineLoad;
-       CanData CoolantTemp;
 
-       EngineLoad = CanData(can.getEngineLoad(),"EngineLoad",can.getID(),can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
-       CoolantTemp = CanData(can.getEngineCoolantTemp(),"EngineCoolantTemp",can.getID(),can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
+       //EngineLoad = CanData(can.getEngineLoad(),"EngineLoad",can.getID(),can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
+       //CoolantTemp = CanData(can.getEngineCoolantTemp(),"EngineCoolantTemp",can.getID(),can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
        //alle paramaters komen hier
 
        ListToPopulate << EngineLoad << CoolantTemp;
