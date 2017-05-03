@@ -40,7 +40,19 @@ namespace cangateway {
     void Dispatcher::List_Receiver_From_Controller(CanDataList candata)
     {
         qDebug() << "List Receiver From Controller is called";
-        listfromcontroller.append(candata);
+        if(listfromcontroller.length()<1000)
+        {
+            listfromcontroller.append(candata);
+        }
+        else
+        {
+            for(int i=0; i<candata.length(); ++i)
+            {
+                listfromcontroller.removeFirst();
+            }
+
+            listfromcontroller.append(candata);
+        }
     }
 
 //    void Dispatcher::DataReceived(QFile ReceivedData)
@@ -82,10 +94,14 @@ namespace cangateway {
             {
                 for(int i=0; i<listtofilter.length(); ++i)
                 {
-                    if(listtofilter[i].Timestamp()/1000 % config.get_readinterval() == 0)
+                    if(listtofilter[i].Description() == e)
                     {
-                        filteredlist.append(listtofilter[i]);
+                        if(listtofilter[i].Timestamp()/1000 % config.get_readinterval() == 0)
+                        {
+                            filteredlist.append(listtofilter[i]);
+                        }
                     }
+
                 }
             }
         }
