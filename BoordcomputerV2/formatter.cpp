@@ -46,9 +46,9 @@ namespace cangateway {
             for(int i=0;i<MessageList.length();i++)
             {
                 QJsonObject MessageObject;
-                MessageObject.insert("Type",MessageList[i].Type);
-                MessageObject.insert("Content",MessageList[i].Content);
-                MessageObject.insert("Timestamp",MessageList[i].Timestamp);
+                MessageObject.insert("Type",MessageList[i].Type());
+                MessageObject.insert("Content",MessageList[i].Content());
+                MessageObject.insert("Timestamp",MessageList[i].Timestamp());
                 MessageArray.push_back(MessageObject);
 
 
@@ -66,7 +66,10 @@ namespace cangateway {
         Config config;
         Compression decompress;
         QStringList Descriptions;
+        QStringList ConfigDescriptions;
+        QList<int> ConfigValues;
         QList<bool> Values;
+
 
         ReceivedConfig.open(QIODevice::ReadOnly);
         QByteArray compressed = ReceivedConfig.readAll();
@@ -94,14 +97,22 @@ namespace cangateway {
 
         QJsonObject json = doc.object();
 
-        QJsonValue jsonValue = json.value("Config");
+        QJsonArray ConfigArray = json["Config"].toArray();
 
-        if (jsonValue.isUndefined()) {
-            qDebug() << "Key id does not exist";
-            return config;
+        foreach (const QJsonValue & value, ConfigArray) {
+            QJsonObject obj = value.toObject();
+            ConfigDescriptions.append(obj["Description"].toString());
+            ConfigValues.append(obj["Value"].toInt());
         }
 
-        config.set_readinterval(jsonValue.toInt());
+        for(int i = 0; i <ConfigDescriptions.length();i++)
+        {
+            if((ConfigDescriptions[i]) == "ReadInterval")
+            {
+                config.set_readinterval(ConfigValues[i]);
+            }
+        }
+
 
         QJsonArray jsonArray = json["Filters"].toArray();
 
@@ -121,6 +132,7 @@ namespace cangateway {
                 hulpmap.insert(Descriptions[i],Values[i]);
             }
         }
+        config.set_configmap(hulpmap);
 
         return config;
 

@@ -23,7 +23,8 @@ SOURCES += \
     logging.cpp \
     watchdog.cpp \
     main.cpp \
-    manager.cpp
+    manager.cpp \
+    message.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -46,7 +47,8 @@ HEADERS += \
     logging.h \
     watchdog.h \
     watchdogsubscriberevent.h \
-    manager.h
+    manager.h \
+    message.h
 
 
 win32: LIBS += -L$$PWD/Libs/Boost/lib_Windows/ -llibboost_log-vc140-mt-gd-1_63
