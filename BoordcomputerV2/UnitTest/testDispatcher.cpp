@@ -2,6 +2,8 @@
 #include <QtTest>
 #include "unittest.h"
 #include "../dispatcher.h"
+#include "../canData.h"
+
 
 using namespace cangateway;
 
@@ -50,3 +52,42 @@ void UnitTest::testReadFileSystem()
 
 
 }
+
+void UnitTest::TestGetFilteredListItem()
+{
+    QFile testfile("JsonTestFile.json");
+    testfile.open(QIODevice::ReadOnly);
+
+
+    Formatter format;
+    Config config;
+    bool listOk = false;
+
+    config = format.ToObject(testfile);
+    testfile.close();
+
+    QList<CanData> candatalist;
+
+
+    CanData EngineSpeed1 = CanData(200,"VehicleSpeed",225,"12345678",10);
+    CanData EngineSpeed2 = CanData(250,"VehicleSpeed",225,"12345678",12);
+    CanData EngineRPM = CanData(8000,"EngineRPM",226,"12345678",5);
+
+    candatalist << EngineSpeed1 << EngineSpeed2 << EngineRPM;
+
+
+
+
+
+    Dispatcher dispatcher;
+
+    QList<CanData> filteredlist =  dispatcher.GetFilteredListItem(config,candatalist);
+
+    QCOMPARE(filteredlist[0].Timestamp(),10);
+
+
+
+
+
+}
+

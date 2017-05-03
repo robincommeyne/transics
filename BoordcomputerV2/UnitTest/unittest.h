@@ -33,6 +33,7 @@ private Q_SLOTS:
 
     void testSendFileSystem();
     void testReadFileSystem();
+    void TestGetFilteredListItem();
 
 
 

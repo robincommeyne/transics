@@ -1,7 +1,7 @@
 {
 	"Config": [{
 			"Description": "ReadInterval",
-			"Value": 500
+			"Value": 5
 		}
 
 	],
