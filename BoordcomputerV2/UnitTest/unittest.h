@@ -28,10 +28,13 @@ private Q_SLOTS:
     void testLoggingInit();
     void testLoggingSize();
 
+    void testCompressedToObject();
     void testToObject();
 
     void testSendFileSystem();
     void testReadFileSystem();
+
+
 
 
 

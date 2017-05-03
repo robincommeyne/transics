@@ -24,6 +24,8 @@ namespace cangateway {
             );
             //!< Converts given object from CanData class to QJsonObject
 
+            Config CompressedToObject(QFile &configfile);
+
 
             Config ToObject(
                     QFile &configfile /**< Qfile to convert to QObject */
