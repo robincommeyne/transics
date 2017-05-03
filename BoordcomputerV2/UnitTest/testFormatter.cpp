@@ -9,12 +9,14 @@
 #include "../config.h"
 
 
+using namespace cangateway;
 
-void UnitTest::testToObject()
+void UnitTest::testCompressedToObject()
 {
     QFile testfile("JsonTestFile.json");
     testfile.open(QIODevice::ReadOnly);
     QByteArray uncompressed = testfile.readAll();
+    testfile.close();
     QByteArray compressed;
 
     Compression compress;
@@ -28,14 +30,39 @@ void UnitTest::testToObject()
     Formatter format;
 
     Config config;
-    config = format.ToObject(compressedTestFile);
+
+    config = format.CompressedToObject(compressedTestFile);
+
+    QMap<QString,bool> map = config.get_configmap();
 
 
-    QCOMPARE(config.EngineRPM,false);
-    QCOMPARE(config.VehicleSpeed,true);
+
+    QCOMPARE(map.value("EngineRPM"),false);
+    QCOMPARE(map.value("VehicleSpeed"),true);
+
+
+}
+
+void UnitTest::testToObject()
+{
+    QFile testfile("JsonTestFile.json");
+    testfile.open(QIODevice::ReadOnly);
+
+
+    Formatter format;
+
+    Config config;
+
+    config = format.ToObject(testfile);
+    testfile.close();
+
+    QMap<QString,bool> map = config.get_configmap();
 
 
 
+
+    QCOMPARE(map.value("EngineRPM"),false);
+    QCOMPARE(map.value("VehicleSpeed"),true);
 
 
 

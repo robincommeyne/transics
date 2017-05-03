@@ -1,9 +1,14 @@
 #include "message.h"
 
-Message::Message(QString type,QString content,int timestamp)
+Message::Message(QString SetType,QString SetContent,int SetTimestamp)
 {
-    Type = type;
-    Content = content;
-    Timestamp = timestamp;
+    type = SetType;
+    content = SetContent;
+    timestamp = SetTimestamp;
+
+
+}
+Message::Message()
+{
 
 }

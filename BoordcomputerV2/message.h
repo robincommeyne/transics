@@ -8,12 +8,23 @@ class Message
 {
 
 
-public:
+private:
 
-    QString Type;
-    QString Content;
-    int Timestamp;
-    Message(QString,QString,int);
+    QString type;
+    QString content;
+    int timestamp;
+
+public:
+    Message();
+    Message(QString SetType,QString SetContent,int SetTimestamp);
+
+    QString Type(){return type;}
+    QString Content(){return content;}
+    QString Timestamp(){return timestamp;}
+
+
+
+
 
 };
 
