@@ -122,6 +122,8 @@ namespace cangateway {
             }
         }
 
+        config.set_configmap(hulpmap);
+
         return config;
 
 

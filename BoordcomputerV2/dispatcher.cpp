@@ -18,7 +18,7 @@ namespace cangateway {
     Dispatcher::Dispatcher()
     {
         updatelisttimer = new QTimer(this);
-        connect(updatelisttimer, SIGNAL(timeout()), this, SLOT(UpdateList()));
+        connect(updatelisttimer, SIGNAL(timeout()), this, SLOT(TimerThread()));
         updatelisttimer->start(1000);
     }
 
@@ -28,8 +28,11 @@ namespace cangateway {
         this->setObjectName("Dispatcher");
     }
 
-    void Dispatcher::UpdateList()
+    void Dispatcher::TimerThread()
     {
+        jsondocument = formatter.ToJsonDocument(GetFilteredListItem(configfrombluetooth,listfromcontroller));
+        compression.Zip(jsondocument.toBinaryData(),bytearray);
+        //1* bytearray meegeven naar bluetooth of naar filesystem
         emit Subscribe_Watchdog_Dispatcher(this);
         updatelisttimer->start(1000);
     }
@@ -37,9 +40,7 @@ namespace cangateway {
     void Dispatcher::List_Receiver_From_Controller(CanDataList candata)
     {
         qDebug() << "List Receiver From Controller is called";
-        listfromcontroller = candata;
-        //hier wordt lijst ontvangen van controller
-
+        listfromcontroller.append(candata);
     }
 
 //    void Dispatcher::DataReceived(QFile ReceivedData)
@@ -73,10 +74,23 @@ namespace cangateway {
         return readfile;
     }
 
-    void Dispatcher::GetFilteredListItem(Config config)
+    QList<CanData> Dispatcher::GetFilteredListItem(Config config,QList<CanData> listtofilter)
     {
+        for(auto e : config.get_configmap().keys())
+        {
+            if(config.get_configmap().value(e))
+            {
+                for(int i=0; i<listtofilter.length(); ++i)
+                {
+                    if(listtofilter[i].Timestamp()/1000 % config.get_readinterval() == 0)
+                    {
+                        filteredlist.append(listtofilter[i]);
+                    }
+                }
+            }
+        }
 
-
+        return filteredlist;
     }
 
 //    QFile Dispatcher::DeviceController(Config config)

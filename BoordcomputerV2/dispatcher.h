@@ -7,6 +7,8 @@
 #include <QList>
 #include "config.h"
 #include "canData.h"
+#include "formatter.h"
+#include "compression.h"
 
 
 namespace cangateway
@@ -22,12 +24,18 @@ namespace cangateway
             QFile ReceivedData;
             QString SendFilepath;
             QString ReadFilePath;
-            Config config;
+            Config configfrombluetooth;
             QTimer *updatelisttimer;
+            Formatter formatter;
+            QJsonDocument jsondocument;
+            QByteArray bytearray;
+            Compression compression;
+            QList<CanData> filteredlist;
+
 
         public slots:
             void Thread_Dispatcher();
-            void UpdateList();
+            void TimerThread();
             void List_Receiver_From_Controller(CanDataList candata);
         signals:
             void Subscribe_Watchdog_Dispatcher(QObject* object);
@@ -35,7 +43,6 @@ namespace cangateway
         public:
             Dispatcher();
             QList<CanData> listfromcontroller;
-            QList<CanData> filteredlist;
             void DataReceived(
                     QFile ReceivedData /**< Qfile containing the received data */
             );
@@ -62,10 +69,11 @@ namespace cangateway
             );
             //!< reads a file from the specified filepath
 
-            void GetFilteredListItem(
-                    Config config /**< Object from the Config class */
+            QList<CanData> GetFilteredListItem(
+                    Config config,
+                    QList<CanData> listtofilter
             );
-            //!< Filters the list according to the filters contained in the object and sends back CanData class object
+            //!< Filters the list according to the filters contained in the object and sends back QList of CanData objects
 
 
             QFile DeviceController(

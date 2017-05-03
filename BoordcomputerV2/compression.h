@@ -1,5 +1,6 @@
-/*! \file */
-/*! Class for handing compression and decompression of files */
+#ifndef COMPRESSION_H
+#define COMPRESSION_H
+
 #include <QJsonObject>
 #include <QString>
 #include <QFile>
@@ -37,3 +38,5 @@ class Compression
         );
 
 };
+
+#endif // COMPRESSION_H
