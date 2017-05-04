@@ -1,3 +1,4 @@
+/*! \file */
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
@@ -20,7 +21,7 @@ public:
 
     QString Type(){return type;}
     QString Content(){return content;}
-    QString Timestamp(){return timestamp;}
+    int Timestamp(){return timestamp;}
 
 
 

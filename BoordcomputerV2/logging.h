@@ -1,5 +1,9 @@
 /*! \file */
 /*! Class for program logging */
+
+#ifndef LOGGING_H
+#define LOGGING_H
+
 #include <QString>
 
 class Logging
@@ -36,3 +40,4 @@ class Logging
 
 };
 
+#endif // LOGGING_H
