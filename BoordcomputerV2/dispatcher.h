@@ -1,5 +1,9 @@
 /*! \file */
 /*! Class to handle interfaces, receive and send data */
+
+#ifndef DISPATCHER_H
+#define DISPATCHER_H
+
 #include <QString>
 #include <QObject>
 #include <QFile>
@@ -82,4 +86,6 @@ namespace cangateway
             //!< Receives Objects of the Config class and keeps track of number of devices, limiting them to a maximum of 2 and returns compressed file to send.
     };
 }
+
+#endif // DISPATCHER_H
 

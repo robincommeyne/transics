@@ -1,3 +1,4 @@
+/*! \file */
 #ifndef CANDATA_H
 #define CANDATA_H
 

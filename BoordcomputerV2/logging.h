@@ -1,5 +1,9 @@
 /*! \file */
 /*! Class for program logging */
+
+#ifndef LOGGING_H
+#define LOGGING_H
+
 #include <QString>
 
 namespace cangateway {
@@ -26,3 +30,4 @@ namespace cangateway {
 }
 
 
+#endif // LOGGING_H
