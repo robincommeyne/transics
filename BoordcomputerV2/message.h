@@ -3,29 +3,25 @@
 
 #include <QString>
 
+namespace cangateway {
 
-class Message
-{
+    class Message
+    {
+        public:
+            Message(){}
+            Message(QString _setType,QString _setContent,int _setTimestamp);
 
+            QString Type(){return _type;}
+            QString Content(){return _content;}
+            QString Timestamp(){return _timestamp;}
 
-private:
+        private:
+            QString _type;
+            QString _content;
+            int _timestamp;
 
-    QString type;
-    QString content;
-    int timestamp;
+    };
 
-public:
-    Message();
-    Message(QString SetType,QString SetContent,int SetTimestamp);
-
-    QString Type(){return type;}
-    QString Content(){return content;}
-    QString Timestamp(){return timestamp;}
-
-
-
-
-
-};
+}
 
 #endif // MESSAGE_H

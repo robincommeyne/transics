@@ -1,4 +1,5 @@
 #include <QCoreApplication>
+
 #include "dispatcher.h"
 #include "controller.h"
 #include "watchdog.h"
@@ -11,8 +12,7 @@ int main(int argc, char *argv[])
 
     QCoreApplication a(argc, argv);
 
-    qDebug() << "Manager is running" << QThread::currentThread();
-    //!< Debug
+    qDebug() << "main is started" << QThread::currentThread();
 
     Manager initializer(&a);
     QTimer::singleShot(0, Qt::VeryCoarseTimer, &initializer, &Manager::Init);

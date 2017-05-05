@@ -30,10 +30,11 @@ private Q_SLOTS:
 
     void testCompressedToObject();
     void testToObject();
+    void CheckUnfilteredListSize();
 
     void testSendFileSystem();
     void testReadFileSystem();
-    void TestGetFilteredListItem();
+    void CheckFilteredListForWrightObjects();
 
 
 

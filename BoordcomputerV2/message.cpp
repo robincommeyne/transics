@@ -1,14 +1,13 @@
 #include "message.h"
 
-Message::Message(QString SetType,QString SetContent,int SetTimestamp)
-{
-    type = SetType;
-    content = SetContent;
-    timestamp = SetTimestamp;
+namespace cangateway {
 
-
-}
-Message::Message()
-{
+    Message::Message(QString _setType,QString _setContent,int _setTimestamp)
+    {
+        _type = _setType;
+        _content = _setContent;
+        _timestamp = _setTimestamp;
+    }
 
 }
+

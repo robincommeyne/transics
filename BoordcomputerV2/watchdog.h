@@ -1,10 +1,8 @@
 #ifndef WATCHDOG_H
 #define WATCHDOG_H
 
-#include <QDateTime>
-#include <QObject>
-#include <QTimer>
 #include <QMap>
+#include <QTimer>
 
 namespace cangateway
 {
@@ -13,15 +11,16 @@ namespace cangateway
         Q_OBJECT
         public:
             Watchdog();
+
+        private:
+            QMap<QString, qint64> _subscriberList;
+            QTimer *_watchdogTimer;
+            const int _watchdogTimerValueInMs = 5000;
             bool event(QEvent *event);
 
-            QMap<QString, qint64> subscribers;
-            QTimer *watchdogtimer;
-            int WatchdogTimerInMs = 5000;
-
         public slots:
-            void Thread_Watchdog();
-            void Check_Timestamps();
+            void WatchdogThread();
+            void CheckTimestamps();
             void SoftwareRestart();
     };
 }

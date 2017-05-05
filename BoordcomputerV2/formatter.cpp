@@ -14,207 +14,187 @@
 
 namespace cangateway {
 
-    QJsonObject Formatter::ToJsonObject(CanData canData)
+    QJsonObject Formatter::ToJsonObject(CanData _canData)
     {
-       QJsonObject canDataObject;
-       canDataObject.insert("Description",canData.Description());
-       canDataObject.insert("ID",canData.ID());
-       canDataObject.insert("RAW",canData.RAW());
-       canDataObject.insert("Value",canData.Value());
-       canDataObject.insert("Timestamp",canData.Timestamp());
+       QJsonObject _canDataObject;
+       _canDataObject.insert("Description",_canData.Description());
+       _canDataObject.insert("ID",_canData.ID());
+       _canDataObject.insert("RAW",_canData.RAW());
+       _canDataObject.insert("Value",_canData.Value());
+       _canDataObject.insert("Timestamp",_canData.Timestamp());
 
-       return canDataObject;
-
+       return _canDataObject;
     }
 
-    QJsonDocument Formatter::ToJsonDocument(QList<CanData> FilteredList)
+    QJsonDocument Formatter::ToJsonDocument(QList<CanData> _filteredList)
     {
 
-        QList<Message> MessageList;
+        QList<Message> _messageList;
+        QJsonObject _completeObject;
+        QJsonArray _canDataArray;
+        QJsonArray _messageArray;
 
-        QJsonObject CompleteObject;
-
-        QJsonArray CanDataArray;
-        QJsonArray MessageArray;
-
-        for(int i=0;i<FilteredList.length();i++)
+        for(int i=0;i<_filteredList.length();i++)
             {
-                CanDataArray.push_back(ToJsonObject(FilteredList[i]));
+                _canDataArray.push_back(ToJsonObject(_filteredList[i]));
             }
-            CompleteObject.insert("Data",CanDataArray);
+            _completeObject.insert("Data",_canDataArray);
 
-            for(int i=0;i<MessageList.length();i++)
+            for(int i=0;i<_messageList.length();i++)
             {
                 QJsonObject MessageObject;
-                MessageObject.insert("Type",MessageList[i].Type());
-                MessageObject.insert("Content",MessageList[i].Content());
-                MessageObject.insert("Timestamp",MessageList[i].Timestamp());
-                MessageArray.push_back(MessageObject);
-
-
-
+                MessageObject.insert("Type",_messageList[i].Type());
+                MessageObject.insert("Content",_messageList[i].Content());
+                MessageObject.insert("Timestamp",_messageList[i].Timestamp());
+                _messageArray.push_back(MessageObject);
             }
-            CompleteObject.insert("Message",MessageArray);
+            _completeObject.insert("Message",_messageArray);
 
-            QJsonDocument doc(CompleteObject);
+            QJsonDocument doc(_completeObject);
 
          return doc;
     }
 
-    Config Formatter::CompressedToObject(QFile &ReceivedConfig)
+    Config Formatter::CompressedToObject(QFile &_receivedConfig)
     {
-        Config config;
-        Compression decompress;
-        QStringList Descriptions;
-        QStringList ConfigDescriptions;
-        QList<int> ConfigValues;
-        QList<bool> Values;
+        Config _config;
+        Compression _decompress;
+        QStringList _descriptions;
+        QStringList _configDescriptions;
+        QList<int> _configValues;
+        QList<bool> _values;
+
+        _receivedConfig.open(QIODevice::ReadOnly);
+        QByteArray compressed = _receivedConfig.readAll();
 
 
-        ReceivedConfig.open(QIODevice::ReadOnly);
-        QByteArray compressed = ReceivedConfig.readAll();
-
-
-        if (ReceivedConfig.error() != QFile::NoError) {
-                qDebug() << QString("Failed to read from file");
-                return config;
-            }
-        ReceivedConfig.close();
-
+        if (_receivedConfig.error() != QFile::NoError) {
+            qDebug() << QString("Failed to read from file");
+            return _config;
+        }
+        _receivedConfig.close();
 
         QByteArray uncompressed;
-        decompress.UnZip(compressed,uncompressed);
+        _decompress.UnZip(compressed,uncompressed);
 
         if (uncompressed.isEmpty()) {
-                qDebug() << "No data was currently available for reading from file";
-                return config;
-            }
+            qDebug() << "No data was currently available for reading from file";
+            return _config;
+        }
 
         QJsonDocument doc(QJsonDocument::fromJson(uncompressed));
-
         if (!doc.isObject()) {
-                qDebug() << "Document is not an object";
-                return config;
-            }
+           qDebug() << "Document is not an object";
+           return _config;
+        }
 
         QJsonObject json = doc.object();
-
         QJsonArray ConfigArray = json["Config"].toArray();
 
         foreach (const QJsonValue & value, ConfigArray) {
             QJsonObject obj = value.toObject();
-            ConfigDescriptions.append(obj["Description"].toString());
-            ConfigValues.append(obj["Value"].toInt());
+            _configDescriptions.append(obj["Description"].toString());
+            _configValues.append(obj["Value"].toInt());
         }
 
-        for(int i = 0; i <ConfigDescriptions.length();i++)
+        for(int i = 0; i <_configDescriptions.length();i++)
         {
-            if((ConfigDescriptions[i]) == "ReadInterval")
+            if((_configDescriptions[i]) == "ReadInterval")
             {
-                config.set_readinterval(ConfigValues[i]);
+                _config.set_readinterval(_configValues[i]);
             }
         }
-
 
         QJsonArray jsonArray = json["Filters"].toArray();
 
         foreach (const QJsonValue & value, jsonArray) {
             QJsonObject obj = value.toObject();
-            Descriptions.append(obj["Description"].toString());
-            Values.append(obj["Value"].toBool());
+            _descriptions.append(obj["Description"].toString());
+            _values.append(obj["Value"].toBool());
         }
 
+        QMap<QString, bool> hulpmap = _config.get_configmap();
 
-        QMap<QString, bool> hulpmap = config.get_configmap();
-
-        for(int i = 0; i <Descriptions.length();i++)
+        for(int i = 0; i <_descriptions.length();i++)
         {
-            if(hulpmap.contains(Descriptions[i]))
+            if(hulpmap.contains(_descriptions[i]))
             {
-                hulpmap.insert(Descriptions[i],Values[i]);
+                hulpmap.insert(_descriptions[i],_values[i]);
             }
         }
-        config.set_configmap(hulpmap);
+        _config.set_configmap(hulpmap);
 
-        return config;
+        return _config;
 
 
     }
 
-    Config Formatter::ToObject(QFile &ReceivedConfig)
+    Config Formatter::ToObject(QFile &_receivedConfig)
     {
-        Config config;
+        Config _config;
+        QStringList _descriptions;
+        QStringList _configDescriptions;
+        QList<int> _configValues;
+        QList<bool> _values;
 
-        QStringList Descriptions;
-        QStringList ConfigDescriptions;
-        QList<int> ConfigValues;
-        QList<bool> Values;
+        _receivedConfig.open(QIODevice::ReadOnly);
+        QByteArray file = _receivedConfig.readAll();
 
-
-        ReceivedConfig.open(QIODevice::ReadOnly);
-        QByteArray file = ReceivedConfig.readAll();
-
-
-        if (ReceivedConfig.error() != QFile::NoError) {
-                qDebug() << QString("Failed to read from file");
-                return config;
-            }
-        ReceivedConfig.close();
+        if (_receivedConfig.error() != QFile::NoError) {
+            qDebug() << QString("Failed to read from file");
+            return _config;
+        }
+        _receivedConfig.close();
 
         if (file.isEmpty()) {
-                qDebug() << "No data was currently available for reading from file";
-                return config;
-            }
+            qDebug() << "No data was currently available for reading from file";
+            return _config;
+        }
 
         QJsonDocument doc(QJsonDocument::fromJson(file));
 
         if (!doc.isObject()) {
-                qDebug() << "Document is not an object";
-                return config;
-            }
+            qDebug() << "Document is not an object";
+            return _config;
+        }
 
         QJsonObject json = doc.object();
-
         QJsonArray ConfigArray = json["Config"].toArray();
 
         foreach (const QJsonValue & value, ConfigArray) {
             QJsonObject obj = value.toObject();
-            ConfigDescriptions.append(obj["Description"].toString());
-            ConfigValues.append(obj["Value"].toInt());
+            _configDescriptions.append(obj["Description"].toString());
+            _configValues.append(obj["Value"].toInt());
         }
 
-        for(int i = 0; i <ConfigDescriptions.length();i++)
+        for(int i = 0; i <_configDescriptions.length();i++)
         {
-            if((ConfigDescriptions[i]) == "ReadInterval")
+            if((_configDescriptions[i]) == "ReadInterval")
             {
-                config.set_readinterval(ConfigValues[i]);
+                _config.set_readinterval(_configValues[i]);
             }
         }
-
 
         QJsonArray jsonArray = json["Filters"].toArray();
 
         foreach (const QJsonValue & value, jsonArray) {
             QJsonObject obj = value.toObject();
-            Descriptions.append(obj["Description"].toString());
-            Values.append(obj["Value"].toBool());
+            _descriptions.append(obj["Description"].toString());
+            _values.append(obj["Value"].toBool());
         }
 
 
-        QMap<QString, bool> hulpmap = config.get_configmap();
+        QMap<QString, bool> hulpmap = _config.get_configmap();
 
-        for(int i = 0; i <Descriptions.length();i++)
+        for(int i = 0; i <_descriptions.length();i++)
         {
-            if(hulpmap.contains(Descriptions[i]))
+            if(hulpmap.contains(_descriptions[i]))
             {
-                hulpmap.insert(Descriptions[i],Values[i]);
+                hulpmap.insert(_descriptions[i],_values[i]);
             }
         }
-        config.set_configmap(hulpmap);
-
-        config.set_configmap(hulpmap);
-
-        return config;
+        _config.set_configmap(hulpmap);
+        return _config;
 
 
     }

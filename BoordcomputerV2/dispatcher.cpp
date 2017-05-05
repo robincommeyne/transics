@@ -32,7 +32,9 @@ namespace cangateway {
     {
         jsondocument = formatter.ToJsonDocument(GetFilteredListItem(configfrombluetooth,listfromcontroller));
         compression.Zip(jsondocument.toBinaryData(),bytearray);
+
         //1* bytearray meegeven naar bluetooth of naar filesystem
+
         emit Subscribe_Watchdog_Dispatcher(this);
         updatelisttimer->start(1000);
     }
@@ -40,17 +42,16 @@ namespace cangateway {
     void Dispatcher::List_Receiver_From_Controller(CanDataList candata)
     {
         qDebug() << "List Receiver From Controller is called";
-        if(listfromcontroller.length()<1000)
+        if(listfromcontroller.length()+candata.length()>1000)
         {
-            listfromcontroller.append(candata);
-        }
-        else
-        {
-            for(int i=0; i<candata.length(); ++i)
+            int difference = listfromcontroller.length()+candata.length()-1000;
+            for(int i=0; i<difference; ++i)
             {
                 listfromcontroller.removeFirst();
             }
-
+        }
+        else
+        {
             listfromcontroller.append(candata);
         }
     }
@@ -96,7 +97,7 @@ namespace cangateway {
                 {
                     if(listtofilter[i].Description() == e)
                     {
-                        if(listtofilter[i].Timestamp()/1000 % config.get_readinterval() == 0)
+                        if(listtofilter[i].Timestamp() % config.get_readinterval() == 0)
                         {
                             filteredlist.append(listtofilter[i]);
                         }

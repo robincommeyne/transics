@@ -1,76 +1,65 @@
-#include "manager.h"
-
-#include <QTimer>
-#include <QDebug>
-#include <QThread>
-#include <QCoreApplication>
-#include <QObject>
-
 #include "watchdogsubscriberevent.h"
 #include "watchdog.h"
 #include "dispatcher.h"
 #include "controller.h"
+#include "manager.h"
 
 namespace cangateway
 {
     typedef QList<CanData> CanDataList;
 
-    Manager::Manager(QObject* app)
-        : _app(app)
-        , thread_watchdog(nullptr)
-        , thread_dispatcher(nullptr)
-        , thread_controller(nullptr)
+    Manager::Manager(QObject* app): _manager(app), _watchdogThread(nullptr), _dispatcherThread(nullptr), _controllerThread(nullptr)
     {
         qRegisterMetaType<CanDataList>("CanDataList");
     }
 
     void Manager::Init()
     {
-        qDebug() << "Starting new threads from main: " << QThread::currentThread();
-        create_watchdog_thread();
-        create_dispatcher_thread();
-        create_controller_thread();
+        qDebug() << "starting all threads from main: " << QThread::currentThread();
+        CreateWatchdogThread();
+        CreateDispatcherThread();
+        CreateControllerThread();
     }
 
     void Manager::SubscribeWatchdog(QObject* object)
     {
-        qDebug() << "SubscribeWatchdog slot is called " << QThread::currentThread();
+        qDebug() << "subscribe watchdog slot is called " << QThread::currentThread();
         WatchdogSubscribeEvent* event = new WatchdogSubscribeEvent();
-        event->set_data(object->objectName());
+        event->SetObjectName(object->objectName());
 
-        QCoreApplication::postEvent(watchdog_thread_object, event,Qt::QueuedConnection);
+        QCoreApplication::postEvent(_watchdog, event,Qt::QueuedConnection);
     }
 
-    void Manager::create_watchdog_thread()
+    void Manager::CreateWatchdogThread()
     {
-        thread_watchdog = new QThread();
-        watchdog_thread_object = new Watchdog();
-        watchdog_thread_object->moveToThread(thread_watchdog);
+        _watchdogThread = new QThread();
+        _watchdog = new Watchdog();
+        _watchdog->moveToThread(_watchdogThread);
 
-        connect(thread_watchdog, &QThread::started, watchdog_thread_object, &Watchdog::Thread_Watchdog);
-        thread_watchdog->start();
+        connect(_watchdogThread, &QThread::started, _watchdog, &Watchdog::WatchdogThread);
+        _watchdogThread->start();
     }
 
-    void Manager::create_dispatcher_thread()
+    void Manager::CreateDispatcherThread()
     {
-        thread_dispatcher = new QThread();
-        dispatcher_thread_object = new Dispatcher();
-        dispatcher_thread_object->moveToThread(thread_dispatcher);
+        _dispatcherThread = new QThread();
+        _dispatcher = new Dispatcher();
+        _dispatcher->moveToThread(_dispatcherThread);
 
-        connect(thread_dispatcher, &QThread::started, dispatcher_thread_object, &Dispatcher::Thread_Dispatcher);
-        connect(dispatcher_thread_object, SIGNAL(Subscribe_Watchdog_Dispatcher(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
-        thread_dispatcher->start();
+        connect(_dispatcherThread, &QThread::started, _dispatcher, &Dispatcher::Thread_Dispatcher);
+        connect(_dispatcher, SIGNAL(Subscribe_Watchdog_Dispatcher(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
+        _dispatcherThread->start();
     }
 
-    void Manager::create_controller_thread()
+    void Manager::CreateControllerThread()
     {
-        thread_controller = new QThread();
-        controller_thread_object = new Controller();
-        controller_thread_object->moveToThread(thread_controller);
+        _controllerThread = new QThread();
+        _controller = new Controller();
+        _controller->moveToThread(_controllerThread);
 
-        connect(thread_controller, &QThread::started, controller_thread_object, &Controller::Thread_Controller);
-        connect(controller_thread_object, SIGNAL(Subscribe_Watchdog_Controller(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
-        connect(controller_thread_object, SIGNAL(Send_List(CanDataList)),dispatcher_thread_object,SLOT(List_Receiver_From_Controller(CanDataList)));
-        thread_controller->start();
+        connect(_controllerThread, &QThread::started, _controller, &Controller::Thread_Controller);
+        connect(_controller, SIGNAL(Subscribe_Watchdog_Controller(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
+        connect(_controller, SIGNAL(Send_List(CanDataList)),_dispatcher,SLOT(List_Receiver_From_Controller(CanDataList)));
+        _controllerThread->start();
     }
 }

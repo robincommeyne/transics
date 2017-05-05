@@ -2,10 +2,6 @@
 #define MANAGER_H
 
 #include <QObject>
-#include <QDateTime>
-#include <QString>
-
-class QThread;
 
 namespace cangateway
 {
@@ -18,24 +14,27 @@ namespace cangateway
         Q_OBJECT
         public:
             explicit Manager(QObject* app);
+
+        private:
+            QObject* _manager;
+
+            Watchdog* _watchdog;
+            Controller* _controller;
+            Dispatcher* _dispatcher;
+
+            QThread* _watchdogThread;
+            QThread* _dispatcherThread;
+            QThread* _controllerThread;
+
+            void CreateWatchdogThread();
+            void CreateDispatcherThread();
+            void CreateControllerThread();
+
         public slots:
             void Init();
+
         private slots:
             void SubscribeWatchdog(QObject* object);
-        private:
-            QObject* _app;
-
-            Watchdog* watchdog_thread_object;
-            Controller* controller_thread_object;
-            Dispatcher* dispatcher_thread_object;
-
-            QThread* thread_watchdog;
-            QThread* thread_dispatcher;
-            QThread* thread_controller;
-
-            void create_watchdog_thread();
-            void create_dispatcher_thread();
-            void create_controller_thread();
     };
 }
 

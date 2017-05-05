@@ -2,37 +2,27 @@
 /*! Class for program logging */
 #include <QString>
 
-class Logging
-{
-    private:
-        QString Loglevel;
-        QString Message;
-        int RotationInterval;
-        int Filesize;
+namespace cangateway {
 
+    class Logging
+    {
+        public:
+            void InitLogging(
+                    int _rotationInterval, /**< Rotation interval in hours */
+                    int _fileSize /**< log file size in bytes */
+            );
 
-    public:
+            void Log(
+                    QString _logLevel,/**< specifies the desired log level, accepts trace, debug, info, warning, error, fatal */
+                    QString _message/**< contains logging message */
+            );
 
-        //! Initiates the boost logging library.
-        /*!
-          Initlogging is called at startup to set the rotation interval and filesize.
-         */
+         private:
+            const int _setToMegaByte = 1024*1024; /**< specifies the value to convert to MB */
+            const int _maxFolderSize = 10; /**< specifies the max folder size in MB */
 
-        void InitLogging(
-                int RotationInterval, /**< Rotation interval in hours */
-                int Filesize /**< log file size in bytes */
-        );
+    };
 
-        //! Log message with set loglevel.
-        /*!
-          Log can be called with the added parameters to make an entry to the log file
-          that is made using the boost library.
-         */
+}
 
-        void Log(
-                QString Loglevel,/**< specifies the desired log level, accepts trace, debug, info, warning, error, fatal */
-                QString message/**< contains logging message */
-        );
-
-};
 

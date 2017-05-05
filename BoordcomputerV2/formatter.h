@@ -1,6 +1,4 @@
 /*! \file */
-/*! Class to change file format */
-
 #ifndef FORMATTER_H
 #define FORMATTER_H
 
@@ -13,23 +11,14 @@ namespace cangateway {
 
     class Formatter
     {
-        private:
-
-            QFile configfile;
-            CanData candata;
-
         public:
-            QJsonObject ToJsonObject(
-                    CanData candata /**< Json object as input */
-            );
+            QJsonObject ToJsonObject(CanData canData);
             //!< Converts given object from CanData class to QJsonObject
 
             Config CompressedToObject(QFile &configfile);
+            //!< Converts given compressed file to Config object
 
-
-            Config ToObject(
-                    QFile &configfile /**< Qfile to convert to QObject */
-            );
+            Config ToObject(QFile &configfile);
             //!< Tries to convert Qfile to QObject of the Config Class
 
             QJsonDocument ToJsonDocument(QList<CanData> FilteredList);
