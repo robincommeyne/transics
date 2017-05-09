@@ -1,4 +1,3 @@
-/*! \file */
 #ifndef CANDATA_H
 #define CANDATA_H
 
@@ -10,19 +9,19 @@ namespace cangateway {
     {
         private:
 
-            QString description;
-            int id;
-            QString raw;
-            int value;
-            int timestamp;
+            QString _description;
+            QString _raw;
+            int _id;
+            int _value;
+            int _timestamp;
 
         public:
 
-             QString Description(){return description;}
-             int ID(){return id;}
-             QString RAW(){return raw;}
-             int Value(){return value;}
-             int Timestamp(){return timestamp;}
+             QString Description(){return _description;}
+             int ID(){return _id;}
+             QString RAW(){return _raw;}
+             int Value(){return _value;}
+             int Timestamp(){return _timestamp;}
 
              //void SetDescription(QString setDescription){description = setDescription;}
              //void SetID(int setId){id = setId;}
@@ -31,7 +30,7 @@ namespace cangateway {
              //void SetTimeStamp(int setTimeStamp){timestamp = setTimeStamp;}
 
              CanData(int setValue,QString setDescription,int setId,QString setRaw,int setTimeStamp);
-             CanData();
+             CanData(){}
     };
 
 }

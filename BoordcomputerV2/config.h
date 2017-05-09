@@ -12,15 +12,15 @@ namespace cangateway {
 
             Config();
 
-            void set_readinterval(int readinterval){ReadInterval = readinterval;}
-            int get_readinterval() const { return ReadInterval; }
+            void set_readinterval(int readinterval){_readInterval = readinterval;}
+            int get_readinterval() const { return _readInterval; }
 
-            void set_configmap(QMap<QString, bool> configmap){Configmap = configmap;}
-            QMap<QString, bool> get_configmap() const {return Configmap;}
+            void set_configmap(QMap<QString, bool> configmap){_configmap = configmap;}
+            QMap<QString, bool> get_configmap() const {return _configmap;}
 
         private:
-            QMap<QString, bool> Configmap;
-            int ReadInterval;
+            QMap<QString, bool> _configmap;
+            int _readInterval;
 
     };
 

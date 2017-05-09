@@ -46,8 +46,8 @@ namespace cangateway
         _dispatcher = new Dispatcher();
         _dispatcher->moveToThread(_dispatcherThread);
 
-        connect(_dispatcherThread, &QThread::started, _dispatcher, &Dispatcher::Thread_Dispatcher);
-        connect(_dispatcher, SIGNAL(Subscribe_Watchdog_Dispatcher(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
+        connect(_dispatcherThread, &QThread::started, _dispatcher, &Dispatcher::DispatcherThread);
+        connect(_dispatcher, SIGNAL(SubscribeWatchdogDispatcher(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
         _dispatcherThread->start();
     }
 
@@ -57,9 +57,9 @@ namespace cangateway
         _controller = new Controller();
         _controller->moveToThread(_controllerThread);
 
-        connect(_controllerThread, &QThread::started, _controller, &Controller::Thread_Controller);
-        connect(_controller, SIGNAL(Subscribe_Watchdog_Controller(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
-        connect(_controller, SIGNAL(Send_List(CanDataList)),_dispatcher,SLOT(List_Receiver_From_Controller(CanDataList)));
+        connect(_controllerThread, &QThread::started, _controller, &Controller::ControllerThread);
+        connect(_controller, SIGNAL(SubscribeWatchdogController(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
+        connect(_controller, SIGNAL(SendList(CanDataList)),_dispatcher,SLOT(ReceiveListFromController(CanDataList)));
         _controllerThread->start();
     }
 }

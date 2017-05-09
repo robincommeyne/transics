@@ -1,58 +1,68 @@
 /*! \file */
+#include <QtConcurrent/QtConcurrent>
 #include "dispatcher.h"
-#include "watchdog.h"
-#include "controller.h"
-#include "compression.h"
-#include "formatter.h"
-#include "logging.h"
-#include "config.h"
-
-#include <QFile>
-#include <QCoreApplication>
-#include <QTimer>
-#include <QObject>
-#include "controller.h"
 
 namespace cangateway {
 
     Dispatcher::Dispatcher()
     {
-        updatelisttimer = new QTimer(this);
-        connect(updatelisttimer, SIGNAL(timeout()), this, SLOT(TimerThread()));
-        updatelisttimer->start(1000);
+        _updatelisttimer = new QTimer(this);
+        connect(_updatelisttimer, SIGNAL(timeout()), this, SLOT(DeviceController()));
+        _updatelisttimer->start(1000);
     }
 
-    void Dispatcher::Thread_Dispatcher()
+    void Dispatcher::DispatcherThread()
     {
         qDebug() << "Dispatcher thread started! Ready to process Events / Signals!: " << QThread::currentThread();
         this->setObjectName("Dispatcher");
     }
 
-    void Dispatcher::TimerThread()
+    void Dispatcher::DeviceController()
     {
-        jsondocument = formatter.ToJsonDocument(GetFilteredListItem(configfrombluetooth,listfromcontroller));
-        compression.Zip(jsondocument.toBinaryData(),bytearray);
+        //qmap overlopen waar devices samen met hun configs inzitten
+        //deze qmap moet opgemaakt worden via de ontvangen bluetooth
+        for(auto key : _listofdevices.keys())
+        {
+            QFuture<void> future = QtConcurrent::run(this,&Dispatcher::SendData,key,_listofdevices.value(key),bluetooth);
+            future.waitForFinished();
+        }
 
-        //1* bytearray meegeven naar bluetooth of naar filesystem
-
-        emit Subscribe_Watchdog_Dispatcher(this);
-        updatelisttimer->start(1000);
+        emit SubscribeWatchdogDispatcher(this);
+        _updatelisttimer->start(1000);
     }
 
-    void Dispatcher::List_Receiver_From_Controller(CanDataList candata)
+    void Dispatcher::SendData(QString _deviceAddress, Config _deviceConfig, Receivers _deviceReceiver)
+    {
+        switch(_deviceReceiver)
+        {
+            case bluetooth:
+                _jsondocument = _formatter.ToJsonDocument(GetFilteredListItem(_deviceConfig,_listfromcontroller));
+                _compression.Zip(_jsondocument.toBinaryData(),_bytearray);
+                SendBluetooth(_deviceAddress,_bytearray);
+                break;
+            case filesystem:
+                //SendFileSystem();
+                break;
+            case tcp:
+                //SendTCP();
+                break;
+        }
+    }
+
+    void Dispatcher::ReceiveListFromController(CanDataList candata)
     {
         qDebug() << "List Receiver From Controller is called";
-        if(listfromcontroller.length()+candata.length()>1000)
+        if(_listfromcontroller.length()+candata.length()>1000)
         {
-            int difference = listfromcontroller.length()+candata.length()-1000;
+            int difference = _listfromcontroller.length()+candata.length()-1000;
             for(int i=0; i<difference; ++i)
             {
-                listfromcontroller.removeFirst();
+                _listfromcontroller.removeFirst();
             }
         }
         else
         {
-            listfromcontroller.append(candata);
+            _listfromcontroller.append(candata);
         }
     }
 
@@ -61,10 +71,10 @@ namespace cangateway {
 //        /*! \todo implement function */
 //    }
 
-//    void Dispatcher::SendBluetooth(QFile DataToSend)
-//    {
-//        /*! \todo implement function */
-//    }
+    void Dispatcher::SendBluetooth(QString _deviceAddress, QByteArray _dataToSend)
+    {
+        /*! \todo implement function */
+    }
 
 //    void Dispatcher::ReceiveBluetooth()
 //    {
@@ -99,7 +109,7 @@ namespace cangateway {
                     {
                         if(listtofilter[i].Timestamp() % config.get_readinterval() == 0)
                         {
-                            filteredlist.append(listtofilter[i]);
+                            _filteredlist.append(listtofilter[i]);
                         }
                     }
 
@@ -107,12 +117,8 @@ namespace cangateway {
             }
         }
 
-        return filteredlist;
+        return _filteredlist;
     }
 
-//    QFile Dispatcher::DeviceController(Config config)
-//    {
-//        /*! \todo implement function */
-//    }
 }
 

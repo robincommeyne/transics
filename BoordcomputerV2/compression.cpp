@@ -1,33 +1,33 @@
 /*! \file */
 #include "compression.h"
-#include "watchdog.h"
-#include "logging.h"
 
+namespace cangateway {
 
-
-int Compression::Zip(QByteArray in, QByteArray &out)
-{
-  if(in.isEmpty())
-  {
-    return 1;
-  }
-  else
-  {
-    out = qCompress(in,9);
-    return 0;
-  }
-
-}
-int Compression::UnZip(QByteArray in, QByteArray &out)
-{
-
-    if(in.isEmpty())
+    int Compression::Zip(QByteArray in, QByteArray &out)
     {
-      return 1;
+      if(in.isEmpty())
+      {
+        return 1;
+      }
+      else
+      {
+        out = qCompress(in,9);
+        return 0;
+      }
+
     }
-    else
+    int Compression::UnZip(QByteArray in, QByteArray &out)
     {
-      out = qUncompress(in);
-      return 0;
+
+        if(in.isEmpty())
+        {
+          return 1;
+        }
+        else
+        {
+          out = qUncompress(in);
+          return 0;
+        }
     }
 }
+

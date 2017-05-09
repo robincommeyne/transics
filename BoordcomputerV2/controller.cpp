@@ -8,12 +8,12 @@ namespace cangateway {
 
     Controller::Controller()
     {
-        canintervaltimer = new QTimer(this);
-        connect(canintervaltimer, SIGNAL(timeout()), this, SLOT(TimerElapsed()));
-        canintervaltimer->start(1000);
+        _canIntervalTimer = new QTimer(this);
+        connect(_canIntervalTimer, SIGNAL(timeout()), this, SLOT(ControllerHandler()));
+        _canIntervalTimer->start(1000);
     }
 
-    void Controller::Thread_Controller()
+    void Controller::ControllerThread()
     {
         qDebug() << "Controller thread started! Ready to process Events / Signals!: " << QThread::currentThread();
         this->setObjectName("Controller");
@@ -21,28 +21,28 @@ namespace cangateway {
 
     void Controller::InitCan()
     {
-        can.ON();
-        can.begin();
+        _can.ON();
+        _can.begin();
     }
 
     void Controller::GetCan()
     {
        qDebug() << "GetCan is called";
 
-       EngineLoad = CanData(can.getEngineLoad(),"EngineLoad",can.getID(),can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
-       CoolantTemp = CanData(can.getEngineCoolantTemp(),"EngineCoolantTemp",can.getID(),can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
+       _engineLoad = CanData(_can.getEngineLoad(),"EngineLoad",_can.getID(),_can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
+       _coolantTemp = CanData(_can.getEngineCoolantTemp(),"EngineCoolantTemp",_can.getID(),_can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
        //alle paramaters komen hier
 
-       ListToPopulate << EngineLoad << CoolantTemp;
+       _listToPopulate << _engineLoad << _coolantTemp;
 
-       emit Send_List(ListToPopulate);
+       emit SendList(_listToPopulate);
     }
 
-    void Controller::TimerElapsed()
+    void Controller::ControllerHandler()
     {
        GetCan();
-       emit Subscribe_Watchdog_Controller(this);
-       canintervaltimer->start(1000);
+       emit SubscribeWatchdogController(this);
+       _canIntervalTimer->start(1000);
     }
 
 }

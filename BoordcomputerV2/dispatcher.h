@@ -4,16 +4,11 @@
 #ifndef DISPATCHER_H
 #define DISPATCHER_H
 
-#include <QString>
-#include <QObject>
-#include <QFile>
 #include <QtCore>
-#include <QList>
 #include "config.h"
 #include "canData.h"
 #include "formatter.h"
 #include "compression.h"
-
 
 namespace cangateway
 {
@@ -24,35 +19,40 @@ namespace cangateway
     {
         Q_OBJECT
         private:
-            QFile DataToSend;
-            QFile ReceivedData;
-            QString SendFilepath;
-            QString ReadFilePath;
-            Config configfrombluetooth;
-            QTimer *updatelisttimer;
-            Formatter formatter;
-            QJsonDocument jsondocument;
-            QByteArray bytearray;
-            Compression compression;
-            QList<CanData> filteredlist;
-
+            QTimer *_updatelisttimer;
+            Formatter _formatter;
+            QJsonDocument _jsondocument;
+            QByteArray _bytearray;
+            Compression _compression;
+            QList<CanData> _filteredlist;
+            QMap<QString,Config> _listofdevices;
 
         public slots:
-            void Thread_Dispatcher();
-            void TimerThread();
-            void List_Receiver_From_Controller(CanDataList candata);
+            void DispatcherThread();
+            void DeviceController();
+            void ReceiveListFromController(CanDataList candata);
+
         signals:
-            void Subscribe_Watchdog_Dispatcher(QObject* object);
+            void SubscribeWatchdogDispatcher(QObject* object);
 
         public:
             Dispatcher();
-            QList<CanData> listfromcontroller;
+            QList<CanData> _listfromcontroller;
+            enum Receivers {bluetooth, filesystem, tcp};
+
+            void SendData(
+                    QString _deviceAddress, /**< QString containing address from device*/
+                    Config _deviceConfig, /**< Config containing config linked with device address*/
+                    Receivers _deviceReceiver /**< containing the receiver */
+            );
+
             void DataReceived(
                     QFile ReceivedData /**< Qfile containing the received data */
             );
 
             void SendBluetooth(
-                    QFile DataToSend /**< Qfile containing the data to send out */
+                    QString _deviceAddress,
+                    QByteArray _dataToSend /**< Qfile containing the data to send out */
             );
             //!< Sends Qfile out trough a bluetooth connection
 
@@ -79,11 +79,6 @@ namespace cangateway
             );
             //!< Filters the list according to the filters contained in the object and sends back QList of CanData objects
 
-
-            QFile DeviceController(
-                    Config config /**< Object from the Config class */
-            );
-            //!< Receives Objects of the Config class and keeps track of number of devices, limiting them to a maximum of 2 and returns compressed file to send.
     };
 }
 
