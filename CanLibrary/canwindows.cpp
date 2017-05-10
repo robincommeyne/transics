@@ -33,7 +33,7 @@ unsigned int CAN::getTimingAdvance()
 {
     return 0;
 }
-unsigned int CAN::getIntankeAirTemp()
+unsigned int CAN::getIntakeAirTemp()
 {
     return 0;
 }

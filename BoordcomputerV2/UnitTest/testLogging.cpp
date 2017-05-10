@@ -1,6 +1,7 @@
 #include "unittest.h"
 #include "../logging.h"
 
+using namespace cangateway;
 
 void UnitTest::testLoggingInit()
 {

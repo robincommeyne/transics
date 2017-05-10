@@ -94,10 +94,10 @@ void UnitTest::CheckUnfilteredListSize()
 
     for(int i=0; i < 350; ++i)
     {
-        dispatcher.List_Receiver_From_Controller(candatalist);
+        dispatcher.ReceiveListFromController(candatalist);
     }
 
-    if(dispatcher.listfromcontroller.length()<=1000)
+    if(dispatcher._listfromcontroller.length()<=1000)
     {
         toobig = false;
     }

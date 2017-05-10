@@ -42,7 +42,7 @@ public:
     unsigned int getEngineRPM();
     unsigned int getVehicleSpeed();
     unsigned int getTimingAdvance();
-    unsigned int getIntankeAirTemp();
+    unsigned int getIntakeAirTemp();
     unsigned int getMAFairFlowRate();
     unsigned int getThrottlePosition();
     unsigned int getFuelLevel();

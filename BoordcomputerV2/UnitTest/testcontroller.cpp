@@ -10,9 +10,6 @@ void UnitTest::testControllerInit()
 {
 
     Controller control;
-    control.InitCan();
-
-
 
 }
 

@@ -22,10 +22,11 @@ namespace cangateway
             QTimer *_updatelisttimer;
             Formatter _formatter;
             QJsonDocument _jsondocument;
-            QByteArray _bytearray;
             Compression _compression;
             QList<CanData> _filteredlist;
             QMap<QString,Config> _listofdevices;
+            const int _intervalTimerInMs = 1000;
+            const int _unfilteredListSize = 1000;
 
         public slots:
             void DispatcherThread();

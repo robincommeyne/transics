@@ -5,7 +5,7 @@
 #include "../compression.h"
 
 
-
+using namespace cangateway;
 
 void UnitTest::testCompression()
 {

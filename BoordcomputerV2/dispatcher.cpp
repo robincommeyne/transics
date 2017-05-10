@@ -8,7 +8,16 @@ namespace cangateway {
     {
         _updatelisttimer = new QTimer(this);
         connect(_updatelisttimer, SIGNAL(timeout()), this, SLOT(DeviceController()));
-        _updatelisttimer->start(1000);
+        _updatelisttimer->start(_intervalTimerInMs);
+
+        //LOADING OF LOCAL CONFIG
+        QFile file("JsonTestFile.json");
+        file.open(QIODevice::ReadOnly);
+        Formatter format;
+        Config config;
+        config = format.ToObject(file);
+        file.close();
+        _listofdevices.insert("filesystem",config);
     }
 
     void Dispatcher::DispatcherThread()
@@ -19,8 +28,6 @@ namespace cangateway {
 
     void Dispatcher::DeviceController()
     {
-        //qmap overlopen waar devices samen met hun configs inzitten
-        //deze qmap moet opgemaakt worden via de ontvangen bluetooth
         for(auto key : _listofdevices.keys())
         {
             QFuture<void> future = QtConcurrent::run(this,&Dispatcher::SendData,key,_listofdevices.value(key),bluetooth);
@@ -28,11 +35,12 @@ namespace cangateway {
         }
 
         emit SubscribeWatchdogDispatcher(this);
-        _updatelisttimer->start(1000);
+        _updatelisttimer->start(_intervalTimerInMs);
     }
 
     void Dispatcher::SendData(QString _deviceAddress, Config _deviceConfig, Receivers _deviceReceiver)
     {
+        QByteArray _bytearray;
         switch(_deviceReceiver)
         {
             case bluetooth:
@@ -52,9 +60,9 @@ namespace cangateway {
     void Dispatcher::ReceiveListFromController(CanDataList candata)
     {
         qDebug() << "List Receiver From Controller is called";
-        if(_listfromcontroller.length()+candata.length()>1000)
+        if(_listfromcontroller.length()+candata.length()>_unfilteredListSize)
         {
-            int difference = _listfromcontroller.length()+candata.length()-1000;
+            int difference = _listfromcontroller.length()+candata.length()-_unfilteredListSize;
             for(int i=0; i<difference; ++i)
             {
                 _listfromcontroller.removeFirst();
@@ -73,7 +81,7 @@ namespace cangateway {
 
     void Dispatcher::SendBluetooth(QString _deviceAddress, QByteArray _dataToSend)
     {
-        /*! \todo implement function */
+        qDebug() << "sendbluetooth is called";
     }
 
 //    void Dispatcher::ReceiveBluetooth()
