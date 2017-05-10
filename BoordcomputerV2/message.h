@@ -14,7 +14,7 @@ namespace cangateway {
 
             QString Type(){return _type;}
             QString Content(){return _content;}
-            QString Timestamp(){return _timestamp;}
+            int Timestamp(){return _timestamp;}
 
         private:
             QString _type;
