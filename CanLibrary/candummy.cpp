@@ -1,4 +1,4 @@
-#include "canwindows.h"
+#include "candummy.h"
 
 CAN::CAN()
 {

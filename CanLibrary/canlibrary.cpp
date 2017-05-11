@@ -1,4 +1,4 @@
-#ifdef linux
+#ifdef __arm__
 
 #include "arduPiCANBUS/arduPiCAN.h"
 #include "arduPiCANBUS/arduPi.h"
@@ -7,9 +7,9 @@
 #include "arduPiCANBUS/arduPiUART.h"
 #include "arduPiCANBUS/arduPiUtils.h"
 
-#elif _WIN32
+#else
 
-#include "canwindows.h"
+#include "candummy.h"
 
 #endif
 
