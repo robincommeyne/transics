@@ -1,14 +1,14 @@
 #ifndef CANLIBRARY_H
 #define CANLIBRARY_H
 
-#ifdef linux
+#ifdef __arm__
 
 #include "arduPiCANBUS/arduPiCAN.h"
 
 
-#elif _WIN32
+#else
 
-#include "canwindows.h"
+#include "candummy.h"
 
 #endif
 
