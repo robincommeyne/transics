@@ -2,6 +2,8 @@
 #define MANAGER_H
 
 #include <QObject>
+#include "bluetooth.h"
+#include "QBluetoothLocalDevice"
 
 namespace cangateway
 {
@@ -21,6 +23,8 @@ namespace cangateway
             Watchdog* _watchdog;
             Controller* _controller;
             Dispatcher* _dispatcher;
+            QBluetoothLocalDevice _localDevice;
+            Bluetooth _bluetooth;
 
             QThread* _watchdogThread;
             QThread* _dispatcherThread;

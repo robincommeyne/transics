@@ -15,11 +15,11 @@ namespace cangateway {
             QJsonObject ToJsonObject(CanData canData);
             //!< Converts given object from CanData class to QJsonObject
 
-            Config CompressedToObject(QFile &configfile);
+            Config CompressedToObject(QByteArray configfile);
             //!< Converts given compressed file to Config object
 
-            Config ToObject(QFile &configfile);
-            //!< Tries to convert Qfile to QObject of the Config Class
+            Config ToObject(QByteArray configfile);
+            //!< Tries to convert QByteArray to QObject of the Config Class
 
             QJsonDocument ToJsonDocument(QList<CanData> FilteredList);
 

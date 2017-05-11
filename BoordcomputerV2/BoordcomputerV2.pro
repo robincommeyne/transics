@@ -26,7 +26,8 @@ SOURCES += \
     watchdog.cpp \
     main.cpp \
     manager.cpp \
-    message.cpp
+    message.cpp \
+    bluetooth.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -52,7 +53,8 @@ HEADERS += \
     watchdog.h \
     watchdogsubscriberevent.h \
     manager.h \
-    message.h
+    message.h \
+    bluetooth.h
 
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

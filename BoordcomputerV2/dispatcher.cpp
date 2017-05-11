@@ -1,6 +1,7 @@
 /*! \file */
 #include <QtConcurrent/QtConcurrent>
 #include "dispatcher.h"
+#include "QBluetoothSocket"
 
 namespace cangateway {
 
@@ -10,14 +11,7 @@ namespace cangateway {
         connect(_updatelisttimer, SIGNAL(timeout()), this, SLOT(DeviceController()));
         _updatelisttimer->start(_intervalTimerInMs);
 
-        //LOADING OF LOCAL CONFIG
-        QFile file("JsonTestFile.json");
-        file.open(QIODevice::ReadOnly);
-        Formatter format;
-        Config config;
-        config = format.ToObject(file);
-        file.close();
-        _listofdevices.insert("filesystem",config);
+
     }
 
     void Dispatcher::DispatcherThread()
@@ -74,20 +68,34 @@ namespace cangateway {
         }
     }
 
-//    void Dispatcher::DataReceived(QFile ReceivedData)
-//    {
-//        /*! \todo implement function */
-//    }
+    void Dispatcher::DataReceived()
+    {
+        qDebug() << "Reading Socket...";
+        QBluetoothSocket *socket = qobject_cast<QBluetoothSocket *>(sender());
+        if (!socket)
+            return;
+
+        //while (socket->canReadLine()) {
+            QByteArray line = socket->readLine().trimmed();
+
+            qDebug() << socket->peerAddress() << QString::fromUtf8(line.constData(), line.length());
+
+
+             _listofdevices.insert(socket->peerAddress().toString(),_formatter.ToObject(line));
+
+
+    }
 
     void Dispatcher::SendBluetooth(QString _deviceAddress, QByteArray _dataToSend)
     {
-        qDebug() << "sendbluetooth is called";
+
     }
 
-//    void Dispatcher::ReceiveBluetooth()
-//    {
-//        /*! \todo implement function */
-//    }
+    void Dispatcher::DeviceConnected()
+    {
+
+
+    }
 
     void Dispatcher::SendFileSystem(QFile &DataToStore,QString SendFilePath)
     {

@@ -55,7 +55,7 @@ namespace cangateway {
          return doc;
     }
 
-    Config Formatter::CompressedToObject(QFile &_receivedConfig)
+    Config Formatter::CompressedToObject(QByteArray _receivedConfig)
     {
         Config _config;
         Compression _decompress;
@@ -64,25 +64,16 @@ namespace cangateway {
         QList<int> _configValues;
         QList<bool> _values;
 
-        _receivedConfig.open(QIODevice::ReadOnly);
-        QByteArray compressed = _receivedConfig.readAll();
 
+        QByteArray _uncompressed;
+        _decompress.UnZip(_receivedConfig,_uncompressed);
 
-        if (_receivedConfig.error() != QFile::NoError) {
-            qDebug() << QString("Failed to read from file");
-            return _config;
-        }
-        _receivedConfig.close();
-
-        QByteArray uncompressed;
-        _decompress.UnZip(compressed,uncompressed);
-
-        if (uncompressed.isEmpty()) {
+        if (_uncompressed.isEmpty()) {
             qDebug() << "No data was currently available for reading from file";
             return _config;
         }
 
-        QJsonDocument doc(QJsonDocument::fromJson(uncompressed));
+        QJsonDocument doc(QJsonDocument::fromJson(_uncompressed));
         if (!doc.isObject()) {
            qDebug() << "Document is not an object";
            return _config;
@@ -129,7 +120,7 @@ namespace cangateway {
 
     }
 
-    Config Formatter::ToObject(QFile &_receivedConfig)
+    Config Formatter::ToObject(QByteArray _receivedConfig)
     {
         Config _config;
         QStringList _descriptions;
@@ -137,21 +128,9 @@ namespace cangateway {
         QList<int> _configValues;
         QList<bool> _values;
 
-        _receivedConfig.open(QIODevice::ReadOnly);
-        QByteArray file = _receivedConfig.readAll();
 
-        if (_receivedConfig.error() != QFile::NoError) {
-            qDebug() << QString("Failed to read from file");
-            return _config;
-        }
-        _receivedConfig.close();
 
-        if (file.isEmpty()) {
-            qDebug() << "No data was currently available for reading from file";
-            return _config;
-        }
-
-        QJsonDocument doc(QJsonDocument::fromJson(file));
+        QJsonDocument doc(QJsonDocument::fromJson(_receivedConfig));
 
         if (!doc.isObject()) {
             qDebug() << "Document is not an object";

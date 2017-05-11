@@ -19,6 +19,19 @@ namespace cangateway
         CreateWatchdogThread();
         CreateDispatcherThread();
         CreateControllerThread();
+
+
+            // Check if Bluetooth is available on this device
+            if (_localDevice.isValid()) {
+
+                // Turn Bluetooth on
+                _localDevice.powerOn();
+                qDebug() << "bluetooth powered on";
+
+                // Make it visible to others
+                _localDevice.setHostMode(QBluetoothLocalDevice::HostDiscoverable);
+            }
+        _bluetooth.startServer(_localDevice.address());
     }
 
     void Manager::SubscribeWatchdog(QObject* object)

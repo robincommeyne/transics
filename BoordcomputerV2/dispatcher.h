@@ -9,6 +9,7 @@
 #include "canData.h"
 #include "formatter.h"
 #include "compression.h"
+#include "bluetooth.h"
 
 namespace cangateway
 {
@@ -28,10 +29,16 @@ namespace cangateway
             const int _intervalTimerInMs = 1000;
             const int _unfilteredListSize = 1000;
 
+
+
+
+
+
         public slots:
             void DispatcherThread();
             void DeviceController();
             void ReceiveListFromController(CanDataList candata);
+            void DataReceived();
 
         signals:
             void SubscribeWatchdogDispatcher(QObject* object);
@@ -47,9 +54,7 @@ namespace cangateway
                     Receivers _deviceReceiver /**< containing the receiver */
             );
 
-            void DataReceived(
-                    QFile ReceivedData /**< Qfile containing the received data */
-            );
+
 
             void SendBluetooth(
                     QString _deviceAddress,
@@ -57,8 +62,8 @@ namespace cangateway
             );
             //!< Sends Qfile out trough a bluetooth connection
 
-            void ReceiveBluetooth();
-            //!< Handles the incomming bluetooth files and triggers DataReceived event
+            void DeviceConnected();
+            //!< Is called by a connection to a device to fill in the list of connected devices
 
 
             void SendFileSystem(
