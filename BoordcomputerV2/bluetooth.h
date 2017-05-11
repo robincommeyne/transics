@@ -28,7 +28,7 @@ namespace cangateway {
 
             void startServer(const QBluetoothAddress &localAdapter = QBluetoothAddress());
             void stopServer();
-            void sendMessage(const QString &message);
+            void sendData(QString _deviceAddress, QByteArray _dataToSend);
 
         public slots:
 
