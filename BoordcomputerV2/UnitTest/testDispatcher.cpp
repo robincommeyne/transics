@@ -57,11 +57,11 @@ void UnitTest::CheckFilteredListForWrightObjects()
 {
     QFile testfile("JsonTestFile.json");
     testfile.open(QIODevice::ReadOnly);
-
+    QByteArray testfileArray = testfile.readAll();
     Formatter format;
     Config config;
 
-    config = format.ToObject(testfile);
+    config = format.ToObject(testfileArray);
     testfile.close();
 
     QList<CanData> candatalist;

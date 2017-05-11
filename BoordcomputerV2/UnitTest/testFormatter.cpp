@@ -22,16 +22,12 @@ void UnitTest::testCompressedToObject()
     Compression compress;
 
     compress.Zip(uncompressed,compressed);
-    QFile compressedTestFile("JsonTestFile.zip");
-    compressedTestFile.open(QIODevice::ReadWrite);
-    compressedTestFile.write(compressed);
-    compressedTestFile.close();
 
     Formatter format;
 
     Config config;
 
-    config = format.CompressedToObject(compressedTestFile);
+    config = format.CompressedToObject(compressed);
 
     QMap<QString,bool> map = config.get_configmap();
 
@@ -48,12 +44,14 @@ void UnitTest::testToObject()
     QFile testfile("JsonTestFile.json");
     testfile.open(QIODevice::ReadOnly);
 
+    QByteArray testfileArray = testfile.readAll();
+
 
     Formatter format;
 
     Config config;
 
-    config = format.ToObject(testfile);
+    config = format.ToObject(testfileArray);
     testfile.close();
 
     QMap<QString,bool> map = config.get_configmap();

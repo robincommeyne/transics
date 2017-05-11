@@ -7,6 +7,7 @@
 QT       += testlib
 QT       += widgets
 QT       -= gui
+QT       += bluetooth
 
 TARGET = unittest
 CONFIG   += console
@@ -33,7 +34,8 @@ SOURCES +=\
         ../dispatcher.cpp \
         ../watchdog.cpp \
     testFormatter.cpp \
-    testDispatcher.cpp
+    testDispatcher.cpp \
+    ../bluetooth.cpp
 
 
 
@@ -66,7 +68,8 @@ HEADERS += \
     ../watchdog.h \
     ../watchdogsubscriberevent.h \
     ../manager.h \
-    ../getcanintervalevent.h
+    ../bluetooth.h
+
 
 
 
