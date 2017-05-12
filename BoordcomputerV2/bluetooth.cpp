@@ -1,5 +1,4 @@
 #include "bluetooth.h"
-#include "dispatcher.h"
 
 #include <qbluetoothserver.h>
 #include <qbluetoothsocket.h>
@@ -8,14 +7,13 @@
 
 namespace cangateway {
 
-
     static const QLatin1String serviceUuid("e8e10f95-1a70-4b27-9ccf-02010264e9c8");
 
-
-    Bluetooth::Bluetooth(QObject *parent)
-    :   QObject(parent), _rfcommServer(0)
+    Bluetooth::Bluetooth(QObject *parent):QObject(parent), _rfcommServer(0)
     {
-
+        _bluetoothTimer = new QTimer(this);
+        connect(_bluetoothTimer, SIGNAL(timeout()), this, SLOT(BluetoothHandler()));
+        _bluetoothTimer->start(_intervalTimerInMs);
     }
 
     Bluetooth::~Bluetooth()
@@ -23,7 +21,34 @@ namespace cangateway {
         stopServer();
     }
 
-        void Bluetooth::startServer(const QBluetoothAddress& localAdapter)
+    void Bluetooth::BluetoothThread()
+    {
+        qDebug() << "Bluetooth thread started! Ready to process Events / Signals!: " << QThread::currentThread();
+        this->setObjectName("Bluetooth");
+
+        if(_localDevice.isValid()){
+            _localDevice.powerOn();
+            qDebug() << "bluetooth powered on";
+
+            _localDevice.setHostMode(QBluetoothLocalDevice::HostDiscoverable);
+
+            startServer(_localDevice.address());
+        }
+        else
+            qDebug() << "no bluetooth controller";
+
+
+    }
+
+    void Bluetooth::BluetoothHandler()
+    {
+        //hier alles afhandelen om de 1s
+
+        emit SubscribeWatchdogBluetooth(this);
+        _bluetoothTimer->start(_intervalTimerInMs);
+    }
+
+    void Bluetooth::startServer(const QBluetoothAddress& localAdapter)
     {
         if (_rfcommServer)
             return;
@@ -37,11 +62,13 @@ namespace cangateway {
             return;
         }
 
+==== BASE ====
+    classId.prepend(QVariant::fromValue(QBluetoothUuid(serviceUuid)));
+==== BASE ====
 
         //serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceRecordHandle, (uint)0x00010010);
 
         QBluetoothServiceInfo::Sequence classId;
-
 
         classId << QVariant::fromValue(QBluetoothUuid(QBluetoothUuid::SerialPort));
         _serviceInfo.setAttribute(QBluetoothServiceInfo::BluetoothProfileDescriptorList,
@@ -106,18 +133,12 @@ namespace cangateway {
         _rfcommServer = 0;
     }
 
-    void Bluetooth::sendData(QString _deviceAddress, QByteArray _dataToSend)
+    void Bluetooth::sendMessage(const QString &message)
     {
-        QBluetoothAddress address(_deviceAddress);
+        QByteArray text = message.toUtf8() + '\n';
 
-        for( int i=0;i<_clientSockets.length();i++)
-        {
-            if (_clientSockets[i]->peerAddress() == address)
-            {
-                _clientSockets[i]->write(_dataToSend);
-            }
-        }
-
+        foreach (QBluetoothSocket *socket, _clientSockets)
+            socket->write(text);
     }
 
     void Bluetooth::clientConnected()
@@ -127,7 +148,6 @@ namespace cangateway {
         if (!socket)
             return;
 
-        Dispatcher* _dispatcher = new Dispatcher();
         connect(socket, SIGNAL(readyRead()), _dispatcher, SLOT(DataReceived()));
         connect(socket, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
         _clientSockets.append(socket);
