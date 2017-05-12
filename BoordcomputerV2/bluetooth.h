@@ -43,6 +43,7 @@ namespace cangateway {
             void BluetoothHandler();
             void clientConnected();
             void clientDisconnected();
+            void DataReceived();
             void sendData(QString _deviceAddress, QByteArray _dataToSend);
 
         private:

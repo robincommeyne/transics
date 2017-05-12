@@ -151,7 +151,7 @@ namespace cangateway {
         if (!socket)
             return;
 
-        connect(socket, SIGNAL(readyRead()), _dispatcher, SLOT(DataReceived()));
+        connect(socket, SIGNAL(readyRead()), this, SLOT(DataReceived()));
         connect(socket, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
         _clientSockets.append(socket);
         emit clientConnected(socket->peerName());
@@ -171,6 +171,23 @@ namespace cangateway {
 
         socket->deleteLater();
         qDebug() <<"client disconnected";
+    }
+    void Bluetooth::DataReceived()
+    {
+        qDebug() << "Reading Socket...";
+        QBluetoothSocket *socket = qobject_cast<QBluetoothSocket *>(sender());
+        if (!socket)
+            return;
+
+        //while (socket->canReadLine()) {
+            QByteArray line = socket->readLine().trimmed();
+
+            qDebug() << socket->peerAddress() << QString::fromUtf8(line.constData(), line.length());
+
+         emit SendReceivedData(socket->peerAddress().toString(),line);
+
+
+
     }
 
 

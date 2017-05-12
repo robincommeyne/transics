@@ -74,7 +74,7 @@ namespace cangateway {
     {
 
 
-            _listofdevices.insert(address,receivedData);
+            _listofdevices.insert(address,_formatter.ToObject(receivedData));
 
     }
 
