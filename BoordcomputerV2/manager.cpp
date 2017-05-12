@@ -73,6 +73,7 @@ namespace cangateway
 
         connect(_bluetoothThread, &QThread::started, _bluetooth, &Bluetooth::BluetoothThread);
         connect(_bluetooth, SIGNAL(SubscribeWatchdogBluetooth(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
+        connect(_dispatcher, SIGNAL(test(QString,QByteArray)),_bluetooth,SLOT(sendData(QString,QByteArray)));
         _bluetoothThread->start();
 
     }

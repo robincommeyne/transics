@@ -29,7 +29,6 @@ namespace cangateway {
 
             void startServer(const QBluetoothAddress &localAdapter = QBluetoothAddress());
             void stopServer();
-            void sendData(QString _deviceAddress, QByteArray _dataToSend);
 
         public slots:
             void BluetoothThread();
@@ -43,6 +42,7 @@ namespace cangateway {
             void BluetoothHandler();
             void clientConnected();
             void clientDisconnected();
+            void sendData(QString _deviceAddress, QByteArray _dataToSend);
 
         private:
             QBluetoothServiceInfo _serviceInfo;

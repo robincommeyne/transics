@@ -37,6 +37,7 @@ namespace cangateway
 
         signals:
             void SubscribeWatchdogDispatcher(QObject* object);
+            void test(QString,QByteArray);
 
         public:
             Dispatcher();

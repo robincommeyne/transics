@@ -10,8 +10,6 @@ namespace cangateway {
         _updatelisttimer = new QTimer(this);
         connect(_updatelisttimer, SIGNAL(timeout()), this, SLOT(DeviceController()));
         _updatelisttimer->start(_intervalTimerInMs);
-
-
     }
 
     void Dispatcher::DispatcherThread()
@@ -40,7 +38,7 @@ namespace cangateway {
             case bluetooth:
                 _jsondocument = _formatter.ToJsonDocument(GetFilteredListItem(_deviceConfig,_listfromcontroller));
                 _compression.Zip(_jsondocument.toBinaryData(),_bytearray);
-                SendBluetooth(_deviceAddress,_bytearray);
+                emit test(_deviceAddress,_bytearray);
                 break;
             case filesystem:
                 //SendFileSystem();
@@ -80,13 +78,7 @@ namespace cangateway {
 
             qDebug() << socket->peerAddress() << QString::fromUtf8(line.constData(), line.length());
 
-
-             _listofdevices.insert(socket->peerAddress().toString(),_formatter.ToObject(line));
-
-
-
-                //sendData(_listofdevices.firstKey(),QByteArray("hallo van de server"));
-
+            _listofdevices.insert(socket->peerAddress().toString(),_formatter.ToObject(line));
 
     }
 
