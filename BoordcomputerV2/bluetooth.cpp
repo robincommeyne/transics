@@ -9,140 +9,146 @@
 namespace cangateway {
 
 
-static const QLatin1String serviceUuid("e8e10f95-1a70-4b27-9ccf-02010264e9c8");
+    static const QLatin1String serviceUuid("e8e10f95-1a70-4b27-9ccf-02010264e9c8");
 
 
-Bluetooth::Bluetooth(QObject *parent)
-:   QObject(parent), _rfcommServer(0)
-{
+    Bluetooth::Bluetooth(QObject *parent)
+    :   QObject(parent), _rfcommServer(0)
+    {
 
-}
-
-Bluetooth::~Bluetooth()
-{
-    stopServer();
-}
-
-void Bluetooth::startServer(const QBluetoothAddress& localAdapter)
-{
-    if (_rfcommServer)
-        return;
-
-    _rfcommServer = new QBluetoothServer(QBluetoothServiceInfo::RfcommProtocol, this);
-    connect(_rfcommServer, SIGNAL(newConnection()), this, SLOT(clientConnected()));
-
-    bool result = _rfcommServer->listen(localAdapter);
-    if (!result) {
-        qWarning() << "Cannot bind server to" << localAdapter.toString();
-        return;
     }
 
+    Bluetooth::~Bluetooth()
+    {
+        stopServer();
+    }
 
-    //serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceRecordHandle, (uint)0x00010010);
+        void Bluetooth::startServer(const QBluetoothAddress& localAdapter)
+    {
+        if (_rfcommServer)
+            return;
 
-    QBluetoothServiceInfo::Sequence classId;
+        _rfcommServer = new QBluetoothServer(QBluetoothServiceInfo::RfcommProtocol, this);
+        connect(_rfcommServer, SIGNAL(newConnection()), this, SLOT(clientConnected()));
 
-
-    classId << QVariant::fromValue(QBluetoothUuid(QBluetoothUuid::SerialPort));
-    _serviceInfo.setAttribute(QBluetoothServiceInfo::BluetoothProfileDescriptorList,
-                             classId);
-
-    classId.prepend(QVariant::fromValue(QBluetoothUuid(serviceUuid)));
-
-    _serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceClassIds, classId);
-    _serviceInfo.setAttribute(QBluetoothServiceInfo::BluetoothProfileDescriptorList,classId);
-
-    _serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceName, tr("CAN data server"));
-    _serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceDescription,
-                             tr("Provide CAN data to mobile device"));
-    _serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceProvider, tr("Transics"));
-
-    _serviceInfo.setServiceUuid(QBluetoothUuid(serviceUuid));
+        bool result = _rfcommServer->listen(localAdapter);
+        if (!result) {
+            qWarning() << "Cannot bind server to" << localAdapter.toString();
+            return;
+        }
 
 
+        //serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceRecordHandle, (uint)0x00010010);
 
-    QBluetoothServiceInfo::Sequence publicBrowse;
-    publicBrowse << QVariant::fromValue(QBluetoothUuid(QBluetoothUuid::PublicBrowseGroup));
-    _serviceInfo.setAttribute(QBluetoothServiceInfo::BrowseGroupList,
-                             publicBrowse);
+        QBluetoothServiceInfo::Sequence classId;
 
-    QBluetoothServiceInfo::Sequence protocolDescriptorList;
-    QBluetoothServiceInfo::Sequence protocol;
-    protocol << QVariant::fromValue(QBluetoothUuid(QBluetoothUuid::L2cap));
-    protocolDescriptorList.append(QVariant::fromValue(protocol));
-    protocol.clear();
-    protocol << QVariant::fromValue(QBluetoothUuid(QBluetoothUuid::Rfcomm))
-             << QVariant::fromValue(quint8(_rfcommServer->serverPort()));
-    protocolDescriptorList.append(QVariant::fromValue(protocol));
-    _serviceInfo.setAttribute(QBluetoothServiceInfo::ProtocolDescriptorList,
-                             protocolDescriptorList);
 
-    _serviceInfo.registerService(localAdapter);
+        classId << QVariant::fromValue(QBluetoothUuid(QBluetoothUuid::SerialPort));
+        _serviceInfo.setAttribute(QBluetoothServiceInfo::BluetoothProfileDescriptorList,
+                                 classId);
 
-    qDebug() << "Dervice created on"
-             << _serviceInfo.device().name() << _serviceInfo.device().address().toString();
-    qDebug() << "\tService name:" << _serviceInfo.serviceName();
-    qDebug() << "\tDescription:"
-             << _serviceInfo.attribute(QBluetoothServiceInfo::ServiceDescription).toString();
-    qDebug() << "\tProvider:"
-             << _serviceInfo.attribute(QBluetoothServiceInfo::ServiceProvider).toString();
-    qDebug() << "\tL2CAP protocol service multiplexer:"
-             << _serviceInfo.protocolServiceMultiplexer();
-    qDebug() << "\tRFCOMM server channel:" << _serviceInfo.serverChannel();
+        classId.prepend(QVariant::fromValue(QBluetoothUuid(serviceUuid)));
 
-    qDebug() << "server started";
-}
+        _serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceClassIds, classId);
+        _serviceInfo.setAttribute(QBluetoothServiceInfo::BluetoothProfileDescriptorList,classId);
 
-void Bluetooth::stopServer()
-{
-    // Unregister service
-    _serviceInfo.unregisterService();
+        _serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceName, tr("CAN data server"));
+        _serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceDescription,
+                                 tr("Provide CAN data to mobile device"));
+        _serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceProvider, tr("Transics"));
 
-    // Close sockets
-    qDeleteAll(_clientSockets);
+        _serviceInfo.setServiceUuid(QBluetoothUuid(serviceUuid));
 
-    // Close server
-    delete _rfcommServer;
-    _rfcommServer = 0;
-}
 
-void Bluetooth::sendMessage(const QString &message)
-{
-    QByteArray text = message.toUtf8() + '\n';
 
-    foreach (QBluetoothSocket *socket, _clientSockets)
-        socket->write(text);
-}
+        QBluetoothServiceInfo::Sequence publicBrowse;
+        publicBrowse << QVariant::fromValue(QBluetoothUuid(QBluetoothUuid::PublicBrowseGroup));
+        _serviceInfo.setAttribute(QBluetoothServiceInfo::BrowseGroupList,
+                                 publicBrowse);
 
-void Bluetooth::clientConnected()
-{
-    qDebug() << "client connected";
-    QBluetoothSocket *socket = _rfcommServer->nextPendingConnection();
-    if (!socket)
-        return;
+        QBluetoothServiceInfo::Sequence protocolDescriptorList;
+        QBluetoothServiceInfo::Sequence protocol;
+        protocol << QVariant::fromValue(QBluetoothUuid(QBluetoothUuid::L2cap));
+        protocolDescriptorList.append(QVariant::fromValue(protocol));
+        protocol.clear();
+        protocol << QVariant::fromValue(QBluetoothUuid(QBluetoothUuid::Rfcomm))
+                 << QVariant::fromValue(quint8(_rfcommServer->serverPort()));
+        protocolDescriptorList.append(QVariant::fromValue(protocol));
+        _serviceInfo.setAttribute(QBluetoothServiceInfo::ProtocolDescriptorList,
+                                 protocolDescriptorList);
 
-    Dispatcher* _dispatcher = new Dispatcher();
-    connect(socket, SIGNAL(readyRead()), _dispatcher, SLOT(DataReceived()));
-    connect(socket, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
-    _clientSockets.append(socket);
-    emit clientConnected(socket->peerName());
-    qDebug() << "Adress: " << socket->peerAddress();
-    qDebug() << "Name: " << socket->peerName();
-}
+        _serviceInfo.registerService(localAdapter);
 
-void Bluetooth::clientDisconnected()
-{
-    QBluetoothSocket *socket = qobject_cast<QBluetoothSocket *>(sender());
-    if (!socket)
-        return;
+        qDebug() << "Dervice created on"
+                 << _serviceInfo.device().name() << _serviceInfo.device().address().toString();
+        qDebug() << "\tService name:" << _serviceInfo.serviceName();
+        qDebug() << "\tDescription:"
+                 << _serviceInfo.attribute(QBluetoothServiceInfo::ServiceDescription).toString();
+        qDebug() << "\tProvider:"
+                 << _serviceInfo.attribute(QBluetoothServiceInfo::ServiceProvider).toString();
+        qDebug() << "\tL2CAP protocol service multiplexer:"
+                 << _serviceInfo.protocolServiceMultiplexer();
+        qDebug() << "\tRFCOMM server channel:" << _serviceInfo.serverChannel();
 
-    emit clientDisconnected(socket->peerName());
+        qDebug() << "server started";
+    }
 
-    _clientSockets.removeOne(socket);
+    void Bluetooth::stopServer()
+    {
+        // Unregister service
+        _serviceInfo.unregisterService();
 
-    socket->deleteLater();
-    qDebug() <<"client disconnected";
-}
+        // Close sockets
+        qDeleteAll(_clientSockets);
+
+        // Close server
+        delete _rfcommServer;
+        _rfcommServer = 0;
+    }
+
+    void Bluetooth::sendData(QString _deviceAddress, QByteArray _dataToSend)
+    {
+        QBluetoothAddress address(_deviceAddress);
+
+        for( int i=0;i<_clientSockets.length();i++)
+        {
+            if (_clientSockets[i]->peerAddress() == address)
+            {
+                _clientSockets[i]->write(_dataToSend);
+            }
+        }
+
+    }
+
+    void Bluetooth::clientConnected()
+    {
+        qDebug() << "client connected";
+        QBluetoothSocket *socket = _rfcommServer->nextPendingConnection();
+        if (!socket)
+            return;
+
+        Dispatcher* _dispatcher = new Dispatcher();
+        connect(socket, SIGNAL(readyRead()), _dispatcher, SLOT(DataReceived()));
+        connect(socket, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
+        _clientSockets.append(socket);
+        emit clientConnected(socket->peerName());
+        qDebug() << "Adress: " << socket->peerAddress();
+        qDebug() << "Name: " << socket->peerName();
+    }
+
+    void Bluetooth::clientDisconnected()
+    {
+        QBluetoothSocket *socket = qobject_cast<QBluetoothSocket *>(sender());
+        if (!socket)
+            return;
+
+        emit clientDisconnected(socket->peerName());
+
+        _clientSockets.removeOne(socket);
+
+        socket->deleteLater();
+        qDebug() <<"client disconnected";
+    }
 
 
 }

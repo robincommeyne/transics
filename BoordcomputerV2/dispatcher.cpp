@@ -2,7 +2,7 @@
 #include <QtConcurrent/QtConcurrent>
 #include "dispatcher.h"
 #include "QBluetoothSocket"
-
+#include "bluetooth.h"
 namespace cangateway {
 
     Dispatcher::Dispatcher()
@@ -82,6 +82,10 @@ namespace cangateway {
 
 
              _listofdevices.insert(socket->peerAddress().toString(),_formatter.ToObject(line));
+
+
+
+                //sendData(_listofdevices.firstKey(),QByteArray("hallo van de server"));
 
 
     }
