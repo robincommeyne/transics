@@ -14,6 +14,7 @@ namespace cangateway {
         _bluetoothTimer = new QTimer(this);
         connect(_bluetoothTimer, SIGNAL(timeout()), this, SLOT(BluetoothHandler()));
         _bluetoothTimer->start(_intervalTimerInMs);
+        _dispatcher = new Dispatcher();
     }
 
     Bluetooth::~Bluetooth()
@@ -61,10 +62,6 @@ namespace cangateway {
             qWarning() << "Cannot bind server to" << localAdapter.toString();
             return;
         }
-
-==== BASE ====
-    classId.prepend(QVariant::fromValue(QBluetoothUuid(serviceUuid)));
-==== BASE ====
 
         //serviceInfo.setAttribute(QBluetoothServiceInfo::ServiceRecordHandle, (uint)0x00010010);
 
@@ -133,13 +130,19 @@ namespace cangateway {
         _rfcommServer = 0;
     }
 
-    void Bluetooth::sendMessage(const QString &message)
-    {
-        QByteArray text = message.toUtf8() + '\n';
+    void Bluetooth::sendData(QString _deviceAddress, QByteArray _dataToSend)
+        {
+            QBluetoothAddress address(_deviceAddress);
 
-        foreach (QBluetoothSocket *socket, _clientSockets)
-            socket->write(text);
-    }
+            for( int i=0;i<_clientSockets.length();i++)
+            {
+                if (_clientSockets[i]->peerAddress() == address)
+                {
+                    _clientSockets[i]->write(_dataToSend);
+                }
+            }
+
+        }
 
     void Bluetooth::clientConnected()
     {
