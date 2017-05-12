@@ -67,15 +67,11 @@ namespace cangateway {
             _listfromcontroller.append(candata);
         }
 
-
     }
 
     void Dispatcher::DataReceived(QString address,QByteArray receivedData)
     {
-
-
-            _listofdevices.insert(address,_formatter.ToObject(receivedData));
-
+        _listofdevices.insert(address,_formatter.ToObject(receivedData));
     }
 
     void Dispatcher::SendBluetooth(QString _deviceAddress, QByteArray _dataToSend)

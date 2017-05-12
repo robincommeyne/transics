@@ -11,6 +11,12 @@ namespace cangateway
     Manager::Manager(QObject* app): _manager(app), _watchdogThread(nullptr), _dispatcherThread(nullptr), _controllerThread(nullptr), _bluetoothThread(nullptr)
     {
         qRegisterMetaType<CanDataList>("CanDataList");
+
+        _bluetooth = new Bluetooth();
+        _watchdog = new Watchdog();
+        _dispatcher = new Dispatcher();
+        _controller = new Controller();
+
     }
 
     void Manager::Init()
@@ -20,7 +26,6 @@ namespace cangateway
         CreateDispatcherThread();
         CreateControllerThread();
         CreateBluetoothThread();
-
     }
 
     void Manager::SubscribeWatchdog(QObject* object)
@@ -35,7 +40,6 @@ namespace cangateway
     void Manager::CreateWatchdogThread()
     {
         _watchdogThread = new QThread();
-        _watchdog = new Watchdog();
         _watchdog->moveToThread(_watchdogThread);
 
         connect(_watchdogThread, &QThread::started, _watchdog, &Watchdog::WatchdogThread);
@@ -45,7 +49,6 @@ namespace cangateway
     void Manager::CreateDispatcherThread()
     {
         _dispatcherThread = new QThread();
-        _dispatcher = new Dispatcher();
         _dispatcher->moveToThread(_dispatcherThread);
 
         connect(_dispatcherThread, &QThread::started, _dispatcher, &Dispatcher::DispatcherThread);
@@ -57,7 +60,6 @@ namespace cangateway
     void Manager::CreateControllerThread()
     {
         _controllerThread = new QThread();
-        _controller = new Controller();
         _controller->moveToThread(_controllerThread);
 
         connect(_controllerThread, &QThread::started, _controller, &Controller::ControllerThread);
@@ -69,7 +71,6 @@ namespace cangateway
     void Manager::CreateBluetoothThread()
     {
         _bluetoothThread = new QThread();
-        _bluetooth = new Bluetooth();
         _bluetooth->moveToThread(_bluetoothThread);
 
         connect(_bluetoothThread, &QThread::started, _bluetooth, &Bluetooth::BluetoothThread);
