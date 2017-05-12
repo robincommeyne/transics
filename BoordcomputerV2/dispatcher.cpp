@@ -22,8 +22,8 @@ namespace cangateway {
     {
         for(auto key : _listofdevices.keys())
         {
-            //QFuture<void> future = QtConcurrent::run(this,&Dispatcher::SendData,key,_listofdevices.value(key),bluetooth);
-            //future.waitForFinished();
+            QFuture<void> future = QtConcurrent::run(this,&Dispatcher::SendData,key,_listofdevices.value(key),bluetooth);
+            future.waitForFinished();
 
         }
 

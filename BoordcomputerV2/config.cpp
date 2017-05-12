@@ -4,7 +4,7 @@ namespace cangateway {
 
     Config::Config()
     {
-        _configmap.insert("EngineLoad",true);
+        _configmap.insert("EngineLoad",false);
         _configmap.insert("EngineCoolantTemp",false);
         _configmap.insert("FuelPressure",false);
         _configmap.insert("IntakeMAPressure",false);

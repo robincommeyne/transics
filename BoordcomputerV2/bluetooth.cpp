@@ -14,7 +14,7 @@ namespace cangateway {
         _bluetoothTimer = new QTimer(this);
         connect(_bluetoothTimer, SIGNAL(timeout()), this, SLOT(BluetoothHandler()));
         _bluetoothTimer->start(_intervalTimerInMs);
-        _dispatcher = new Dispatcher();
+        //_dispatcher = new Dispatcher();
     }
 
     Bluetooth::~Bluetooth()
