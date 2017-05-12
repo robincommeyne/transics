@@ -8,7 +8,7 @@ namespace cangateway
 {
     typedef QList<CanData> CanDataList;
 
-    Manager::Manager(QObject* app): _manager(app), _watchdogThread(nullptr), _dispatcherThread(nullptr), _controllerThread(nullptr)
+    Manager::Manager(QObject* app): _manager(app), _watchdogThread(nullptr), _dispatcherThread(nullptr), _controllerThread(nullptr), _bluetoothThread(nullptr)
     {
         qRegisterMetaType<CanDataList>("CanDataList");
     }
@@ -19,19 +19,8 @@ namespace cangateway
         CreateWatchdogThread();
         CreateDispatcherThread();
         CreateControllerThread();
+        CreateBluetoothThread();
 
-
-            // Check if Bluetooth is available on this device
-            if (_localDevice.isValid()) {
-
-                // Turn Bluetooth on
-                _localDevice.powerOn();
-                qDebug() << "bluetooth powered on";
-
-                // Make it visible to others
-                _localDevice.setHostMode(QBluetoothLocalDevice::HostDiscoverable);
-            }
-        _bluetooth.startServer(_localDevice.address());
     }
 
     void Manager::SubscribeWatchdog(QObject* object)
@@ -74,5 +63,17 @@ namespace cangateway
         connect(_controller, SIGNAL(SubscribeWatchdogController(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
         connect(_controller, SIGNAL(SendList(CanDataList)),_dispatcher,SLOT(ReceiveListFromController(CanDataList)));
         _controllerThread->start();
+    }
+
+    void Manager::CreateBluetoothThread()
+    {
+        _bluetoothThread = new QThread();
+        _bluetooth = new Bluetooth();
+        _bluetooth->moveToThread(_bluetoothThread);
+
+        connect(_bluetoothThread, &QThread::started, _bluetooth, &Bluetooth::BluetoothThread);
+        connect(_bluetooth, SIGNAL(SubscribeWatchdogBluetooth(QObject*)),this, SLOT(SubscribeWatchdog(QObject*)));
+        _bluetoothThread->start();
+
     }
 }

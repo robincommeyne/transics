@@ -29,11 +29,6 @@ namespace cangateway
             const int _intervalTimerInMs = 1000;
             const int _unfilteredListSize = 1000;
 
-
-
-
-
-
         public slots:
             void DispatcherThread();
             void DeviceController();

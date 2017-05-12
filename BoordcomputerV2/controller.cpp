@@ -26,7 +26,7 @@ namespace cangateway {
        qDebug() << "GetCan is called";
 
 
-         _engineLoad = CanData(_can.getEngineLoad(),"EngineLoad",_can.getID(),_can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
+       _engineLoad = CanData(_can.getEngineLoad(),"EngineLoad",_can.getID(),_can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
        _engineCoolantTemp = CanData(_can.getEngineCoolantTemp(),"EngineCoolantTemp",_can.getID(),_can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
        _fuelPressure = CanData(_can.getFuelPressure(),"FuelPressure",_can.getID(),_can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
        _intakeMAPressure = CanData(_can.getIntakeMAPressure(),"IntakeMAPressure",_can.getID(),_can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
@@ -40,9 +40,10 @@ namespace cangateway {
        _barometricPressure = CanData(_can.getBarometricPressure(),"BarometricPressurre",_can.getID(),_can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
        _engineFuelRate = CanData(_can.getEngineFuelRate(),"EngineFuelRate",_can.getID(),_can.getRawMessage(),QDateTime::currentSecsSinceEpoch());
 
-         _listToPopulate << _engineLoad << _engineCoolantTemp << _fuelPressure << _intakeMAPressure << _engineRPM
+       _listToPopulate.clear();
+       _listToPopulate << _engineLoad << _engineCoolantTemp << _fuelPressure << _intakeMAPressure << _engineRPM
                        << _vehicleSpeed << _timingAdvance << _intakeAirTemp << _mafAirFlowRate << _throttlePosition
-                      << _fuelLevel << _barometricPressure << _engineFuelRate;
+                       << _fuelLevel << _barometricPressure << _engineFuelRate;
 
        emit SendList(_listToPopulate);
     }

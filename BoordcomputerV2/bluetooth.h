@@ -1,21 +1,22 @@
 #ifndef BLUETOOTH_H
 #define BLUETOOTH_H
 
-
 #include <qbluetoothserviceinfo.h>
 #include <qbluetoothaddress.h>
 #include "dispatcher.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QList>
+#include <QBluetoothLocalDevice>
 
 QT_FORWARD_DECLARE_CLASS(QBluetoothServer)
 QT_FORWARD_DECLARE_CLASS(QBluetoothSocket)
 
 QT_USE_NAMESPACE
 
-
 namespace cangateway {
+
+    class Dispatcher;
 
     class Bluetooth: public QObject
     {
@@ -31,21 +32,25 @@ namespace cangateway {
             void sendMessage(const QString &message);
 
         public slots:
-
+            void BluetoothThread();
 
         signals:
-
+            void SubscribeWatchdogBluetooth(QObject* object);
             void clientConnected(const QString &name);
             void clientDisconnected(const QString &name);
 
         private slots:
+            void BluetoothHandler();
             void clientConnected();
             void clientDisconnected();
 
         private:
-
             QBluetoothServiceInfo _serviceInfo;
             QBluetoothServer *_rfcommServer;
+            QTimer *_bluetoothTimer;
+            Dispatcher* _dispatcher;
+            QBluetoothLocalDevice _localDevice;
+            const int _intervalTimerInMs = 1000;
 
      };
 }
