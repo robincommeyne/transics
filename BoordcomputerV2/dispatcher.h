@@ -28,12 +28,13 @@ namespace cangateway
             QMap<QString,Config> _listofdevices;
             const int _intervalTimerInMs = 1000;
             const int _unfilteredListSize = 1000;
+            QList<CanData> _listfromcontroller;
 
         public slots:
             void DispatcherThread();
             void DeviceController();
             void ReceiveListFromController(CanDataList candata);
-            void DataReceived();
+            void DataReceived(QString address,QByteArray receivedData);
 
         signals:
             void SubscribeWatchdogDispatcher(QObject* object);
@@ -41,13 +42,14 @@ namespace cangateway
 
         public:
             Dispatcher();
-            QList<CanData> _listfromcontroller;
+
             enum Receivers {bluetooth, filesystem, tcp};
 
             void SendData(
                     QString _deviceAddress, /**< QString containing address from device*/
                     Config _deviceConfig, /**< Config containing config linked with device address*/
                     Receivers _deviceReceiver /**< containing the receiver */
+
             );
 
 

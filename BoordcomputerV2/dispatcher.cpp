@@ -22,8 +22,9 @@ namespace cangateway {
     {
         for(auto key : _listofdevices.keys())
         {
-            QFuture<void> future = QtConcurrent::run(this,&Dispatcher::SendData,key,_listofdevices.value(key),bluetooth);
-            future.waitForFinished();
+            //QFuture<void> future = QtConcurrent::run(this,&Dispatcher::SendData,key,_listofdevices.value(key),bluetooth);
+            //future.waitForFinished();
+
         }
 
         emit SubscribeWatchdogDispatcher(this);
@@ -32,6 +33,7 @@ namespace cangateway {
 
     void Dispatcher::SendData(QString _deviceAddress, Config _deviceConfig, Receivers _deviceReceiver)
     {
+
         QByteArray _bytearray;
         switch(_deviceReceiver)
         {
@@ -64,21 +66,15 @@ namespace cangateway {
         {
             _listfromcontroller.append(candata);
         }
+
+
     }
 
-    void Dispatcher::DataReceived()
+    void Dispatcher::DataReceived(QString address,QByteArray receivedData)
     {
-        qDebug() << "Reading Socket...";
-        QBluetoothSocket *socket = qobject_cast<QBluetoothSocket *>(sender());
-        if (!socket)
-            return;
 
-        //while (socket->canReadLine()) {
-            QByteArray line = socket->readLine().trimmed();
 
-            qDebug() << socket->peerAddress() << QString::fromUtf8(line.constData(), line.length());
-
-            _listofdevices.insert(socket->peerAddress().toString(),_formatter.ToObject(line));
+            _listofdevices.insert(address,receivedData);
 
     }
 

@@ -37,6 +37,7 @@ namespace cangateway {
             void SubscribeWatchdogBluetooth(QObject* object);
             void clientConnected(const QString &name);
             void clientDisconnected(const QString &name);
+            void SendReceivedData(QString,QByteArray);
 
         private slots:
             void BluetoothHandler();
