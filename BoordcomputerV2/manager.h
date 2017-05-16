@@ -4,11 +4,14 @@
 #include <QObject>
 #include "bluetooth.h"
 
+
+
 namespace cangateway
 {
     class Watchdog;
     class Controller;
     class Dispatcher;
+    class Logging;
 
     class Manager : public QObject
     {
@@ -23,6 +26,7 @@ namespace cangateway
             Controller* _controller;
             Dispatcher* _dispatcher;
             Bluetooth* _bluetooth;
+            Logging* _logging;
 
             QThread* _watchdogThread;
             QThread* _dispatcherThread;

@@ -3,6 +3,7 @@
 #include "dispatcher.h"
 #include "controller.h"
 #include "manager.h"
+#include "logging.h"
 
 namespace cangateway
 {
@@ -16,11 +17,16 @@ namespace cangateway
         _watchdog = new Watchdog();
         _dispatcher = new Dispatcher();
         _controller = new Controller();
+        _logging = new Logging();
+
 
     }
 
     void Manager::Init()
     {
+
+        _logging->InitLogging(10,1);
+        _logging->Log("info","starting all threads from main: "+ QString( "0x%1" ).arg( (int)QThread::currentThread(), 16 ));
         qDebug() << "starting all threads from main: " << QThread::currentThread();
         CreateWatchdogThread();
         CreateDispatcherThread();
@@ -30,6 +36,7 @@ namespace cangateway
 
     void Manager::SubscribeWatchdog(QObject* object)
     {
+
         qDebug() << "subscribe watchdog slot is called " << QThread::currentThread();
         WatchdogSubscribeEvent* event = new WatchdogSubscribeEvent();
         event->SetObjectName(object->objectName());

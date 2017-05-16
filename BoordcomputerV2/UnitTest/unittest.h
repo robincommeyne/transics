@@ -36,6 +36,8 @@ private Q_SLOTS:
     void testReadFileSystem();
     void CheckFilteredListForWrightObjects();
 
+    void testCanDataClass();
+
 
 
 
