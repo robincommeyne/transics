@@ -1,13 +1,8 @@
 #ifndef BLUETOOTH_H
 #define BLUETOOTH_H
 
-#include <qbluetoothserviceinfo.h>
-#include <qbluetoothaddress.h>
+#include <QtBluetooth>
 #include "dispatcher.h"
-
-#include <QtCore/QObject>
-#include <QtCore/QList>
-#include <QBluetoothLocalDevice>
 
 QT_FORWARD_DECLARE_CLASS(QBluetoothServer)
 QT_FORWARD_DECLARE_CLASS(QBluetoothSocket)
