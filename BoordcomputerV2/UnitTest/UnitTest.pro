@@ -35,7 +35,8 @@ SOURCES +=\
         ../watchdog.cpp \
     testFormatter.cpp \
     testDispatcher.cpp \
-    ../bluetooth.cpp
+    ../bluetooth.cpp \
+    testCandataClass.cpp
 
 
 

@@ -97,11 +97,11 @@ void UnitTest::CheckUnfilteredListSize()
         dispatcher.ReceiveListFromController(candatalist);
     }
 
-    if(dispatcher._listfromcontroller.length()<=1000)
-    {
-        toobig = false;
-    }
-    else
+//    if(dispatcher._listfromcontroller.length()<=1000)
+//    {
+//        toobig = false;
+//    }
+//    else
         toobig = true;
 
     QCOMPARE(toobig,false);
