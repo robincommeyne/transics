@@ -140,7 +140,12 @@ namespace cangateway {
                 {
                     _clientSockets[i]->write(_dataToSend);
                 }
+                if (!_clientSockets[i]->bytesToWrite() == 0)
+                {
+                    qDebug() << "not all bytes written";
+                }
             }
+
 
         }
 
