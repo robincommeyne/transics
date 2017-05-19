@@ -69,8 +69,8 @@ win32:DEPENDPATH += $$PWD/Libs/Boost/lib_Windows
 win32:INCLUDEPATH += $$PWD/Libs/Boost/include/boost-1_63
 win32:DEPENDPATH += $$PWD/Libs/Boost/include/boost-1_63
 
-unix:INCLUDEPATH += $$PWD/Libs/Boost/include/boost_1_63
-unix:DEPENDPATH += $$PWD/Libs/Boost/include/boost_1_63
+unix:INCLUDEPATH += $$PWD/Libs/Boost/include/boost-1_63
+unix:DEPENDPATH += $$PWD/Libs/Boost/include/boost-1_63
 
 unix:!macx: LIBS += -L$$PWD/Libs/ -lCanLibrary
 win32: LIBS+= -L$$PWD/Libs/ -lCanLibrary

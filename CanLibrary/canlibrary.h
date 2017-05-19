@@ -1,7 +1,7 @@
 #ifndef CANLIBRARY_H
 #define CANLIBRARY_H
 
-#ifdef __arm__
+#ifdef linux
 
 #include "arduPiCANBUS/arduPiCAN.h"
 

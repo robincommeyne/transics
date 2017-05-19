@@ -1,4 +1,4 @@
-#ifdef __arm__
+#ifdef linux
 
 #include "arduPiCANBUS/arduPiCAN.h"
 #include "arduPiCANBUS/arduPi.h"
