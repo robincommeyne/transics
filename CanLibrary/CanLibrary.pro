@@ -30,7 +30,7 @@ HEADERS += canlibrary.h \
 
 
 
-__arm__ {
+unix {
 
     target.path = /usr/lib
     INSTALLS += target
