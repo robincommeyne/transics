@@ -30,11 +30,7 @@ HEADERS += canlibrary.h \
 
 
 
-unix {
-
-    target.path = /usr/lib
-    INSTALLS += target
-
+unix{
     SOURCES += arduPiCANBUS/arduPi.cpp \
     arduPiCANBUS/arduPiCAN.cpp \
     arduPiCANBUS/arduPiMultiprotocol.cpp \
@@ -49,7 +45,7 @@ unix {
     arduPiCANBUS/arduPiMultiprotocol.h \
     arduPiCANBUS/arduPiUART.h \
     arduPiCANBUS/arduPiUtils.h \
-    arduPiCANBUS/bcm2835.hs
+    arduPiCANBUS/bcm2835.h
 }
 
 

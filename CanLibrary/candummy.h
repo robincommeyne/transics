@@ -1,5 +1,5 @@
-#ifndef CANWINDOWS_H
-#define CANWINDOWS_H
+#ifndef CANDUMMY_H
+#define CANDUMMY_H
 
 #include <QObject>
 
@@ -14,7 +14,7 @@ public:
     unsigned int getEngineRPM();
     unsigned int getVehicleSpeed();
     unsigned int getTimingAdvance();
-    unsigned int getIntakeAirTemp();
+    unsigned int getIntankeAirTemp();
     unsigned int getMAFairFlowRate();
     unsigned int getThrottlePosition();
     unsigned int getFuelLevel();
@@ -40,4 +40,4 @@ public:
     messageCAN messageTx;
 };
 
-#endif // CANWINDOWS_H
+#endif // CANDUMMY_H

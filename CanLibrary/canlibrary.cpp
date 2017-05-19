@@ -56,7 +56,7 @@ unsigned int CanLibrary::getTimingAdvance()
 }
 unsigned int CanLibrary::getIntakeAirTemp()
 {
-    return can.getIntakeAirTemp();
+    return can.getIntankeAirTemp();
 }
 unsigned int CanLibrary::getMAFairFlowRate()
 {
