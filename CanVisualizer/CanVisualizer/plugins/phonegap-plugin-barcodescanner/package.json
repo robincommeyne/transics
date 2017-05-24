@@ -1,0 +1,53 @@
+{
+  "name": "phonegap-plugin-barcodescanner",
+  "version": "4.0.1",
+  "description": "You can use the BarcodeScanner plugin to scan different types of barcodes (using the device's camera) and get the metadata encoded in them for processing within your application.",
+  "cordova": {
+    "id": "phonegap-plugin-barcodescanner",
+    "platforms": [
+      "ios",
+      "android",
+      "windows8",
+      "windows",
+      "wp8",
+      "blackberry10",
+      "browser"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phonegap/phonegap-plugin-barcodescanner.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "ecosystem:phonegap",
+    "cordova-ios",
+    "cordova-android",
+    "cordova-windows8",
+    "cordova-windows",
+    "cordova-wp8",
+    "cordova-blackberry10",
+    "cordova-browser"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": {
+    "name": "Adobe PhoneGap Team"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phonegap/phonegap-plugin-barcodescanner/issues"
+  },
+  "homepage": "https://github.com/phonegap/phonegap-plugin-barcodescanner#readme",
+  "gitHead": "49571fbb7b79742481c230daa7b146cc7b2d9e7c",
+  "readme": "# PhoneGap Plugin BarcodeScanner\r\n================================\r\n\r\n[![Build Status](https://travis-ci.org/phonegap/phonegap-plugin-barcodescanner.svg)](https://travis-ci.org/phonegap/phonegap-plugin-barcodescanner)\r\n\r\n**Note: This repository is no longer maintained. The official repository is now at [phonegap/phonegap-plugin-barcodescanner](http://github.com/phonegap/phonegap-plugin-barcodescanner).**\r\n\r\nCross-platform BarcodeScanner for Cordova / PhoneGap.\r\n\r\nFollows the [Cordova Plugin spec](http://cordova.apache.org/docs/en/5.0.0/plugin_ref_spec.md), so that it works with [Plugman](https://github.com/apache/cordova-plugman).\r\n\r\n## Installation\r\n\r\n    \r\nThis requires phonegap 5.0+ ( current stable v3.0.0 )\r\n\r\n    phonegap plugin add phonegap-plugin-barcodescanner\r\n\r\nOlder versions of phonegap can still install via the __deprecated__ id ( stale v2.0.1 )\r\n\r\n    phonegap plugin add com.phonegap.plugins.barcodescanner\r\n\r\nIt is also possible to install via repo url directly ( unstable )\r\n\r\n    phonegap plugin add https://github.com/phonegap/phonegap-plugin-barcodescanner.git\r\n\r\n### Supported Platforms\r\n\r\n- Android\r\n- iOS\r\n- Windows 8\r\n- Windows Phone 8\r\n- BlackBerry 10\r\n- Browser\r\n\r\nNote: the Android source for this project includes an Android Library Project.\r\nplugman currently doesn't support Library Project refs, so its been\r\nprebuilt as a jar library. Any updates to the Library Project should be\r\ncommitted with an updated jar.\r\n\r\n## Using the plugin ##\r\nThe plugin creates the object `cordova/plugin/BarcodeScanner` with the method `scan(success, fail)`. \r\n\r\nThe following barcode types are currently supported:\r\n### Android\r\n\r\n* QR_CODE\r\n* DATA_MATRIX\r\n* UPC_E\r\n* UPC_A\r\n* EAN_8\r\n* EAN_13\r\n* CODE_128\r\n* CODE_39\r\n* CODE_93\r\n* CODABAR\r\n* ITF\r\n* RSS14\r\n* PDF417\r\n* RSS_EXPANDED\r\n\r\n### iOS\r\n\r\n* QR_CODE\r\n* DATA_MATRIX\r\n* UPC_E\r\n* UPC_A\r\n* EAN_8\r\n* EAN_13\r\n* CODE_128\r\n* CODE_39\r\n* ITF\r\n\r\n### Windows8\r\n\r\n* UPC_A\r\n* UPC_E\r\n* EAN_8\r\n* EAN_13\r\n* CODE_39\r\n* CODE_93\r\n* CODE_128\r\n* ITF\r\n* CODABAR\r\n* MSI\r\n* RSS14\r\n* QR_CODE\r\n* DATA_MATRIX\r\n* AZTEC\r\n* PDF417\r\n\r\n### Windows Phone 8\r\n\r\n* UPC_A\r\n* UPC_E\r\n* EAN_8\r\n* EAN_13\r\n* CODE_39\r\n* CODE_93\r\n* CODE_128\r\n* ITF\r\n* CODABAR\r\n* MSI\r\n* RSS14\r\n* QR_CODE\r\n* DATA_MATRIX\r\n* AZTEC\r\n* PDF417\r\n\r\n### BlackBerry 10\r\n* UPC_A\r\n* UPC_E\r\n* EAN_8\r\n* EAN_13\r\n* CODE_39\r\n* CODE_128\r\n* ITF\r\n* DATA_MATRIX\r\n* AZTEC\r\n\r\n`success` and `fail` are callback functions. Success is passed an object with data, type and cancelled properties. Data is the text representation of the barcode data, type is the type of barcode detected and cancelled is whether or not the user cancelled the scan.\r\n\r\nA full example could be:\r\n```\r\n   cordova.plugins.barcodeScanner.scan(\r\n      function (result) {\r\n          alert(\"We got a barcode\\n\" +\r\n                \"Result: \" + result.text + \"\\n\" +\r\n                \"Format: \" + result.format + \"\\n\" +\r\n                \"Cancelled: \" + result.cancelled);\r\n      }, \r\n      function (error) {\r\n          alert(\"Scanning failed: \" + error);\r\n      }\r\n   );\r\n```\r\n\r\n## Encoding a Barcode ##\r\n\r\nThe plugin creates the object `cordova.plugins.barcodeScanner` with the method `encode(type, data, success, fail)`. \r\n\r\nSupported encoding types:\r\n\r\n* TEXT_TYPE\r\n* EMAIL_TYPE\r\n* PHONE_TYPE\r\n* SMS_TYPE\r\n\r\n```\r\nA full example could be:\r\n\r\n   cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, \"http://www.nytimes.com\", function(success) {\r\n            alert(\"encode success: \" + success);\r\n          }, function(fail) {\r\n            alert(\"encoding failed: \" + fail);\r\n          }\r\n        );\r\n```\r\n\r\n## Windows8 quirks ##\r\nWindows 8 implementation currently doesn't support encode functionality.\r\n\r\n## Windows Phone 8 quirks ##\r\nWindows Phone 8 implementation currently doesn't support encode functionality.\r\n\r\n## BlackBerry 10 quirks\r\nBlackBerry 10 implementation currently doesn't support encode functionality.\r\nCancelling a scan on BlackBerry 10 is done by touching the screen.\r\n\r\n## Thanks on Github ##\r\n\r\nSo many -- check out the original [iOS](https://github.com/phonegap/phonegap-plugins/tree/DEPRECATED/iOS/BarcodeScanner),  [Android](https://github.com/phonegap/phonegap-plugins/tree/DEPRECATED/Android/BarcodeScanner) and \r\n[BlackBerry 10](https://github.com/blackberry/WebWorks-Community-APIs/tree/master/BB10-Cordova/BarcodeScanner) repos.\r\n\r\n## Licence ##\r\n\r\nThe MIT License\r\n\r\nCopyright (c) 2010 Matt Kane\r\n\r\nPermission is hereby granted, free of charge, to any person obtaining a copy\r\nof this software and associated documentation files (the \"Software\"), to deal\r\nin the Software without restriction, including without limitation the rights\r\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\r\ncopies of the Software, and to permit persons to whom the Software is\r\nfurnished to do so, subject to the following conditions:\r\n\r\nThe above copyright notice and this permission notice shall be included in\r\nall copies or substantial portions of the Software.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\r\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\r\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\r\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\r\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\r\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\r\nTHE SOFTWARE.\r\n",
+  "readmeFilename": "README.md",
+  "_id": "phonegap-plugin-barcodescanner@4.0.1",
+  "_shasum": "ffc29c65b2537d9f850dcb6864c6c2967146f463",
+  "_from": "git+https://github.com/wildabeast/BarcodeScanner.git",
+  "_resolved": "git+https://github.com/wildabeast/BarcodeScanner.git#49571fbb7b79742481c230daa7b146cc7b2d9e7c"
+}

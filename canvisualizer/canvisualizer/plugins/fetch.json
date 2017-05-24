@@ -7,10 +7,18 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-bluetoothle": {
+    "cordova-plugin-bluetooth-serial": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-bluetoothle@4.3.3"
+            "id": "cordova-plugin-bluetooth-serial"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "phonegap-plugin-barcodescanner": {
+        "source": {
+            "type": "registry",
+            "id": "https://github.com/wildabeast/BarcodeScanner.git"
         },
         "is_top_level": true,
         "variables": {}

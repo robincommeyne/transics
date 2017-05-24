@@ -1,7 +1,13 @@
 {
-    "name": "canvisualizer",
+    "name": "CanVisualizer",
     "version": "1.0.0",
     "private": true,
     "dependencies": {
+        "phonegap-plugin-barcodescanner": "git+https://github.com/wildabeast/BarcodeScanner.git"
+    },
+    "cordova": {
+        "plugins": {
+            "phonegap-plugin-barcodescanner": {}
+        }
     }
 }
