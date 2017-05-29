@@ -9,6 +9,9 @@ function onDeviceReady() {
 
     //QR code init
     scanQrcode.addEventListener("click", qrcode.scan);
+
 }
+
+
 
 

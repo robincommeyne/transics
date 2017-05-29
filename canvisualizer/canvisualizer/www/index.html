@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval';">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
     <title>Simple Serial</title>
 
     <script type="text/javascript" src="cordova.js"></script>
@@ -10,12 +14,16 @@
     <script type="text/javascript" src="scripts/index.js"></script>
 </head>
 <body onload="onLoad()">
-    <div class="app">
+    <div data-role="header">
+        <h1>CAN VISUALIZER</h1>
+    </div>
+    <div data-role="main">
         <div id="ui">
-            <button id="connectButton">Connect</button>
-            <button id="sendButton">Send</button>
-            <button id="scanQrcode">Scan</button>
-            <input type="text" name="textbox1" id="textbox1" />
+            <button id="connectButton" class="w3-button w3-round w3-block w3-black">Connect</button>
+            <button id="sendButton" class="w3-button w3-round w3-block w3-black">Send</button>
+            <button id="scanQrcode" class="w3-button w3-round w3-block w3-black">Scan</button>
+            <input type="text" name="textbox1" id="textbox1" class="w3-input"/>
+            <button onclick="window.location.href='filters.html'" id="filterpageButton" class="w3-button w3-round w3-block w3-black">Filters</button>
         </div>
         <div id="message"></div>
     </div>
