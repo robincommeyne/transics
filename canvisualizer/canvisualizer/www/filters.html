@@ -1,19 +1,36 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/w3.css">
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
 </head>
 <body>
-    <div data-role="header">
-        <h1>FILTERS</h1>
-    </div>
-
-    <div>
-
-    </div>
+    <form>
+        <div class="ui-field-contain">
+            <select name="flip1" id="flip1" data-role="flipswitch">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+            </select>
+            <label style="display:inline-block" for="flip1">Engineload</label>
+        </div>
+        <div class="ui-field-contain">
+            <select name="flip2" id="flip2" data-role="flipswitch">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+            </select>
+            <label style="display:inline-block" for="flip2">RPM</label>
+        </div>
+        <div class="ui-field-contain">
+            <select name="flip3" id="flip3" data-role="flipswitch">
+                <option value="off">Off</option>
+                <option value="on">On</option>
+            </select>
+            <label style="display:inline-block" for="flip3">Speed</label>
+        </div>
+    </form>
 </body>
 </html>

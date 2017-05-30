@@ -10,6 +10,12 @@ function onDeviceReady() {
     //QR code init
     scanQrcode.addEventListener("click", qrcode.scan);
 
+
+    //Change Status bar Color 
+    if(window.cordova && StatusBar)
+    {
+        StatusBar.backgroundColorByHexString('FF9900')
+    }
 }
 
 

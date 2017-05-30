@@ -46,16 +46,16 @@ var bluetooth = {
         // if you get a good Bluetooth serial connection:
         bluetooth.display("Connected to: " + bluetooth.macAddress);
 
-        bluetoothSerial.write("Het is gelukt!");
         // change the button's name:
         connectButton.innerHTML = "Disconnect";
         // set up a listener to listen for newlines
         // and display any new data that's come in since
         // the last newline:
-        bluetoothSerial.subscribe('\n', function (data) {
-            bluetooth.clear();
-            bluetooth.display(data);
-        });
+
+        bluetoothSerial.subscribeRawData(function (data) {
+            var bytes = new Uint8Array(data);
+            bluetooth.display(new TextDecoder("utf-8").decode(bytes));
+        }, bluetooth.display("subscribe error"));
     },
 
     /*
