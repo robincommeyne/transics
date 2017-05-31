@@ -1,36 +1,102 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="css/index.css">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <link rel="stylesheet" href="css/filters.css">
     <link rel="stylesheet" href="css/w3.css">
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
 </head>
 <body>
-    <form>
-        <div class="ui-field-contain">
-            <select name="flip1" id="flip1" data-role="flipswitch">
-                <option value="off">Off</option>
-                <option value="on">On</option>
-            </select>
-            <label style="display:inline-block" for="flip1">Engineload</label>
+    
+    <header class="w3-bar w3-card w3-theme">
+        <button class="w3-bar-item w3-button w3-xxlarge w3-hover-theme" onclick="openSidebar()"><img src="images/home.png" height="35" /></button>
+        <h1 class="w3-bar-items">Filters</h1>
+    </header> 
+    
+    <div class="groupdiv">
+            <label class="lbl">Engine Load</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
         </div>
-        <div class="ui-field-contain">
-            <select name="flip2" id="flip2" data-role="flipswitch">
-                <option value="off">Off</option>
-                <option value="on">On</option>
-            </select>
-            <label style="display:inline-block" for="flip2">RPM</label>
+    <div class="groupdiv">
+            <label class="lbl">Coolant Temp</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
         </div>
-        <div class="ui-field-contain">
-            <select name="flip3" id="flip3" data-role="flipswitch">
-                <option value="off">Off</option>
-                <option value="on">On</option>
-            </select>
-            <label style="display:inline-block" for="flip3">Speed</label>
+    <div class="groupdiv">
+            <label class="lbl">Fuel Pressure</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
         </div>
-    </form>
+    <div class="groupdiv">
+            <label class="lbl">Intake MAP</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
+        </div>
+    <div class="groupdiv">
+            <label class="lbl">RPM</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
+        </div>
+    <div class="groupdiv">
+            <label class="lbl">Speed</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
+        </div>
+    <div class="groupdiv">
+            <label class="lbl">Timing Advance</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
+        </div>
+    <div class="groupdiv">
+            <label class="lbl">Intake Air Temp</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
+        </div>
+    <div class="groupdiv">
+            <label class="lbl">MAF</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
+        </div>
+    <div class="groupdiv">
+            <label class="lbl">Fuel Level</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
+        </div>
+    <div class="groupdiv">
+            <label class="lbl">Bar Pressure</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
+        </div>
+    <div class="groupdiv">
+            <label class="lbl">Fuel Rate</label>
+            <label class="switch">
+                <input type="checkbox">
+                <div class="slider round"></div>
+            </label>
+        </div>
+    
+    <button class="btn">SUBMIT</button>
 </body>
 </html>
