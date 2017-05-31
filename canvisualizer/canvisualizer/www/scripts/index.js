@@ -15,7 +15,7 @@ function onDeviceReady() {
     //Change Status bar Color 
     if(window.cordova && StatusBar)
     {
-        StatusBar.backgroundColorByHexString('FF9900')
+        StatusBar.backgroundColorByHexString('CC6600')
     }
 }
 
