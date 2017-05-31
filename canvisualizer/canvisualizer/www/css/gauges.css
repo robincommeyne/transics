@@ -1,4 +1,8 @@
-﻿.progress-bar {
+﻿.navbar{
+    background-color:darkorange;
+    color:white;
+}
+.progress-bar {
     background-color: #ffffff;
     height: 25px;
     padding: 2px;

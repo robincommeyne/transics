@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/w3.css"> 
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-    <title>Simple Serial</title>
+
+    <title>CAN VISUALISER</title>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="scripts/bluetooth.js"></script>
     <script type="text/javascript" src="scripts/qrcode.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
 </head>
+
 <body onload="onLoad()">
-    <div data-role="header">
-        <h1>CAN VISUALIZER</h1>
-    </div>
-    <div data-role="main">
-        <div id="ui">
-            <button id="connectButton" class="w3-button w3-round w3-block w3-black">Connect</button>
-            <button id="sendButton" class="w3-button w3-round w3-block w3-black">Send</button>
-            <button id="scanQrcode" class="w3-button w3-round w3-block w3-black">Scan</button>
-            <input type="text" name="textbox1" id="textbox1" class="w3-input"/>
-            <button onclick="window.location.href='filters.html'" id="filterpageButton" class="w3-button w3-round w3-block w3-black">Filters</button>
-        </div>
-        <div id="message"></div>
-    </div>
+
+    <header class="w3-bar w3-card w3-theme navbar">
+        <h1 class="w3-bar-items" style="text-align:center">CAN VISUALISER</h1>
+    </header>
+         
+    <button id="btnGauges" class="btnSquare" onclick="window.location.href='gauges.html'"><img src="images/gauge.png" height="70" /><br />GAUGES</button>
+    <button id="btnGraph" class="btnSquare" onclick="window.location.href='graph.html'"><img src="images/graph.png" height="70" /><br />GRAPH</button>
+    <button id="btnRaw" class="btnSquare" onclick="window.location.href='rawdata.html'"><img src="images/raw.png" height="70" /><br />RAW DATA</button>
+    <button id="btnDiagnostics" class="btnSquare"><img src="images/engine.png" height="70" /><br />DIAGNOSTICS</button>
+    <button id="btnSettings" class="btnLeftSide"><img src="images/options.png" height="50" /></button>
+    <button id="btnFilters" class="btnRightSide" onclick="window.location.href='filters.html'"><img src="images/filters.png" height="50" /></button>
+    <button id="btnConnect" class="btnRound">NOT CONNECTED</button>
+    <button id="btnConsole" class="btnFlat">Console</button>
+             
 </body>
 </html>
