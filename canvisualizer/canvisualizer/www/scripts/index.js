@@ -9,7 +9,7 @@ function onDeviceReady() {
 
     
     //QR code init
-    scanQrcode.addEventListener("click", qrcode.scan);
+    btnConnect.addEventListener("click", qrcode.scan);
 
 
     //Change Status bar Color 

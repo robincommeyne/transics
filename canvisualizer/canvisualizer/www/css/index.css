@@ -1,3 +1,7 @@
+.navbar{
+    background-color:darkorange;
+    color:white;
+}
 .dark_background{
     background-color: #999999;
 }
@@ -15,15 +19,70 @@
 
 .btnSquare {
 	background-color:black;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border-radius:10px;
+	border-radius:20px;
 	display:inline-block;
-	font-size:17px;
-	padding:30px 30px;
+	height:110px;
+    margin:4% 0% 0% 9%;
+    border-color:black;
     color:white;
     font-size:11px;
-    width:45%;
+    width:35%;
+    vertical-align: middle;
+
+}
+
+.btnLeftSide {
+	background-color:black;
+	border-radius:20px;
+	display:inline-block;
+	height:110px;
+    margin:15% 0% 0% 9%;
+    border-color:black;
+    color:white;
+    font-size:11px;
+    width:28%;
+    vertical-align: middle;
+        
+}
+.btnRightSide {
+	background-color:black;
+	border-radius:20px;
+	display:inline-block;
+	height:110px;
+    margin:15% 9% 0% 23%;
+    border-color:black;
+    color:white;
+    font-size:11px;
+    width:28%;
+    vertical-align: middle;
+
+}
+.btnRound {
+    background-color:dimgrey;
+    border-style:solid;
+    border-color:darkorange;
+    border-width:5px;
+	border-radius:100px;
+	display:inline-block;
+	height:110px;
+    margin:15% -9% 0% -65%;
+    color:white;
+    font-size:11px;
+    width:32%;
+    vertical-align: middle;
+}
+.btnFlat {
+	background-color:black;
+	border-radius:10px;
+	display:inline-block;
+	height:60px;
+    margin:4% 9% 0% 9%;
+    border-color:black;
+    color:white;
+    font-size:11px;
+    width:80%;
+    vertical-align: middle;
+
 }
 body{
    background-color:dimgrey; 
