@@ -1,0 +1,38 @@
+﻿.progress-bar {
+    background-color: #ffffff;
+    height: 25px;
+    padding: 2px;
+    width: 55%;
+    margin: 15px 0;         
+    border-radius: 20px;
+    box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444; 
+    display: inline-block;
+    vertical-align: middle;   
+       
+}
+
+.progress-bar span {
+    display: inline-block;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    transition: width .4s ease-in-out;    
+}
+
+.orange span {
+      background-color:darkorange;
+      background-image: linear-gradient(top, #fecf23, #fd9215);  
+}   
+
+.lbl{
+    display:inline-block;
+    width:20%;
+    text-align:center;
+    color:white;
+    font-size:11px;
+    
+}
+
+body{
+   background-color:dimgrey; 
+}
