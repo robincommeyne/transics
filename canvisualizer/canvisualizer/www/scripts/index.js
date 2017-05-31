@@ -7,6 +7,7 @@ function onDeviceReady() {
     connectButton.addEventListener('touchend', bluetooth.manageConnection, false);
     sendButton.addEventListener("click", bluetooth.sendMessage);
 
+    
     //QR code init
     scanQrcode.addEventListener("click", qrcode.scan);
 
