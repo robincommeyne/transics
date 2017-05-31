@@ -12,3 +12,19 @@
     height:auto; 
     overflow-y: scroll; 
 }
+
+.btnSquare {
+	background-color:black;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	display:inline-block;
+	font-size:17px;
+	padding:30px 30px;
+    color:white;
+    font-size:11px;
+    width:45%;
+}
+body{
+   background-color:dimgrey; 
+}

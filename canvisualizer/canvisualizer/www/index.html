@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/w3.css"> 
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
@@ -14,17 +14,26 @@
     <script type="text/javascript" src="scripts/qrcode.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
 </head>
+
 <body onload="onLoad()">
-    <div data-role="header">
-        <h1>CAN VISUALIZER</h1>
-    </div>
+
+    <header class="w3-bar w3-card w3-theme">
+        <button class="w3-bar-item w3-button w3-xxlarge w3-hover-theme" onclick="openSidebar()"><img src="images/home.png" height="35" /></button>
+        <h1 class="w3-bar-items">Filters</h1>
+    </header>
+
     <div data-role="main">
         <div id="ui">
-            <button id="connectButton" class="w3-button w3-round w3-block w3-black">Connect</button>
-            <button id="sendButton" class="w3-button w3-round w3-block w3-black">Send</button>
-            <button id="scanQrcode" class="w3-button w3-round w3-block w3-black">Scan</button>
-            <input type="text" name="textbox1" id="textbox1" class="w3-input"/>
-            <button onclick="window.location.href='filters.html'" id="filterpageButton" class="w3-button w3-round w3-block w3-black">Filters</button>
+           
+            <button id="btnGauges" class="btnSquare" onclick="window.location.href='gauges.html'">GAUGES</button>
+            <button id="btnGraph" class="btnSquare">GRAPH</button>
+            <button id="btnRaw" class="btnSquare">RAW DATA</button>
+            <button id="btnDiagnostics" class="btnSquare">DIAGNOSTICS</button>
+            <button id="btnSettings" class="btnSquare"></button>
+            <button id="btnConnect" class="btnSquare">NOT CONNECTED</button>
+            <button id="btnFilters" class="btnSquare"></button>
+            <button id="btnConsole" class="btnSquare">Console</button>
+           
         </div>
         <div id="message"></div>
     </div>
