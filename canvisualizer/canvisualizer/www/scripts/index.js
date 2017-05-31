@@ -4,8 +4,8 @@
 
 function onDeviceReady() {
     //Bluetooth init
-    connectButton.addEventListener('touchend', bluetooth.manageConnection, false);
-    btnSubmitConfig.addEventListener("click", bluetooth.sendMessage);
+    //connectButton.addEventListener('touchend', bluetooth.manageConnection, false);
+    //btnSubmitConfig.addEventListener("click", bluetooth.sendMessage);
 
     
     //QR code init
