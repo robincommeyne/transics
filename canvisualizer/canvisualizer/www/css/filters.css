@@ -2,6 +2,10 @@
     background-color:darkorange;
     color:white;
 }
+.btnhome{
+    background-color:darkorange;
+}
+
 .btn {
   -webkit-border-radius: 8;
   -moz-border-radius: 8;
@@ -28,6 +32,7 @@
     background-color:#aaaaaa;
     margin:4px;
 }
+
 
 body{
     margin: 0px;
