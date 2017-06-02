@@ -1,4 +1,18 @@
-﻿var PropertyList = ["Engine Load","Coolant Temp","Fuel Pressure","Intake Map","RPM","Speed","Timing Advance","Intake Air Temp","MAF","Fuel Level","Bar Pressure","Fuel Rate"];
+﻿
+var PropertyList = [
+    ["Engine Load", false],
+    ["Coolant Temp", false],
+    ["Fuel Pressure", false],
+    ["Intake Map", false],
+    ["RPM", false],
+    ["Speed", false],
+    ["Timing Advance", false],
+    ["Intake Air Temp", false],
+    ["MAF", false],
+    ["Fuel Level", false],
+    ["Bar Pressure", false],
+    ["Fuel Rate", false]
+];
 
 function getProperties() {
 
@@ -8,12 +22,13 @@ function getProperties() {
         elemDiv.className += 'groupdiv';
         var elemLblName = document.createElement('label');
         elemLblName.className += 'lbl';
-        elemLblName.innerHTML = PropertyList[i];
+        elemLblName.innerHTML = PropertyList[i][0];
         var elemLblSwitch = document.createElement('label');
         elemLblSwitch.className += 'switch';
         var elemInput = document.createElement('input');
         elemInput.type = 'checkbox';
-        elemInput.name = 'propertyCheckboxen';
+        elemInput.name = PropertyList[i][0];
+       
         var elemDivSwitch = document.createElement('div');
         elemDivSwitch.classList.add('slider');
         elemDivSwitch.classList.add('round');
@@ -30,34 +45,12 @@ function getProperties() {
     }   
 }
 
-function loopCheckboxes() {
-    var elems = document.body.getElementsByTagName("*");
-    var checkboxesChecked = [];
-    for (var i = 0; i < elems.length; i++) {
-        if (elems[i].type == 'checkbox') {
-            checkboxesChecked.push(elems[i]);
-        }
-    }
+$("#checkbox-container :checkbox").on("change", function () {
+    alert("The checkbox with the ID '" + this.name + "' changed");
+});
 
-    return checkboxesChecked.length > 0 ? checkboxesChecked : null;
-}
-
-function getCheckedBoxes(chkboxName) {
-    var checkboxes = document.getElementsByName(chkboxName);
-    var checkboxesChecked = [];
-    //loop over them all
-    for (var i = 0; i < checkboxes.length; i++) {
-        //And stick the checked ones onto an array..;
-        if (checkboxes[i].checked) {
-            checkboxesChecked.push(checkboxes[i]);
-        }
-    }
-    //return the array if it is non-empty, or null;
-    return checkboxesChecked.length > 0 ? checkboxesChecked : null;
-}
 
 function confirmProperties() {
-    var checkedBoxes = getCheckedBoxes("propertyCheckboxen");
-    getRAWProperties(checkedBoxes);
+    
 
 }
