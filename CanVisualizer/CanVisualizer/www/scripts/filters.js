@@ -30,5 +30,5 @@ function getProperties() {
 }
 
 function confirmProperties() {
-
+    bluetooth.sendMessage();
 }
