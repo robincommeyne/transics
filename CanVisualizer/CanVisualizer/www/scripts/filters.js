@@ -51,6 +51,5 @@ $("#checkbox-container :checkbox").on("change", function () {
 
 
 function confirmProperties() {
-    
-
+    bluetooth.sendMessage();
 }

@@ -2,6 +2,8 @@
 var bluetooth = {
     macAddress: "00:00:00:00:00:00",  // get your mac address from bluetoothSerial.list
     chars: "",
+    status: "disconnected",
+
 
     /*
         Connects if not connected, and disconnects if connected:
@@ -11,6 +13,7 @@ var bluetooth = {
         // connect() will get called only if isConnected() (below)
         // returns failure. In other words, if not connected, then connect:
         var connect = function () {
+            qrcode.scan();
             // if not connected, do this:
             // clear the screen and display an attempt to connect
             bluetooth.clear();
@@ -33,8 +36,7 @@ var bluetooth = {
                 bluetooth.closePort,     // stop listening to the port
                 bluetooth.showError      // show the error if you fail
             );
-            btnConnect.innerHTML = "Connect";
-            btnConnect.style.borderColor = "darkorange";
+           
         };
 
         // here's the real action of the manageConnection function:
@@ -48,18 +50,21 @@ var bluetooth = {
         // if you get a good Bluetooth serial connection:
         alert("Connected to: " + bluetooth.macAddress);
 
+        bluetooth.status = "connected";
         // change the button's name:
-        btnConnect.innerHTML = "Disconnect";
-        btnConnect.style.borderColor = "green";
+        btnConnect.innerHTML = "";
+        var elem = document.createElement("img");
+        elem.setAttribute("src", "images/connect.png");
+        elem.setAttribute("height", "30");
+        btnConnect.appendChild(elem);
+        btnConnect.innerHTML = btnConnect.innerHTML + "<br /><br />Disconnect";
         // set up a listener to listen for newlines
         // and display any new data that's come in since
         // the last newline:
 
-        btnConnect.addEventListener("click", bluetooth.manageConnection);
-
         bluetoothSerial.subscribeRawData(function (data) {
             var bytes = new Uint8Array(data);
-            alert(new TextDecoder("utf-8").decode(bytes));
+            bluetooth.display(new TextDecoder("utf-8").decode(bytes));
         }, alert("subscribe error"));
     },
 
@@ -68,9 +73,15 @@ var bluetooth = {
     */
     closePort: function () {
         // if you get a good Bluetooth serial connection:
-        bluetooth.alert("Disconnected from: " + bluetooth.macAddress);
-        // change the button's name:
-        btnConnect.innerHTML = "Connect";
+        alert("Disconnected from: " + bluetooth.macAddress);
+        bluetooth.status = "disconnected";
+        // change the button
+        btnConnect.innerHTML = "";
+        var elem = document.createElement("img");
+        elem.setAttribute("src", "images/disconnect.png");
+        elem.setAttribute("height", "30");
+        btnConnect.appendChild(elem);
+        btnConnect.innerHTML = btnConnect.innerHTML + "<br /><br />Connect";
         // unsubscribe from listening:
         bluetoothSerial.unsubscribe(
                 function (data) {
@@ -96,6 +107,7 @@ var bluetooth = {
 
         //display.appendChild(lineBreak);          // add a line break
         //display.appendChild(label);              // add the message node
+        sessionStorage.setItem("data", message);
     },
     /*
         clears the message div:

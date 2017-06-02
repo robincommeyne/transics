@@ -12,7 +12,7 @@ var qrcode = {
                               "Format: " + result.format + "\n" +
                               "Cancelled: " + result.cancelled);
                         bluetooth.macAddress = result.text.toString();
-                        bluetooth.manageConnection();
+                        
 
                     }
                 }
