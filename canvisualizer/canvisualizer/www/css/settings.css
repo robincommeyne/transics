@@ -6,3 +6,12 @@
     background-color:darkorange;
     color:white;
 }
+
+.customdropdown {
+  margin: 4px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #aaaaaa;
+  width:100%;
+}

@@ -1,0 +1,8 @@
+﻿.console {
+    overflow-y: scroll;
+    height:75vh;
+    margin:4% 4% 4% 4%;
+    border-radius:10px;
+    background-color:darkgrey;
+   
+}

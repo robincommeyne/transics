@@ -1,18 +1,45 @@
-﻿var PropertyList = ["Engine Load","Coolant Temp","Fuel Pressure","Intake Map","RPM","Speed","Timing Advance","Intake Air Temp","MAF","Fuel Level","Bar Pressure","Fuel Rate"];
+﻿
+var PropertyList = [
+    ["Engine Load", false],
+    ["Coolant Temp", false],
+    ["Fuel Pressure", false],
+    ["Intake Map", false],
+    ["RPM", false],
+    ["Speed", false],
+    ["Timing Advance", false],
+    ["Intake Air Temp", false],
+    ["MAF", false],
+    ["Fuel Level", false],
+    ["Bar Pressure", false],
+    ["Fuel Rate", false]
+];
+
+var UpdatedPropertyList = [[]];
 
 function getProperties() {
 
+    var data = JSON.parse(sessionStorage.getItem('checkboxValues'));
+
+    if (data === null)
+        UpdatedPropertyList = PropertyList;
+    else
+        UpdatedPropertyList = data;
+    
     for (var i = 0; i < PropertyList.length; i++) {
 
         var elemDiv = document.createElement('div');
         elemDiv.className += 'groupdiv';
         var elemLblName = document.createElement('label');
         elemLblName.className += 'lbl';
-        elemLblName.innerHTML = PropertyList[i];
+        elemLblName.innerHTML = UpdatedPropertyList[i][0];
         var elemLblSwitch = document.createElement('label');
         elemLblSwitch.className += 'switch';
         var elemInput = document.createElement('input');
         elemInput.type = 'checkbox';
+        elemInput.name = UpdatedPropertyList[i][0];
+        elemInput.value = UpdatedPropertyList[i][0];
+        elemInput.checked = UpdatedPropertyList[i][1];
+        elemInput.onchange = function () { checkboxChanged(this);};
         var elemDivSwitch = document.createElement('div');
         elemDivSwitch.classList.add('slider');
         elemDivSwitch.classList.add('round');
@@ -29,6 +56,20 @@ function getProperties() {
     }   
 }
 
+function checkboxChanged(checkboxObject) {
+    for (var i = 0; i < UpdatedPropertyList.length; i++) {
+        if (UpdatedPropertyList[i][0] === checkboxObject.name) {
+            if (checkboxObject.checked)
+                UpdatedPropertyList[i][1] = true;
+            else
+                UpdatedPropertyList[i][1] = false;
+        }
+    }
+
+    sessionStorage.setItem('checkboxValues',JSON.stringify(UpdatedPropertyList));
+}
+
 function confirmProperties() {
     bluetooth.sendMessage();
 }
+
