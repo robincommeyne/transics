@@ -3,9 +3,10 @@
     "version": "1.0.0",
     "private": true,
     "dependencies": {
+        "cordova-plugin-device": "git://github.com/apache/cordova-plugin-device.git",
         "cordova-plugin-statusbar": "^2.2.3",
-        "phonegap-plugin-barcodescanner": "git+https://github.com/wildabeast/BarcodeScanner.git",
-        "cordova-plugin-whitelist": "1"
+        "cordova-plugin-whitelist": "1",
+        "phonegap-plugin-barcodescanner": "git+https://github.com/wildabeast/BarcodeScanner.git"
     },
     "cordova": {
         "plugins": {

@@ -28,7 +28,7 @@
     font-size:11px;
     width:35%;
     vertical-align: middle;
-
+    outline: none;
 }
 
 .btnLeftSide {
@@ -42,7 +42,7 @@
     font-size:11px;
     width:28%;
     vertical-align: middle;
-        
+    outline: none;    
 }
 .btnRightSide {
 	background-color:black;
@@ -55,7 +55,7 @@
     font-size:11px;
     width:28%;
     vertical-align: middle;
-
+    outline: none;
 }
 .btnRound {
     background-color:dimgrey;
@@ -69,7 +69,9 @@
     color:white;
     font-size:11px;
     width:32%;
-    vertical-align: middle;
+    vertical-align: middle; 
+    outline: none;
+   
 }
 .btnFlat {
 	background-color:black;
@@ -82,7 +84,7 @@
     font-size:11px;
     width:80%;
     vertical-align: middle;
-
+    outline: none;
 }
 body{
    background-color:dimgrey; 

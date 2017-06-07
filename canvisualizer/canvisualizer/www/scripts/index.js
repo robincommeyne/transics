@@ -1,6 +1,6 @@
 ﻿function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
-
+    
     
     //bluetoothSerial.isConnected(connected, disconnected);
 
@@ -29,15 +29,27 @@ function onDeviceReady() {
     
     //QR code init
     btnConnect.addEventListener("click", bluetooth.manageConnection);
+    //btnFilters.addEventListener("click", loadpage)
 
 
     //Change Status bar Color 
     if(window.cordova && StatusBar)
     {
-        StatusBar.backgroundColorByHexString('CC6600')
+        StatusBar.backgroundColorByHexString('CC6600');
     }
 }
 
-
-
+function loadDoc() {
+    
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("demo").innerHTML =
+            this.responseText;
+        }
+    };
+    xhttp.open("GET", "filters.html", false);
+    xhttp.send();
+    getProperties();
+}
 
