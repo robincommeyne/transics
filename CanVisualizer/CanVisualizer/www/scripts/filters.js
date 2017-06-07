@@ -14,21 +14,32 @@ var PropertyList = [
     ["Fuel Rate", false]
 ];
 
+var UpdatedPropertyList = [[]];
+
 function getProperties() {
 
+    var data = JSON.parse(sessionStorage.getItem('checkboxValues'));
+
+    if (data === null)
+        UpdatedPropertyList = PropertyList;
+    else
+        UpdatedPropertyList = data;
+    
     for (var i = 0; i < PropertyList.length; i++) {
 
         var elemDiv = document.createElement('div');
         elemDiv.className += 'groupdiv';
         var elemLblName = document.createElement('label');
         elemLblName.className += 'lbl';
-        elemLblName.innerHTML = PropertyList[i][0];
+        elemLblName.innerHTML = UpdatedPropertyList[i][0];
         var elemLblSwitch = document.createElement('label');
         elemLblSwitch.className += 'switch';
         var elemInput = document.createElement('input');
         elemInput.type = 'checkbox';
-        elemInput.name = PropertyList[i][0];
-       
+        elemInput.name = UpdatedPropertyList[i][0];
+        elemInput.value = UpdatedPropertyList[i][0];
+        elemInput.checked = UpdatedPropertyList[i][1];
+        elemInput.onchange = function () { checkboxChanged(this);};
         var elemDivSwitch = document.createElement('div');
         elemDivSwitch.classList.add('slider');
         elemDivSwitch.classList.add('round');
@@ -45,11 +56,20 @@ function getProperties() {
     }   
 }
 
-$("#checkbox-container :checkbox").on("change", function () {
-    alert("The checkbox with the ID '" + this.name + "' changed");
-});
+function checkboxChanged(checkboxObject) {
+    for (var i = 0; i < UpdatedPropertyList.length; i++) {
+        if (UpdatedPropertyList[i][0] === checkboxObject.name) {
+            if (checkboxObject.checked)
+                UpdatedPropertyList[i][1] = true;
+            else
+                UpdatedPropertyList[i][1] = false;
+        }
+    }
 
+    sessionStorage.setItem('checkboxValues',JSON.stringify(UpdatedPropertyList));
+}
 
 function confirmProperties() {
     bluetooth.sendMessage();
 }
+
