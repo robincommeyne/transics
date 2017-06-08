@@ -82,7 +82,7 @@ var bluetooth = {
         bluetoothSerial.subscribeRawData(function (data) {
             var bytes = new Uint8Array(data);
             bluetooth.display(new TextDecoder("utf-8").decode(bytes));
-        }, alert("subscribe error"));
+        }, console.log("subscribe error"));
 
         
     },
