@@ -70,6 +70,47 @@ function checkboxChanged(checkboxObject) {
 }
 
 function confirmProperties() {
-    bluetooth.sendMessage();
+
+    var readInterval = JSON.parse(sessionStorage.getItem('readinterval'));
+    var data = JSON.parse(sessionStorage.getItem('checkboxValues'));
+    var AllFilters = [[]];
+    var Interval;
+
+    if (data === null) {
+        AllFilters = PropertyList;
+    } else {
+        AllFilters = data;
+    }
+
+    if (readInterval === null) {
+        Interval = 1000;
+    } else {
+        Interval = readInterval;
+    }
+
+    var completeJson = {};
+    var Config = [];
+    var Filters = [];
+
+    completeJson.Config = Config;
+    completeJson.Filters = Filters;
+    
+    var Description = "ReadInterval";
+    var Value = Interval;
+    var configset = {
+        "Description": Description,
+        "Value": Value
+    }
+    completeJson.Config.push(configset);
+
+    for (var i = 0; i < AllFilters.length; i++) {
+        var filter = {
+            "Description": AllFilters[i][0],
+            "Value": AllFilters[i][1]
+        }
+        completeJson.Filters.push(filter);
+    }
+    console.log(JSON.stringify(completeJson));
+   // bluetooth.sendMessage();
 }
 
