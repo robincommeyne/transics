@@ -112,5 +112,20 @@ function confirmProperties() {
     }
     console.log(JSON.stringify(completeJson));
    // bluetooth.sendMessage();
+    bluetooth.sendMessage();
+    alert("filters sent");
+}
+function filtersHome()
+{
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("content").innerHTML =
+            this.responseText;
+        }
+    };
+    xhttp.open("GET", "index.html", false);
+    xhttp.send();
+    checkConnection();
 }
 

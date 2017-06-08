@@ -2,24 +2,25 @@
     document.addEventListener("deviceready", onDeviceReady, false);
     
     
-    //bluetoothSerial.isConnected(connected, disconnected);
+   
 
     
 }
+function checkConnection() {
+    bluetoothSerial.isConnected(connected, disconnected);
+}
 
-//function connected() {
-//    btnConnect.innerHTML = "";
-//    var elem = document.createElement("img");
-//    elem.setAttribute("src", "images/connect.png");
-//    elem.setAttribute("height", "30");
-//    btnConnect.appendChild(elem);
-//    btnConnect.innerHTML = btnConnect.innerHTML + "<br /><br />Disconnect";
-//}
-
-//function disconnected() {
+function connected() {
+    btnConnect.innerHTML = "";
+    var elem = document.createElement("img");
+    elem.setAttribute("src", "images/connect.png");
+    elem.setAttribute("height", "30");
+    btnConnect.appendChild(elem);
+    btnConnect.innerHTML = btnConnect.innerHTML + "<br /><br />Disconnect";
+}
+function disconnected() {
     
-    
-//}
+}
 
 function onDeviceReady() {
     //Bluetooth init
@@ -28,7 +29,7 @@ function onDeviceReady() {
  
     
     //QR code init
-    btnConnect.addEventListener("click", bluetooth.manageConnection);
+    //btnConnect.addEventListener("click", bluetooth.manageConnection);
     //btnFilters.addEventListener("click", loadpage)
 
 
@@ -39,17 +40,30 @@ function onDeviceReady() {
     }
 }
 
-function loadDoc() {
+function openFilters() {
     
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("demo").innerHTML =
+            document.getElementById("content").innerHTML =
             this.responseText;
         }
     };
     xhttp.open("GET", "filters.html", false);
     xhttp.send();
     getProperties();
+}
+function openConsole() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("content").innerHTML =
+            this.responseText;
+        }
+    };
+    xhttp.open("GET", "console.html", false);
+    xhttp.send();
+    startTimer();
 }
 

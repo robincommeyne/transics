@@ -10,11 +10,13 @@
     <script type="text/javascript" src="scripts/bluetooth.js"></script>
     <script type="text/javascript" src="scripts/qrcode.js"></script>
     <script type="text/javascript" src="scripts/filters.js"></script>
+    <script type="text/javascript" src="scripts/console.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
+
     
 </head>
 <body onload="onLoad()">
-    <div id="demo">
+    <div id="content">
         <header class="w3-bar w3-card w3-theme navbar">
             <h1 class="w3-bar-items" style="text-align:center">CAN VISUALIZER</h1>
         </header>
@@ -24,9 +26,9 @@
         <button id="btnRaw" class="btnSquare" onclick="window.location.href='rawdata.html'"><img src="images/raw.png" height="70" /><br />RAW DATA</button>
         <button id="btnDiagnostics" class="btnSquare"><img src="images/engine.png" height="70" /><br />DIAGNOSTICS</button>
         <button id="btnSettings" class="btnLeftSide" onclick="window.location.href='settings.html'"><img src="images/options.png" height="50" /></button>
-        <button id="btnFilters" class="btnRightSide" onclick=loadDoc()><img src="images/filters.png" height="50" /></button>
-        <button id="btnConnect" class="btnRound"><img src="images/disconnect.png" height="30" /><br /><br />CONNECT</button>
-        <button id="btnConsole" class="btnFlat" onclick="window.location.href='console.html'">Console</button>
+        <button id="btnFilters" class="btnRightSide" onclick=openFilters()><img src="images/filters.png" height="50" /></button>
+        <button id="btnConnect" class="btnRound" onclick=bluetooth.manageConnection()><img src="images/disconnect.png" height="30" /><br /><br />CONNECT</button>
+        <button id="btnConsole" class="btnFlat" onclick=openConsole()>Console</button>
     </div>
 </body>
 </html>
