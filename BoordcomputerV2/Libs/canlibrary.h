@@ -3,8 +3,8 @@
 
 #ifdef linux
 
-#include "arduPiCANBUS/arduPiCAN.h"
-
+//#include "arduPiCANBUS/arduPiCAN.h"
+#include "candummy.h"
 
 #else
 

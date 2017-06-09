@@ -1,11 +1,12 @@
 #ifdef linux
 
-#include "arduPiCANBUS/arduPiCAN.h"
-#include "arduPiCANBUS/arduPi.h"
-#include "arduPiCANBUS/arduPiClasses.h"
-#include "arduPiCANBUS/arduPiMultiprotocol.h"
-#include "arduPiCANBUS/arduPiUART.h"
-#include "arduPiCANBUS/arduPiUtils.h"
+//#include "arduPiCANBUS/arduPiCAN.h"
+//#include "arduPiCANBUS/arduPi.h"
+//#include "arduPiCANBUS/arduPiClasses.h"
+//#include "arduPiCANBUS/arduPiMultiprotocol.h"
+//#include "arduPiCANBUS/arduPiUART.h"
+//#include "arduPiCANBUS/arduPiUtils.h"
+#include "candummy.h"
 
 #else
 

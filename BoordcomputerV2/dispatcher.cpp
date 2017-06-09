@@ -39,8 +39,8 @@ namespace cangateway {
         {
             case bluetooth:
                 _jsondocument = _formatter.ToJsonDocument(GetFilteredListItem(_deviceConfig,_listfromcontroller));
-                _compression.Zip(_jsondocument.toBinaryData(),_bytearray);
-                emit test(_deviceAddress,_bytearray);
+                //_compression.Zip(_jsondocument.toBinaryData(),_bytearray);
+                emit test(_deviceAddress,_jsondocument.toJson());
                 break;
             case filesystem:
                 //SendFileSystem();
@@ -122,6 +122,7 @@ namespace cangateway {
         }
 
         return _filteredlist;
+        qDebug() << "test";
     }
 
 }

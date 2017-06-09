@@ -17,7 +17,7 @@ namespace cangateway
         _watchdog = new Watchdog();
         _dispatcher = new Dispatcher();
         _controller = new Controller();
-        _logging = new Logging();
+        //_logging = new Logging();
 
 
     }
@@ -25,8 +25,8 @@ namespace cangateway
     void Manager::Init()
     {
 
-        _logging->InitLogging(10,1);
-        _logging->Log("info","starting all threads from main: "+ QString( "0x%1" ).arg( (int)QThread::currentThread(), 16 ));
+        //_logging->InitLogging(10,1);
+        //_logging->Log("info","starting all threads from main: "+ QString( "0x%1" ).arg( (int)QThread::currentThread(), 16 ));
         qDebug() << "starting all threads from main: " << QThread::currentThread();
         CreateWatchdogThread();
         CreateDispatcherThread();

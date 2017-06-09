@@ -10,6 +10,11 @@ TARGET = CanLibrary
 TEMPLATE = lib
 CONFIG += staticlib
 
+target.path = /home/pi
+INSTALLS += target
+
+
+
 QMAKE_CXXFLAGS += -fpermissive
 
 # The following define makes your compiler emit warnings if you use
@@ -47,7 +52,6 @@ unix{
     arduPiCANBUS/arduPiUtils.h \
     arduPiCANBUS/bcm2835.h
 }
-
 
 
 
