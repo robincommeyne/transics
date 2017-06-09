@@ -54,18 +54,22 @@ namespace cangateway {
     void Dispatcher::ReceiveListFromController(CanDataList candata)
     {
         qDebug() << "List Receiver From Controller is called";
-        if(_listfromcontroller.length()+candata.length()>_unfilteredListSize)
-        {
-            int difference = _listfromcontroller.length()+candata.length()-_unfilteredListSize;
-            for(int i=0; i<difference; ++i)
-            {
-                _listfromcontroller.removeFirst();
-            }
-        }
-        else
-        {
-            _listfromcontroller.append(candata);
-        }
+
+        _listfromcontroller.clear();
+        _listfromcontroller.append(candata);
+
+//        if(_listfromcontroller.length()+candata.length()>_unfilteredListSize)
+//        {
+//            int difference = _listfromcontroller.length()+candata.length()-_unfilteredListSize;
+//            for(int i=0; i<difference; ++i)
+//            {
+//                _listfromcontroller.removeFirst();
+//            }
+//        }
+//        else
+//        {
+//            _listfromcontroller.append(candata);
+//        }
 
     }
 
@@ -103,6 +107,7 @@ namespace cangateway {
 
     QList<CanData> Dispatcher::GetFilteredListItem(Config config,QList<CanData> listtofilter)
     {
+        _filteredlist.clear();
         for(auto e : config.get_configmap().keys())
         {
             if(config.get_configmap().value(e))

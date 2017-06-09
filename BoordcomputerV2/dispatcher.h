@@ -27,7 +27,7 @@ namespace cangateway
             QList<CanData> _filteredlist;
             QMap<QString,Config> _listofdevices;
             const int _intervalTimerInMs = 1000;
-            const int _unfilteredListSize = 1000;
+            const int _unfilteredListSize = 100;
             QList<CanData> _listfromcontroller;
 
         public slots:
