@@ -1,9 +1,21 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <script type="text/javascript" src="scripts/rawdata.js"></script>
+    <link rel="stylesheet" href="css/rawdata.css">
+    <link rel="stylesheet" href="css/filters.css">
+    <link rel="stylesheet" href="css/w3.css">
 </head>
-<body>
-    <div>Content goes here.</div>
+<body onload="getRAWProperties()">
+
+    <header class="w3-bar w3-card w3-theme navbar">
+        <button class="w3-bar-item w3-xxlarge btnhome" onclick="window.location.href = 'index.html'"><img src="images/home.png" height="35" /></button>
+        <h1 class="w3-bar-items">Filters</h1>
+    </header>
+
+    <div class="console" id="console"></div>
+    <button  onclick="window.location.href = 'rawfilters.html'" class="btn">RAW FILTERS</button>
+
 </body>
 </html>

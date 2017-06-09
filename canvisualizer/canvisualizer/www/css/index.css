@@ -1,97 +1,91 @@
-* {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+.navbar{
+    background-color:darkorange;
+    color:white;
+}
+.dark_background{
+    background-color: #999999;
 }
 
-body {
-    -webkit-touch-callout: none;
-    -webkit-text-size-adjust: none;
-    -webkit-user-select: none;
-	background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    text-transform:uppercase;
-    width:100%;
-	
-    background-color:#32383d;
-    font-family: 'RobotoRegular', 'Droid Sans', 'Segoe UI', Segoe, 'San Francisco', 'Helvetica Neue', Helvetica, Arial, Geneva, sans-serif;
-    font-size:12px;
+.app_orange{
+    background-color: #E68A00;
 }
 
-.app {
-    background: url(../images/cordova.png) no-repeat center top; 
-    position: absolute;             
-    left: 50%;
-    top: 50%;
-    height: 50px;                  
-    width: 225px;                   
-    text-align: center;
-    padding: 180px 0px 0px 0px;     
-    margin: -115px 0px 0px -112px;
+.container { 
+    border:2px solid #ccc; 
+    width:100%; 
+    height:auto; 
+    overflow-y: scroll; 
 }
 
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;
-        margin:-90px 0px 0px -198px;
-    }
+.btnSquare {
+	background-color:black;
+	border-radius:20px;
+	display:inline-block;
+	height:110px;
+    margin:4% 0% 0% 9%;
+    border-color:black;
+    color:white;
+    font-size:11px;
+    width:35%;
+    vertical-align: middle;
+    outline: none;
 }
 
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
+.btnLeftSide {
+	background-color:black;
+	border-radius:20px;
+	display:inline-block;
+	height:110px;
+    margin:15% 0% 0% 9%;
+    border-color:black;
+    color:white;
+    font-size:11px;
+    width:28%;
+    vertical-align: middle;
+    outline: none;    
 }
-
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
+.btnRightSide {
+	background-color:black;
+	border-radius:20px;
+	display:inline-block;
+	height:110px;
+    margin:15% 9% 0% 22.5%;
+    border-color:black;
+    color:white;
+    font-size:11px;
+    width:28%;
+    vertical-align: middle;
+    outline: none;
 }
-
-.event.listening {
-    background-color:#333333;
-    display:block;
+.btnRound {
+    background-color:dimgrey;
+    border-style:solid;
+    border-color:darkorange;
+    border-width:5px;
+	border-radius:100px;
+	display:inline-block;
+	height:110px;
+    margin:15% -9% 0% -65%;
+    color:white;
+    font-size:11px;
+    width:32%;
+    vertical-align: middle; 
+    outline: none;
+   
 }
-
-.event.received {
-    background-color:#4B946A;
-    display:none;
+.btnFlat {
+	background-color:black;
+	border-radius:10px;
+	display:inline-block;
+	height:60px;
+    margin:4% 9% 0% 9%;
+    border-color:black;
+    color:white;
+    font-size:11px;
+    width:80%;
+    vertical-align: middle;
+    outline: none;
 }
-
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+body{
+   background-color:dimgrey; 
 }

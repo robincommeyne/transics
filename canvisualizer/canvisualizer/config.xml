@@ -8,7 +8,8 @@
     <vs:features />
     <preference name="SplashScreen" value="screen" />
     <preference name="windows-target-version" value="8.1" />
-    <plugin name="cordova-plugin-whitelist" version="1" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarBackgroundColor" value="FF9900" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -94,5 +95,8 @@
     <platform name="wp8">
         <splash height="1280" src="res/screens/wp8/SplashScreenImage.png" width="768" />
     </platform>
-    <plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/wildabeast/BarcodeScanner.git" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="git+https://github.com/wildabeast/BarcodeScanner.git" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.2.3" />
+    <plugin name="cordova-plugin-bluetooth-serial" version="0.4.7" />
 </widget>

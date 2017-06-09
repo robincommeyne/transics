@@ -1,0 +1,17 @@
+﻿body {
+    background-color:dimgrey; 
+}
+
+.navbar{
+    background-color:darkorange;
+    color:white;
+}
+
+.console {
+    overflow-y: scroll;
+    height:82vh;
+    margin:4% 4% 4% 4%;
+    border-radius:10px;
+    background-color:darkgrey;
+   
+}
