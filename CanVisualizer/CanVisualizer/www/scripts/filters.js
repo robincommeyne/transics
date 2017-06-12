@@ -1,17 +1,17 @@
 ﻿
 var PropertyList = [
     ["Engine Load", false],
-    ["Coolant Temp", false],
+    ["Engine Coolant Temp", false],
     ["Fuel Pressure", false],
-    ["Intake Map", false],
-    ["RPM", false],
-    ["Speed", false],
+    ["Intake MAPressure", false],
+    ["Engine RPM", false],
+    ["Vehicle Speed", false],
     ["Timing Advance", false],
     ["Intake Air Temp", false],
-    ["MAF", false],
+    ["MAF air Flow Rate", false],
     ["Fuel Level", false],
-    ["Bar Pressure", false],
-    ["Fuel Rate", false]
+    ["Barometric Pressure", false],
+    ["Engine Fuel Rate", false]
 ];
 
 var UpdatedPropertyList = [[]];
@@ -83,7 +83,7 @@ function confirmProperties() {
     }
 
     if (readInterval === null) {
-        Interval = 1000;
+        Interval = 1;
     } else {
         Interval = readInterval;
     }
@@ -105,7 +105,7 @@ function confirmProperties() {
 
     for (var i = 0; i < AllFilters.length; i++) {
         var filter = {
-            "Description": AllFilters[i][0],
+            "Description": AllFilters[i][0].replace(" ",""),
             "Value": AllFilters[i][1]
         }
         completeJson.Filters.push(filter);
