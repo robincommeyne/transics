@@ -46,6 +46,8 @@ function openGauges() {
 }
 function openGraph() {
     goToPage("graph.html");
+    graphLoaded();
+    loadFilters();
 
 }
 function openRawData() {

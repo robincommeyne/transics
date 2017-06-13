@@ -66,8 +66,76 @@ var config = {
         }
     }
 };
-function windowLoaded() {
+function graphLoaded() {
     var ctx = document.getElementById("canvas").getContext("2d");
     window.myLine = new Chart(ctx, config);
 };
 
+
+var UpdatedGraphPropertyList = [[]];
+function loadFilters() {
+    var GraphProperties = JSON.parse(sessionStorage.getItem('checkboxValues'));
+    var UpdatedGraphProperties = JSON.parse(sessionStorage.getItem('checkboxGraphValues'));
+
+    if (GraphProperties === null) {
+        alert("Please select filters");
+        goToPage('filters.html');
+        getProperties();
+    }
+    else {
+
+        if (UpdatedGraphProperties === null) {
+            UpdatedGraphPropertyList = GraphProperties;
+        } else {
+            UpdatedGraphPropertyList = UpdatedGraphProperties;
+        }
+
+        for (var i = 0; i < GraphProperties.length; i++) {
+
+            if (GraphProperties[i][1] === true) {
+
+                var elemDiv = document.createElement('div');
+                elemDiv.className += 'groupdiv';
+                var elemLblName = document.createElement('label');
+                elemLblName.className += 'lbl';
+                elemLblName.innerHTML = GraphProperties[i][0];
+                var elemLblSwitch = document.createElement('label');
+                elemLblSwitch.className += 'switch';
+                var elemInput = document.createElement('input');
+                elemInput.type = 'checkbox';
+                elemInput.name = GraphProperties[i][0];
+                elemInput.value = GraphProperties[i][0];
+                elemInput.checked = UpdatedGraphPropertyList[i][1];
+                elemInput.onchange = function () { checkboxGraphChanged(this); };
+                var elemDivSwitch = document.createElement('div');
+                elemDivSwitch.classList.add('slider');
+                elemDivSwitch.classList.add('round');
+
+                elemLblSwitch.appendChild(elemInput);
+                elemLblSwitch.appendChild(elemDivSwitch);
+                elemDiv.appendChild(elemLblName);
+                elemDiv.appendChild(elemLblSwitch);
+
+                document.getElementById('content').appendChild(elemDiv);
+            }
+        }
+    }
+}
+
+function checkboxGraphChanged(checkboxObject) {
+    for (var i = 0; i < UpdatedGraphPropertyList.length; i++) {
+        if (UpdatedGraphPropertyList[i][0] === checkboxObject.name) {
+            if (checkboxObject.checked)
+                UpdatedGraphPropertyList[i][1] = true;
+            else
+                UpdatedGraphPropertyList[i][1] = false;
+        }
+    }
+
+    sessionStorage.setItem('checkboxGraphValues', JSON.stringify(UpdatedGraphPropertyList));
+}
+
+function graphHome() {
+    goToPage("index.html");
+    checkConnection();
+}

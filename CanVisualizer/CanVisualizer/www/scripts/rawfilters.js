@@ -8,7 +8,8 @@ function getRAWProperties() {
 
     if (RAWProperties === null){
         alert("Please select filters");
-        window.location.href = 'filters.html';
+        goToPage('filters.html');
+        getProperties();
     }
     else {
 
@@ -44,7 +45,7 @@ function getRAWProperties() {
                 elemDiv.appendChild(elemLblName);
                 elemDiv.appendChild(elemLblSwitch);
 
-                document.body.appendChild(elemDiv);
+                document.getElementById('content').appendChild(elemDiv);
             }
         }
     }
