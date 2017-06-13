@@ -1,10 +1,6 @@
 ﻿function onLoad() {
     document.addEventListener("deviceready", onDeviceReady, false);
     
-    
-   
-
-    
 }
 function checkConnection() {
     bluetoothSerial.isConnected(connected, disconnected);
@@ -23,16 +19,6 @@ function disconnected() {
 }
 
 function onDeviceReady() {
-    //Bluetooth init
-    //connectButton.addEventListener('touchend', bluetooth.manageConnection, false);
-    //btnSubmitConfig.addEventListener("click", bluetooth.sendMessage);
- 
-    
-    //QR code init
-    //btnConnect.addEventListener("click", bluetooth.manageConnection);
-    //btnFilters.addEventListener("click", loadpage)
-
-
     //Change Status bar Color 
     if(window.cordova && StatusBar)
     {
@@ -42,19 +28,33 @@ function onDeviceReady() {
 
 function openFilters() {
     
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("content").innerHTML =
-            this.responseText;
-        }
-    };
-    xhttp.open("GET", "filters.html", false);
-    xhttp.send();
+    goToPage("filters.html");
     getProperties();
 }
 function openConsole() {
 
+    goToPage("console.html");
+    startTimer();
+}
+function openSettings() {
+
+    goToPage("settings.html");
+}
+function openGauges() {
+    goToPage("gauges.html");
+   
+}
+function openGraph() {
+    goToPage("graph.html");
+
+}
+function openRawData() {
+    goToPage("rawdata.html");
+
+}
+
+function goToPage(page)
+{
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -62,8 +62,8 @@ function openConsole() {
             this.responseText;
         }
     };
-    xhttp.open("GET", "console.html", false);
+    xhttp.open("GET",page, false);
     xhttp.send();
-    startTimer();
 }
+
 

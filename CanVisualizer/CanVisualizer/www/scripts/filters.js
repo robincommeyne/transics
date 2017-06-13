@@ -105,27 +105,19 @@ function confirmProperties() {
 
     for (var i = 0; i < AllFilters.length; i++) {
         var filter = {
-            "Description": AllFilters[i][0].replace(" ",""),
+            "Description": AllFilters[i][0].replace(/\s/g, ''),
             "Value": AllFilters[i][1]
         }
         completeJson.Filters.push(filter);
     }
     console.log(JSON.stringify(completeJson));
-   // bluetooth.sendMessage();
-    bluetooth.sendMessage();
+   
+    bluetooth.sendMessage(JSON.stringify(completeJson));
     alert("filters sent");
 }
 function filtersHome()
 {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("content").innerHTML =
-            this.responseText;
-        }
-    };
-    xhttp.open("GET", "index.html", false);
-    xhttp.send();
+    goToPage("index.html");
     checkConnection();
 }
 
