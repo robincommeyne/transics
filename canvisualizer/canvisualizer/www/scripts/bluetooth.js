@@ -98,7 +98,7 @@ var bluetooth = {
             completeData.set(bytes, storedData.length);
             storedData = bytes;
             timeoutcounter++;
-
+        
             if (bluetooth.numberOfBytes == (completeData.length-2))
             {
                 bluetooth.readReady = "true";
