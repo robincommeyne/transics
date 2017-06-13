@@ -8,10 +8,14 @@
 }
 
 .customdropdown {
-  margin: 4px;
+  margin:4px ;
+  padding: 1%;
+  border: 1px;
   font-family: Arial;
   color: #ffffff;
   font-size: 20px;
   background: #aaaaaa;
-  width:100%;
+  display: block;
+  width: 97.5%;
+
 }
