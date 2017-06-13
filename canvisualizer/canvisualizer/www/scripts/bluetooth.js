@@ -105,10 +105,10 @@ var bluetooth = {
                 bluetooth.readStarted = "false";
                 console.log("Amount of bytes received: " + completeData.length);
                 
-                //bluetooth.display("Amount of bytes received: " + completeData.length);
+                bluetooth.display("Amount of bytes received: " + completeData.length);
                 var slicedData = completeData.subarray(2, completeData.length);
                 var obj = JSON.parse(new TextDecoder("utf-8").decode(slicedData));
-                bluetooth.display(obj.Data[0].Timestamp);
+                bluetooth.addToStorage(obj);
                 completeData = [];
                 bluetooth.numberOfBytes = '0';
                 storedData = [];
@@ -120,13 +120,14 @@ var bluetooth = {
                 bluetooth.numberOfBytes = '0';
                 storedData = [];
                 timeoutcounter = '0';
+                bluetooth.readStarted = "false";
             }
 
            
 
                
-                // var output = pako.inflate(bytes);
-                //bluetooth.display(new TextDecoder("utf-8").decode(output));
+            // var output = pako.inflate(bytes);
+            //bluetooth.display(new TextDecoder("utf-8").decode(output));
             //bluetooth.display(new TextDecoder("utf-8").decode(bytes));
            
             
@@ -189,5 +190,13 @@ var bluetooth = {
 
       
         bluetoothSerial.write(messageToSend);
-    }
+    },
+
+    addToStorage: function (jsonObject)
+    {
+        for (var i = 0; i < jsonObject.Data.length; i++) {
+            sessionStorage.setItem(jsonObject.Data[i].Description,jsonObject.Data[i].Value);
+        }
+    },
+
 };      // end of app
