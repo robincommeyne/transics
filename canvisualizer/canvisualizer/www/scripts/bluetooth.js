@@ -4,6 +4,11 @@ var bluetooth = {
     chars: "",
     status: "disconnected",
     scan: "not ready",
+    readReady: "false",
+    readStarted: "false",
+    numberOfBytes: '',
+    timeout: '0',
+
 
     
     /*
@@ -21,7 +26,7 @@ var bluetooth = {
                 // if not connected, do this:
                 // clear the screen and display an attempt to connect
                 bluetooth.clear();
-                alert("Attempting to connect. " +
+                console.log("Attempting to connect. " +
                     "Make sure the serial port is open on the target device.");
                 // attempt to connect:
                 bluetoothSerial.connect(
@@ -30,7 +35,7 @@ var bluetooth = {
                     bluetooth.showError    // show the error if you fail
                     );
                 bluetooth.scan = "not ready";
-                sessionStorage.setItem("bluetoothobj", JSON.stringify(bluetooth));
+               
                 
                 
             }
@@ -46,7 +51,7 @@ var bluetooth = {
         // disconnect() will get called only if isConnected() (below)
         // returns success  In other words, if  connected, then disconnect:
         var disconnect = function () {
-            alert("attempting to disconnect");
+            console.log("attempting to disconnect");
             // if connected, do this:
             bluetoothSerial.disconnect(
                 bluetooth.closePort,     // stop listening to the port
@@ -65,7 +70,9 @@ var bluetooth = {
     openPort: function () {
         // if you get a good Bluetooth serial connection:
         alert("Connected to: " + bluetooth.macAddress);
-
+        var completeData;
+        var storedData = [];
+        var timeoutcounter;
         bluetooth.status = "connected";
         // change the button's name:
         btnConnect.innerHTML = "";
@@ -81,7 +88,49 @@ var bluetooth = {
 
         bluetoothSerial.subscribeRawData(function (data) {
             var bytes = new Uint8Array(data);
-            bluetooth.display(new TextDecoder("utf-8").decode(bytes));
+            if (bluetooth.readStarted == "false")
+            {
+                bluetooth.numberOfBytes = (((bytes[0] & 0xff) << 8) | (bytes[1] & 0xff));
+                bluetooth.readStarted = "true";
+            }
+            completeData = new Uint8Array(storedData.length + bytes.length);
+            completeData.set(storedData);
+            completeData.set(bytes, storedData.length);
+            storedData = bytes;
+            timeoutcounter++;
+
+            if (bluetooth.numberOfBytes == (completeData.length-2))
+            {
+                bluetooth.readReady = "true";
+                bluetooth.readStarted = "false";
+                console.log("Amount of bytes received: " + completeData.length);
+                
+                //bluetooth.display("Amount of bytes received: " + completeData.length);
+                var slicedData = completeData.subarray(2, completeData.length);
+                var obj = JSON.parse(new TextDecoder("utf-8").decode(slicedData));
+                bluetooth.display(obj.Data[0].Timestamp);
+                completeData = [];
+                bluetooth.numberOfBytes = '0';
+                storedData = [];
+                timeoutcounter = '0';
+            }
+            if (timeoutcounter == '5')
+            {
+                completeData = [];
+                bluetooth.numberOfBytes = '0';
+                storedData = [];
+                timeoutcounter = '0';
+            }
+
+           
+
+               
+                // var output = pako.inflate(bytes);
+                //bluetooth.display(new TextDecoder("utf-8").decode(output));
+            //bluetooth.display(new TextDecoder("utf-8").decode(bytes));
+           
+            
+
         }, console.log("subscribe error"));
 
         
@@ -113,7 +162,7 @@ var bluetooth = {
         appends @error to the message div:
     */
     showError: function (error) {
-        alert(error);
+        console.log(error);
     },
 
     /*
@@ -136,9 +185,9 @@ var bluetooth = {
         //display.innerHTML = "";
     },
 
-    sendMessage: function () {
+    sendMessage: function (messageToSend) {
 
       
-        bluetoothSerial.write("test");
+        bluetoothSerial.write(messageToSend);
     }
 };      // end of app

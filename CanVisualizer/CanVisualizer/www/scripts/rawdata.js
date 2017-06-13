@@ -32,3 +32,11 @@ function getRAWProperties() {
 function confirmRAWProperties() {
 
 }
+function rawDataHome() {
+    goToPage("index.html");
+    checkConnection();
+}
+function rawFilters() {
+    goToPage("rawfilters.html");
+    checkConnection();
+}

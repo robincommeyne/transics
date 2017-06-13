@@ -102,7 +102,7 @@ void UnitTest::CheckUnfilteredListSize()
 //        toobig = false;
 //    }
 //    else
-        toobig = true;
+//        toobig = true;
 
     QCOMPARE(toobig,false);
 

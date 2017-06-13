@@ -63,3 +63,7 @@ function checkboxRAWChanged(checkboxObject) {
     sessionStorage.setItem('checkboxRAWValues', JSON.stringify(UpdatedRAWPropertyList));
 
 }
+function rawFiltersBack() {
+    goToPage("rawdata.html");
+    checkConnection();
+}
