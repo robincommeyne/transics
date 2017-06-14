@@ -7,7 +7,8 @@ var storagelist = ["EngineLoad", "EngineCoolantTemp", "EngineRPM", "VehicleSpeed
 
 var timerGraph;
 function startGraphTimer() {
-    timerGraph = setInterval(GraphTimer, 1000)
+    var interval = sessionStorage.getItem('readinterval');
+    timerGraph = setInterval(GraphTimer, interval * 1000);
 }
 
 
@@ -30,7 +31,7 @@ var config = {
     data: {
         labels: graphTsMemory,
         datasets: [{
-            label: "My First dataset",
+            label: "Value",
             backgroundColor: window.chartColors.orange,
             borderColor: window.chartColors.orange,
             data: graphMemory,

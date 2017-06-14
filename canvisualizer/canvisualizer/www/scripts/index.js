@@ -37,8 +37,8 @@ function openConsole() {
     startTimer();
 }
 function openSettings() {
-
     goToPage("settings.html");
+    loadSettings();
 }
 function openGauges() {
     goToPage("gauges.html");

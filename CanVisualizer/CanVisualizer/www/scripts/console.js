@@ -1,6 +1,7 @@
 ﻿var myvar;
 function startTimer() {
-    myVar = setInterval(myTimer, 1000)
+    var interval = sessionStorage.getItem('readinterval');
+    myVar = setInterval(myTimer, interval * 1000);
   
 }
 
