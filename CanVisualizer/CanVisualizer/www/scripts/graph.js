@@ -8,7 +8,13 @@ var storagelist = ["EngineLoad", "EngineCoolantTemp", "EngineRPM", "VehicleSpeed
 var timerGraph;
 function startGraphTimer() {
     var interval = sessionStorage.getItem('readinterval');
-    timerGraph = setInterval(GraphTimer, interval * 1000);
+    var timer;
+    if (interval === null) {
+        timer = 1000;
+    } else {
+        timer = interval * 1000;
+    }
+    timerGraph = setInterval(GraphTimer, timer);
 }
 
 

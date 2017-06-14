@@ -17,7 +17,13 @@ function openAdvancedGauges() {
 
 function GaugeTimer() {
     var interval = sessionStorage.getItem('readinterval');
-    timer = setInterval(gaugeTimerTick, interval * 1000);
+    var timer;
+    if (interval === null) {
+        timer = 1000;
+    } else {
+        timer = interval * 1000;
+    }
+    timer = setInterval(gaugeTimerTick, timer);
 }
 
 function gaugeTimerTick() {

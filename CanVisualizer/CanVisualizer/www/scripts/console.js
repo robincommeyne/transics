@@ -1,7 +1,13 @@
 ﻿var myvar;
 function startTimer() {
     var interval = sessionStorage.getItem('readinterval');
-    myVar = setInterval(myTimer, interval * 1000);
+    var timer;
+    if (interval === null) {
+        timer = 1000;
+    } else {
+        timer = interval * 1000;
+    }
+    myVar = setInterval(myTimer, timer);
   
 }
 
