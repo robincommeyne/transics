@@ -6,13 +6,15 @@
         "cordova-plugin-device": "git://github.com/apache/cordova-plugin-device.git",
         "cordova-plugin-statusbar": "^2.2.3",
         "cordova-plugin-whitelist": "1",
-        "phonegap-plugin-barcodescanner": "git+https://github.com/wildabeast/BarcodeScanner.git"
+        "phonegap-plugin-barcodescanner": "git+https://github.com/wildabeast/BarcodeScanner.git",
+        "cordova-plugin-bluetooth-serial": "0.4.7"
     },
     "cordova": {
         "plugins": {
             "phonegap-plugin-barcodescanner": {},
             "cordova-plugin-statusbar": {},
-            "cordova-plugin-whitelist": {}
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-bluetooth-serial": {}
         }
     }
 }
