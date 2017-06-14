@@ -11,7 +11,8 @@ var PropertyList = [
     ["MAF air Flow Rate", false],
     ["Fuel Level", false],
     ["Barometric Pressure", false],
-    ["Engine Fuel Rate", false]
+    ["Engine Fuel Rate", false],
+    ["Throttle Position",false]
 ];
 
 var UpdatedPropertyList = [[]];

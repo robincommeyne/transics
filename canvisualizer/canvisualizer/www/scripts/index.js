@@ -42,6 +42,7 @@ function openSettings() {
 }
 function openGauges() {
     goToPage("gauges.html");
+    GaugeTimer();
    
 }
 function openGraph() {

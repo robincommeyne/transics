@@ -9,7 +9,7 @@ function myTimer() {
     var div = document.getElementById("console");
 
     div.innerHTML = div.innerHTML + sessionStorage.data + "<br>";
-    sessionStorage.removeItem("data");
+    div.scrollTop = div.scrollHeight;
 }
 
 function consoleHome() {
