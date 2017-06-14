@@ -1,36 +1,40 @@
-﻿var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+﻿var graphMemory = [];
+var graphTsMemory = [];
+var GraphValue;
+var GraphTs;
+var myBar;
+var storagelist = ["EngineLoad", "EngineCoolantTemp", "EngineRPM", "VehicleSpeed", "FuelLevel", "EngineFuelRate", "ThrottlePosition"];
+
+var timerGraph;
+function startGraphTimer() {
+    timerGraph = setInterval(GraphTimer, 1000)
+}
+
+
+function GraphTimer() {
+    GraphTs = sessionStorage.getItem("EngineRPMTs");
+    GraphValue = sessionStorage.getItem("EngineRPM");
+
+    if (graphMemory.length < 20) {
+        graphTsMemory.push(GraphTs);
+        graphMemory.push(GraphValue);
+    } else {
+        graphTsMemory.shift();
+        graphMemory.shift();
+    }
+    myBar.update();
+}
+
 var config = {
     type: 'line',
     data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: graphTsMemory,
         datasets: [{
             label: "My First dataset",
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
-            data: [
-                0,
-                20,
-                50,
-                110,
-                170,
-                222,
-                250
-            ],
+            backgroundColor: window.chartColors.orange,
+            borderColor: window.chartColors.orange,
+            data: graphMemory,
             fill: false,
-        }, {
-            label: "My Second dataset",
-            fill: false,
-            backgroundColor: window.chartColors.blue,
-            borderColor: window.chartColors.blue,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
-            ],
         }]
     },
     options: {
@@ -38,7 +42,7 @@ var config = {
         responsive: true,
         title: {
             display: false,
-            text: 'Chart.js Line Chart'
+            text: 'Line Chart'
         },
         tooltips: {
             mode: 'index',
@@ -46,20 +50,20 @@ var config = {
         },
         hover: {
             mode: 'nearest',
-            intersect: true
+            intersect: false
         },
         scales: {
             xAxes: [{
                 display: true,
                 scaleLabel: {
-                    display: true,
+                    display: false,
                     labelString: 'Month'
                 }
             }],
             yAxes: [{
                 display: true,
                 scaleLabel: {
-                    display: true,
+                    display: false,
                     labelString: 'Value'
                 }
             }]
@@ -68,7 +72,7 @@ var config = {
 };
 function graphLoaded() {
     var ctx = document.getElementById("canvas").getContext("2d");
-    window.myLine = new Chart(ctx, config);
+    myBar = new Chart(ctx, config);
 };
 
 
@@ -137,5 +141,6 @@ function checkboxGraphChanged(checkboxObject) {
 
 function graphHome() {
     goToPage("index.html");
+    clearInterval(timerGraph);
     checkConnection();
 }

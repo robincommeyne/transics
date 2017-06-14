@@ -195,7 +195,8 @@ var bluetooth = {
     addToStorage: function (jsonObject)
     {
         for (var i = 0; i < jsonObject.Data.length; i++) {
-            sessionStorage.setItem(jsonObject.Data[i].Description,jsonObject.Data[i].Value);
+            sessionStorage.setItem(jsonObject.Data[i].Description, jsonObject.Data[i].Value);
+            sessionStorage.setItem(jsonObject.Data[i].Description+"Ts", jsonObject.Data[i].Timestamp);
         }
     },
 

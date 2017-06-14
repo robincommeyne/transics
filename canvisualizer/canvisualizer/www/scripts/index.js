@@ -49,6 +49,7 @@ function openGraph() {
     goToPage("graph.html");
     graphLoaded();
     loadFilters();
+    startGraphTimer();
 
 }
 function openRawData() {
